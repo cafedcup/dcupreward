@@ -52,14 +52,22 @@ if (!is_null($events['events'])) {
 	}
 }
 echo "OK";
-echo 'name = ' . $name;
+
+
 $access_token = '4Qu7kgrFlDwTEszsj7jmLBOiQZlJ8VPm0Cl6cgPBD68TguSuDKlCO7fb/hQojMXf9elSUa6VQ6iAm0SiVmUxQlRbnOFN38rCMclfZ/2EfLH1O4mzPPEG8RiF3yv99r2+aRHOS+usOHxGQ882dov5owdB04t89/1O/w1cDnyilFU=';
 $channelSecret = '225c1cb58f767eaf6b61053c1346727f';
 $idPush = $text;
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello from Pakrub');
+
+$response = $bot->getProfile($idPush);
+if ($response->isSucceeded()) {
+    $profile = $response->getJSONDecodedBody();
+    $name = $profile['displayName'];
+}
+
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $name . ' from Pakrub');
 $response = $bot->pushMessage($idPush, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
