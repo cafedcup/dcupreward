@@ -17,6 +17,7 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['source']['userId'];
+			$name = $event['source']['displayName'];
 			echo "text=" . $text;
 			// Get replyToken
 			$replyToken = $event['replyToken'];
@@ -57,7 +58,7 @@ $idPush = $text;
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello World from Pakrub');
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello '.$name.' from Pakrub');
 $response = $bot->pushMessage($idPush, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
