@@ -6,7 +6,7 @@ $dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c2
 
 // Performing SQL query
 #$query = 'SELECT * FROM dcup_customer_tbl';
-$result = "SELECT tel FROM dcup_customer_tbl WHERE line_id = 'U0f8ed013f50650deb6a9e0a95042d4b0'";
+$result = 'SELECT tel FROM dcup_customer_tbl WHERE line_id = ''U0f8ed013f50650deb6a9e0a95042d4b0''';
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 // Printing results in HTML
@@ -23,6 +23,6 @@ echo "</table>\n";
 // Free resultset
 pg_free_result($result);
 
-// Closing connection
+// Closing connection 
 pg_close($dbconn);
 ?>
