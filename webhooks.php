@@ -67,7 +67,7 @@ if ($response->isSucceeded()) {
     $name = $profile['displayName'];
 }
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $name . ' from Pakrub');
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $name);
 $response = $bot->pushMessage($idPush, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
