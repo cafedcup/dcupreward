@@ -21,7 +21,8 @@ while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
     echo "\t</tr>\n";
 }
 echo "</table>\n";
-echo $line[0];
+echo $line[0][0];
+echo $line;
 // Free resultset
 pg_free_result($result);
 
