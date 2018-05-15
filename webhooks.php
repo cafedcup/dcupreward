@@ -93,7 +93,7 @@ if ($response->isSucceeded()) {
     $name = $profile['displayName'];
 }
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $name ' You telephone is ' . $tel);
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $name . ' You telephone is ' . $tel);
 $response = $bot->pushMessage($idPush, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
