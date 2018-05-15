@@ -44,8 +44,8 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			
-			#$result = curl_exec($ch);
-			#curl_close($ch);
+			$result = curl_exec($ch);
+			curl_close($ch);
 			
 			echo $result . "\r\n";
 		}
@@ -65,18 +65,6 @@ $response = $bot->getProfile($idPush);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
     $name = $profile['displayName'];
-}
-
-$pg_conn = "postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c22a5eb989f6da8e9aa746c30d8395f97a@ec2-54-225-200-15.compute-1.amazonaws.com:5432/d8rrl8e93ni01r"
-# Now let's use the connection for something silly just to prove it works:
-$result = pg_query($pg_conn, "SELECT tel FROM dcup_customer_tbl WHERE line_id = '" . $text . "'" );
-
-print "<pre>\n";
-if (!pg_num_rows($result)) {
-  print("Your connection is working, but your database is empty.\nFret not. This is expected for new apps.\n");
-} else {
-  print "Tables in your database:\n";
-  while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $name);
