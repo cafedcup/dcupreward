@@ -24,7 +24,7 @@ while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 }
 #echo "</table>\n";
 if ($tel == ''){
-	echo 'Null'
+	echo 'Null';
 }
 	
 // Free resultset
