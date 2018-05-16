@@ -17,6 +17,7 @@ $result = pg_update($dbconn,'dcup_customer_tbl',array('entry_count' => $entry),a
 #$result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 // Printing results in HTML
+echo $result;
 echo "<table>\n";
 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
     #echo "\t<tr>\n";
