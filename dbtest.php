@@ -13,7 +13,7 @@ $username = 'Pakrub';
 $entry = 1;
 $id = 10;
 $result = pg_update($dbconn,'dcup_customer_tbl',array('entry_count' => $entry),array('name' => $username)) or die('Query failed: ' . pg_last_error());
-$result = pg_insert($dbconn,'dcup_customer_tbl',array('id' => $entry)) or die('Query failed: ' . pg_last_error());
+$result = pg_insert($dbconn,'dcup_customer_tbl',array('id' => $id)) or die('Query failed: ' . pg_last_error());
 #$query = "SELECT tel FROM dcup_customer_tbl WHERE line_id = '" . $line_id . "'";
 #echo $query;
 #$result = pg_query($query) or die('Query failed: ' . pg_last_error());
