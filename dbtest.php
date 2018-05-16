@@ -7,7 +7,7 @@ $dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c2
 // Performing SQL query
 #$query = 'SELECT * FROM dcup_customer_tbl';
 $line_id = 'U0f8ed013f50650deb6a9e0a95042d4b0';
-$insert_str = "INSERT INTO dcup_customer_tbl (entry_count) value (1) where name = 'Pakrub'";
+$insert_str = "INSERT INTO dcup_customer_tbl (entry_count) value ('1') where name = 'Pakrub'";
 echo $insert_str;
 $result = pg_query($insert_str) or die('Query failed: ' . pg_last_error());
 $query = "SELECT tel FROM dcup_customer_tbl WHERE line_id = '" . $line_id . "'";
