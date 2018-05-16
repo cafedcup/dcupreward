@@ -23,7 +23,10 @@ while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
     #echo "\t</tr>\n";
 }
 #echo "</table>\n";
-
+if ($tel == ''){
+	echo 'Null'
+}
+	
 // Free resultset
 pg_free_result($result);
 
