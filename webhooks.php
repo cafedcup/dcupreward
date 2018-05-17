@@ -21,7 +21,11 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
-			$isPhoneText = isPhone($event['message']['text']);
+			if (isPhone($event['message']['text']))
+			{
+				$isPhoneText = true;
+				$cus_tel = $event['message']['text'];
+			}
 			$cus_line_id = $event['source']['userId'];
 
 			// Get replyToken
@@ -119,7 +123,7 @@ function is_cudtel_exist($dbconn,$cus_line_id){
     // Closing connection 
 }
 */
-/*
+
 $hello = 'Hello ';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
@@ -127,10 +131,14 @@ if (!is_lineid_exist($dbconn,$cus_line_id))
     $hello = 'Wellcome frist time ';
     $tel = 'Plese enter your telephone number';
 }
-#elseif (!is_lineid_exist($dbconn,$cus_line_id))
-#{
-*/
-#}
+elseif ($isPhoneText)
+{
+	$tel = 'Your tel is ' . $event['message']['text'];
+}
+else 
+{
+	$tel = 'Plese enter your telephone number';
+}
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
