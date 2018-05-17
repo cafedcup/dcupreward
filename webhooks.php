@@ -62,7 +62,7 @@ if (!is_null($events['events'])) {
 }
 
 function isPhone($string) {
-    return preg_match("[^0-9]{10}", $string);
+    return preg_match("/^[0-9]{10}$/", $string);
     /*
     $numberOfDigits = strlen($numbersOnly);
     if ($numberOfDigits == 10) {
@@ -124,11 +124,11 @@ function is_cudtel_exist($dbconn,$cus_line_id){
 }
 */
 
-$hello = 'Hello ';
+$hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id);
-    $hello = 'Wellcome frist time ';
+    $hello = 'Wellcome frist time';
     $tel = 'Plese enter your phone number';
 }
 elseif ($isPhoneText)
@@ -144,7 +144,7 @@ if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
     $name = $profile['displayName'];
 }
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . $name . $tel );
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ' ' . $name . ' ' . $tel );
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
