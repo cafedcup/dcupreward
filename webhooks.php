@@ -13,6 +13,7 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
+$isPhoneText = false;
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -63,7 +64,7 @@ function isPhone($string) {
     if ($numberOfDigits == 10) {
         $isPhone = true;
     }
-    retrun $isPhone;
+    return $isPhone;
 }
 
 function insert_customer($dbconn,$cus_line_id){
