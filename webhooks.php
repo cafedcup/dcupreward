@@ -158,7 +158,7 @@ if ($response->isSucceeded()) {
 $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id,$cus_name))
 {
-    insert_customer($dbconn,$cus_line_id);
+    insert_customer($dbconn,$cus_line_id,$cus_name);
     $hello = 'Welcome the frist time';
     $tel = 'Plese enter your phone number';
 }
