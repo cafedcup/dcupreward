@@ -24,7 +24,7 @@ function getmax_id($dbconn){
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     $max = pg_fetch_array($result, null, PGSQL_ASSOC);
     echo 'max = '.$max;
-    echo 'max[0] = ' . $max[0];
+    echo 'max[0][0] = ' . $max[0][0];
 
     // Free resultset
     pg_free_result($result);
