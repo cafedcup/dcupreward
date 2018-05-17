@@ -58,6 +58,16 @@ if (!is_null($events['events'])) {
 			
 			echo $result . "\r\n";
 		}
+		else if ($event['type'] == 'message')
+		{
+						// Get text sent
+			if (isPhone($event['message']['text']))
+			{
+				$isPhoneText = true;
+				$cus_tel = $event['message']['text'];
+			}
+			$cus_line_id = $event['source']['userId'];
+		}
 	}
 }
 
@@ -134,7 +144,7 @@ $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id);
-    $hello = 'Wellcome frist time';
+    $hello = 'Wellcome the frist time';
     $tel = 'Plese enter your phone number';
 }
 elseif ($isPhoneText)
@@ -142,11 +152,11 @@ elseif ($isPhoneText)
 	if (!is_custel_exist($dbconn,$cus_line_id))
 	{
 		update_custel($dbconn,$cus_tel,$cus_line_id);
-		$tel = 'Your tel ' . $cus_tel . ' is registed already.';
+		$tel = 'Your phone number ' . $cus_tel . ' is registed already';
 	}
 	else
 	{
-		$tel = 'Your tel ' . $cus_tel . '  is exist';
+		$tel = 'Your phone number ' . $cus_tel . '  is exist';
 	}
 }
 else 
