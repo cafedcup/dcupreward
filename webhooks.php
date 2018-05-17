@@ -68,37 +68,17 @@ if (!is_null($events['events'])) {
 			
 			echo $result . "\r\n";
 		}
-		else if ($event['type'] == 'message')
-		{
-						// Get text sent
-			if (isPhone($event['message']['text']))
-			{
-				$isPhoneText = true;
-				$cus_tel = $event['message']['text'];
-			}
-			$cus_line_id = $event['source']['userId'];
-		}
 	}
 }
 
 function isPhone($string) {
     return preg_match("/^[0-9]{10}$/", $string);
-    /*
-    $numberOfDigits = strlen($numbersOnly);
-    if ($numberOfDigits == 10) {
-        $isPhone = true;
-        echo 'yes';
-    }
-    return $isPhone;
-    */
 }
 
 function insert_customer($dbconn,$cus_line_id,$cus_name){
     $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name)) or die('Query failed: ' . pg_last_error());
     
-    pg_free_result($result);
-    // Closing connection 
-     
+    pg_free_result($result);     
 }
 
 function getmax_id($dbconn){
@@ -111,7 +91,6 @@ function getmax_id($dbconn){
     }
     // Free resultset
     pg_free_result($result);
-    // Closing connection 
     return $max_id;
 }
 
@@ -126,7 +105,6 @@ function is_lineid_exist($dbconn,$cus_line_id){
     return $line_id != '';
     // Free resultset
     pg_free_result($result);
-    // Closing connection 
 }
 
 function is_custel_exist($dbconn,$cus_line_id){
@@ -140,20 +118,15 @@ function is_custel_exist($dbconn,$cus_line_id){
     return $custel != '';
     // Free resultset
     pg_free_result($result);
-    // Closing connection 
 }
 
 function update_custel($dbconn,$cus_tel,$cus_line_id){
     $result = pg_update($dbconn,'dcup_customer_mst',array('cus_tel' => $cus_tel),array('cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
-    
+     // Free resultset  
     pg_free_result($result);
-    // Closing connection
 }
-$response = $bot->getProfile($cus_line_id);
-if ($response->isSucceeded()) {
-    $profile = $response->getJSONDecodedBody();
-    $cus_name = $profile['displayName'];
-}
+
+$cus_name = 'test';
 
 $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
@@ -181,7 +154,11 @@ else
 		$tel = 'Sorry it is not your phone number. Plese try again';
 	}
 }
-
+$response = $bot->getProfile($cus_line_id);
+if ($response->isSucceeded()) {
+    $profile = $response->getJSONDecodedBody();
+    $cus_name = $profile['displayName'];
+}
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ' ' . $cus_name . ' ' . $tel . '.');
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
