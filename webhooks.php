@@ -103,6 +103,7 @@ function is_lineid_exist($dbconn,$cus_line_id){
     pg_free_result($result);
     // Closing connection 
 }
+/*
 function is_cudtel_exist($dbconn,$cus_line_id){
     $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -116,6 +117,7 @@ function is_cudtel_exist($dbconn,$cus_line_id){
     pg_free_result($result);
     // Closing connection 
 }
+*/
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
