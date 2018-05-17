@@ -32,7 +32,7 @@ if (!is_null($events['events'])) {
 			}
 			else if (!strcmp(strtolower(substr($str_mes,0,strpos($str_mes,':'))),"update"))
 			{
-				if (isPhone(substr($str_mes,strpos($str_mes+1,':'))))
+				if (isPhone(substr($str_mes,strpos($str_mes,':')+1)))
 				{
 					$isPhoneText = true;
 					$isUpdate = true;
@@ -173,7 +173,7 @@ else
 		}
 		else
 		{
-			$tel = 'Phone number is exist. If you would like to update Phone number, please type update:[Phone number] Ex. update:08xxxxxxxx';
+			$tel = "Phone number is exist. If you would like to update Phone number \n,please type update:[Phone number] Ex. update:08xxxxxxxx";
 		}
 	}
 	else if ($isUpdate)
@@ -188,7 +188,7 @@ else
 
 
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ' ' . $tel . '.');
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ',' . $tel . '.');
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
