@@ -22,7 +22,10 @@ function insert_customer($dbconn){
 function getmax_id($dbconn){
     $query = "SELECT max(cus_id) FROM dcup_customer_mst";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
-    echo '0='.$result->result_array();
+    $max = pg_fetch_array($result, null, PGSQL_ASSOC);
+    echo 'max = '.$max;
+    echo 'max[0] = ' . $max[0];
+
     // Free resultset
     pg_free_result($result);
     // Closing connection 
