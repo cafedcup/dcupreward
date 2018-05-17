@@ -38,7 +38,7 @@ function is_lineid_exist($dbconn,$cus_line_id){
             $cus_line_id = $col_value;
         }
     }
-    echo is_null($cus_line_id);
+    echo $cus_line_id != '';
     // Free resultset
     pg_free_result($result);
     // Closing connection 
