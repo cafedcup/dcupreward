@@ -127,7 +127,7 @@ function update_custel($dbconn,$cus_tel,$cus_line_id){
 }
 
 $cus_name = 'test';
-
+/*
 $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
@@ -154,6 +154,7 @@ else
 		$tel = 'Sorry it is not your phone number. Plese try again';
 	}
 }
+*/
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
