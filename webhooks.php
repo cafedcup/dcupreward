@@ -141,7 +141,7 @@ elseif ($isPhoneText)
 {
 	if (!is_custel_exist($dbconn,$cus_line_id))
 	{
-		update_custel($dbconn,$cus_tel,$cus_line_id);
+		#update_custel($dbconn,$cus_tel,$cus_line_id);
 		$tel = 'Your tel is ' . $cus_tel . ' is not exist';
 	}
 	else
