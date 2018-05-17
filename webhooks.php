@@ -142,11 +142,11 @@ elseif ($isPhoneText)
 	if (!is_custel_exist($dbconn,$cus_line_id))
 	{
 		update_custel($dbconn,$cus_tel,$cus_line_id);
-		$tel = 'Your tel is ' . $cus_tel . ' is not exist';
+		$tel = 'Your tel [' . $cus_tel . '] is registed already.';
 	}
 	else
 	{
-		$tel = 'Your tel is exist';
+		$tel = 'Your tel is exist.  If you need to update your phone please type:''update:[phone number]''';
 	}
 }
 else 
