@@ -22,8 +22,8 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			#$isPhoneText = isPhone($event['message']['text']);
 			$cus_line_id = $event['source']['userId'];
-			#$cus_line_name = $event['source']['displayName'];
-			#$tel = $event['message']['type'];
+			$cus_line_name = $event['source']['displayName'];
+			$tel = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -134,7 +134,7 @@ if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
     $name = $profile['displayName'];
 }
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . $name . $tel);
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . $name . $tel . $cus_line_name);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
