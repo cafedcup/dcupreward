@@ -9,7 +9,6 @@ $access_token = '4Qu7kgrFlDwTEszsj7jmLBOiQZlJ8VPm0Cl6cgPBD68TguSuDKlCO7fb/hQojMX
 $channelSecret = '225c1cb58f767eaf6b61053c1346727f';
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-$isPhoneText = false;
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
