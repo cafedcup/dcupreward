@@ -145,12 +145,12 @@ if ($response->isSucceeded()) {
     $cus_name = $profile['displayName'];
 }
 
-$hello = 'Hello';
+$hello = '';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id,$cus_name);
-    $hello = 'Welcome the frist time';
-    $tel = 'Plese enter your phone number';
+    $hello = 'Welcome ' . $cus_name;
+    $tel = 'Please enter your phone number';
 }
 else
 {
@@ -166,22 +166,22 @@ else
 			update_custel($dbconn,$cus_tel,$cus_line_id);
 			$cur_id = get_cus_id($dbconn,$cus_line_id);
 			$str_cus_id = sprintf("D%04s",$cur_id);
-			$tel = 'Your phone number ' . $cus_tel . ' is registed already. Your ID is ' . $str_cus_id;
+			$tel = 'Your phone number ' . $cus_tel . ' is registered already. Your ID is ' . $str_cus_id;
 		}
 		else
 		{
-			$tel = 'Your phone number ' . $cus_tel . ' is exist. Please type update:[Phone number]';
+			$tel = 'Phone number is exist. If you would like to update Phone number, please type update:[Phone number] Ex. update:0873841599';
 		}
 	}
 	else
 	{
-		$tel = 'Sorry it is not your phone number. Plese try again';
+		$tel = 'Sorry it is not your phone number. Please try again';
 	}
 }
 
 
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ' ' . $cus_name . ' ' . $tel . '.');
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ' ' . $tel . '.');
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
