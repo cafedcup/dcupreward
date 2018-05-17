@@ -146,7 +146,7 @@ elseif ($isPhoneText)
 	}
 	else
 	{
-		$tel = 'Your tel is exist.  If you need to update your phone please type:''update:[phone number]''';
+		$tel = 'Your tel is exist';
 	}
 }
 else 
