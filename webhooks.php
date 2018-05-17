@@ -23,8 +23,8 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			#$isPhoneText = isPhone($event['message']['text']);
 			$cus_line_id = $event['source']['userId'];
-			$cus_line_name = $event['source']['displayName'];
-			$tel = $event['message']['text'];
+			#$cus_line_name = $event['source']['displayName'];
+			$tel = $event['message']['type'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -133,9 +133,6 @@ if (!is_lineid_exist($dbconn,$cus_line_id))
 #{
 
 #}
-
-
-
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . $name . $tel);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
