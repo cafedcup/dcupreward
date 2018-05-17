@@ -123,6 +123,13 @@ function is_custel_exist($dbconn,$cus_line_id){
     // Closing connection 
 }
 
+function update_custel($dbconn,$cus_tel,$cus_line_id){
+    $result = pg_update($dbconn,'dcup_customer_mst',array('cus_tel' => $cus_tel),array('cus_line_id') => $cus_line_id) or die('Query failed: ' . pg_last_error());
+    
+    pg_free_result($result);
+    // Closing connection
+}
+
 $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
@@ -134,11 +141,12 @@ elseif ($isPhoneText)
 {
 	if (!is_custel_exist($dbconn,$cus_line_id))
 	{
-		$tel = 'Your tel is ' . $cus_tel . 'is not exist';
+		update_custel($dbconn,$cus_tel,$cus_line_id);
+		$tel = 'Your tel is ' . $cus_tel . ' is not exist';
 	}
 	else
 	{
-		$tel = 'Your tel is ' . $cus_tel . 'is exist';
+		$tel = 'Your tel is ' . $cus_tel . ' is exist';
 	}
 }
 else 
