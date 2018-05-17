@@ -20,7 +20,7 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$cus_line_id = $event['source']['userId'];
-			$cus_line_name = $event['source']['displayName'];
+			#$cus_line_name = $event['source']['displayName'];
 			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
@@ -91,22 +91,26 @@ function is_lineid_exist($dbconn,$cus_line_id){
     pg_free_result($result);
     // Closing connection 
 }
-/*
+
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
-    insert_customer($dbconn,'',$cus_line_id);
+    #insert_customer($dbconn,'',$cus_line_id);
+
+	$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $cus_line_name .' Your telephone is ' . $tel);
+	$response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
+	echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 }
 else {
     echo 'cus_line_id is exist';
 }
-*/
+
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
     $name = $profile['displayName'];
 }
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $cus_line_name . $name . ' Your telephone is ' . $tel);
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $name . ' Your telephone is ' . $tel);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
