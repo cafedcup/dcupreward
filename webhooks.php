@@ -141,7 +141,7 @@ elseif ($isPhoneText)
 {
 	if (!is_custel_exist($dbconn,$cus_line_id))
 	{
-		#update_custel($dbconn,$cus_tel,$cus_line_id);
+		update_custel($dbconn,$cus_tel,$cus_line_id);
 		$tel = 'Your tel is ' . $cus_tel . ' is not exist';
 	}
 	else
@@ -151,7 +151,7 @@ elseif ($isPhoneText)
 }
 else 
 {
-	$tel = 'Sorry it is not your phone number/nPlese try again';
+	$tel = 'Sorry it is not your phone number. Plese try again';
 }
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
