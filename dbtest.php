@@ -4,7 +4,7 @@
 $dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c22a5eb989f6da8e9aa746c30d8395f97a@ec2-54-225-200-15.compute-1.amazonaws.com:5432/d8rrl8e93ni01r")
     or die('Could not connect: ' . pg_last_error());
 
-getmax_id();
+getmax_id($dbconn);
 
 function insert_customer($dbconn){
     $cus_id = 1;
@@ -19,7 +19,7 @@ function insert_customer($dbconn){
     pg_close($dbconn);    
 }
 
-function getmax_id(){
+function getmax_id($dbconn){
     $query = "SELECT max(cus_id) FROM dcup_customer_mst";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     echo $result[0];
