@@ -36,7 +36,7 @@ if (!is_null($events['events'])) {
 				if (isPhone(substr($str_mes,strpos($str_mes,':')+1)))
 				{
 					$isPhoneText = true;
-					$cus_tel = substr($str_mes,strpos($str_mes+1,':'));
+					$cus_tel = substr($str_mes,strpos($str_mes,':')+1);
 				}
 			}
 		
