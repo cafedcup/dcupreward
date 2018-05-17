@@ -20,10 +20,9 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
-			#$isPhoneText = isPhone($event['message']['text']);
+			$isPhoneText = isPhone($event['message']['text']);
 			$cus_line_id = $event['source']['userId'];
-			$cus_line_name = $event['source']['displayName'];
-			$tel = $event['message']['text'];
+
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -56,7 +55,7 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-/*
+
 function isPhone($string) {
 	$isPhone = false;
     $numbersOnly = ereg_replace("[^0-9]", "", $string);
@@ -66,7 +65,7 @@ function isPhone($string) {
     }
     retrun $isPhone;
 }
-*/
+
 function insert_customer($dbconn,$cus_line_id){
     $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
     
@@ -134,7 +133,7 @@ if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
     $name = $profile['displayName'];
 }
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . $name . $tel . $cus_line_name);
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . $name . $tel );
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
