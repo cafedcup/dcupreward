@@ -131,7 +131,7 @@ $cus_name = 'test';
 $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
-    insert_customer($dbconn,$cus_line_id,$cus_name);
+    #insert_customer($dbconn,$cus_line_id,$cus_name);
     $hello = 'Welcome the frist time';
     $tel = 'Plese enter your phone number';
 }
@@ -139,7 +139,7 @@ else
 {
 	if ($isPhoneText)
 	{
-		update_custel($dbconn,$cus_tel,$cus_line_id);
+		#update_custel($dbconn,$cus_tel,$cus_line_id);
 		if ($isUpdate)
 		{
 			$tel = 'Your phone number ' . $cus_tel . '  is updated';
