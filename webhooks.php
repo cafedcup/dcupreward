@@ -23,7 +23,7 @@ if (!is_null($events['events'])) {
 			#$isPhoneText = isPhone($event['message']['text']);
 			$cus_line_id = $event['source']['userId'];
 			#$cus_line_name = $event['source']['displayName'];
-			$tel = $event['message']['type'];
+			#$tel = $event['message']['type'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
