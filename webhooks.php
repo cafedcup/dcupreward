@@ -153,7 +153,7 @@ if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id,$cus_name);
     $hello = 'Welcome ' . $cus_name;
-    $tel = "\nPlease enter your phone number ";
+    $tel = "\nPlease enter your phone number";
 }
 else
 {
@@ -188,7 +188,7 @@ else
 
 
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel . '.');
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
