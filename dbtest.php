@@ -9,6 +9,9 @@ if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,'',$cus_line_id,$cus_tel);
 }
+else {
+    echo 'cus_line_id is exist';
+}
 
 function insert_customer($dbconn,$cus_id,$cus_line_id,$cus_tel){
     $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_tel' => $cus_tel)) or die('Query failed: ' . pg_last_error());
@@ -37,10 +40,11 @@ function is_lineid_exist($dbconn,$cus_line_id){
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
-            $cus_line_id = $col_value;
+            $line_id = $col_value;
         }
     }
-    return $cus_line_id != '';
+    echo $line_id;
+    return $line_id != '';
     // Free resultset
     pg_free_result($result);
     // Closing connection 
