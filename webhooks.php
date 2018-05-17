@@ -14,6 +14,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 $isPhoneText = false;
+$isUpdate = false;
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -21,12 +22,21 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
-			if (isPhone($event['message']['text']))
+			$str_mes = $event['message']['text']);
+			$cus_line_id = $event['source']['userId'];
+
+			if (isPhone($str_mes)
 			{
 				$isPhoneText = true;
-				$cus_tel = $event['message']['text'];
+				$cus_tel = $str_mes;
 			}
-			$cus_line_id = $event['source']['userId'];
+			else if (!strcmp(strtolower(substr($$str_mes,0,strpos($$str_mes,':'))),"update"))
+			{
+				$isPhoneText = true;
+				$isUpdate = true;
+				$cus_tel = $str_mes;
+			}
+			
 
 			// Get replyToken
 			$replyToken = $event['replyToken'];
@@ -144,25 +154,29 @@ $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id);
-    $hello = 'Wellcome the frist time';
+    $hello = 'Welcome the frist time';
     $tel = 'Plese enter your phone number';
 }
-elseif ($isPhoneText)
+else
 {
-	if (!is_custel_exist($dbconn,$cus_line_id))
+	if ($isPhoneText)
 	{
 		update_custel($dbconn,$cus_tel,$cus_line_id);
-		$tel = 'Your phone number ' . $cus_tel . ' is registed already';
+		if ($isUpdate)
+		{
+			$tel = 'Your phone number ' . $cus_tel . '  is updated';
+		}
+		else
+		{
+			$tel = 'Your phone number ' . $cus_tel . ' is registed already';
+		}
 	}
 	else
 	{
-		$tel = 'Your phone number ' . $cus_tel . '  is exist';
+		$tel = 'Sorry it is not your phone number. Plese try again';
 	}
 }
-else 
-{
-	$tel = 'Sorry it is not your phone number. Plese try again';
-}
+
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
