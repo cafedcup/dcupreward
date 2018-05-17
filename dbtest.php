@@ -5,7 +5,7 @@ $dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c2
     or die('Could not connect: ' . pg_last_error());
 
 $max_id = getmax_id($dbconn);
-insert_customer($dbconn,max_id+1,'','');
+insert_customer($dbconn,$max_id+1,'','');
 
 function insert_customer($dbconn,$cus_id,$cus_line_id,$cus_tel){
     $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => $cus_id,'cus_line_id' => $cus_line_id,'cus_tel' => $cus_tel)) or die('Query failed: ' . pg_last_error());
