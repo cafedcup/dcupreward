@@ -106,6 +106,20 @@ function is_lineid_exist($dbconn,$cus_line_id){
     pg_free_result($result);
 }
 
+function get_cus_id($dbconn,$cus_line_id){
+    $query = "SELECT cus_id FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $cus_id = $col_value;
+        }
+    }
+    
+    // Free resultset
+    pg_free_result($result);
+    return $cus_id;
+}
+
 function is_custel_exist($dbconn,$cus_line_id){
     $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -150,7 +164,9 @@ else
 		else if (!is_custel_exist($dbconn,$cus_line_id))
 		{
 			update_custel($dbconn,$cus_tel,$cus_line_id);
-			$tel = 'Your phone number ' . $cus_tel . ' is registed already';
+			$cur_id = get_cus_id($dbconn,$cus_line_id);
+			$str_cus_id = sprintf("D%04s",$cur_id);
+			$tel = 'Your phone number ' . $cus_tel . ' is registed already. Your ID is ' . $str_cus_id;
 		}
 		else
 		{
