@@ -62,7 +62,7 @@ if (!is_null($events['events'])) {
 }
 
 function isPhone($string) {
-    return preg_match("[^0-9]", "", $string);
+    return preg_match("[^0-9]{10}", $string);
     /*
     $numberOfDigits = strlen($numbersOnly);
     if ($numberOfDigits == 10) {
@@ -129,7 +129,7 @@ if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id);
     $hello = 'Wellcome frist time ';
-    $tel = 'Plese enter your telephone number';
+    $tel = 'Plese enter your phone number';
 }
 elseif ($isPhoneText)
 {
@@ -137,7 +137,7 @@ elseif ($isPhoneText)
 }
 else 
 {
-	$tel = 'Plese enter your telephone number';
+	$tel = 'Sorry it is not your phone number\nPlese try again';
 }
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
