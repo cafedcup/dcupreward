@@ -56,12 +56,9 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-isPhone('0873841599');
-echo 'ok';
+
 function isPhone($string) {
-	#$isPhone = false;
-    $numbersOnly = preg_match("[^0-9]", "", $string);
-    echo $numbersOnly;
+    return preg_match("[^0-9]", "", $string);
     /*
     $numberOfDigits = strlen($numbersOnly);
     if ($numberOfDigits == 10) {
