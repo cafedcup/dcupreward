@@ -134,9 +134,12 @@ elseif ($isPhoneText)
 {
 	if (!is_custel_exist($dbconn,$cus_line_id))
 	{
-		$tel = 'Your tel is ' . $cus_tel;
+		$tel = 'Your tel is ' . $cus_tel . 'is not exist';
 	}
-	$tel = 'Your tel is ' . $cus_tel;
+	else
+	{
+		$tel = 'Your tel is ' . $cus_tel . 'is exist';
+	}
 }
 else 
 {
