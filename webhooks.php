@@ -169,11 +169,11 @@ else
 			update_custel($dbconn,$cus_tel,$cus_line_id);
 			$cur_id = get_cus_id($dbconn,$cus_line_id);
 			$str_cus_id = sprintf("D%04s",$cur_id);
-			$tel = "Your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
+			$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 		}
 		else
 		{
-			$tel = "Phone number is exist. If you would like to update Phone number,please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
+			$tel = "your phone number is exist. If you would like to update Phone number,please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
 		}
 	}
 	else if ($isUpdate)
