@@ -32,9 +32,12 @@ if (!is_null($events['events'])) {
 			}
 			else if (!strcmp(strtolower(substr($str_mes,0,strpos($str_mes,':'))),"update"))
 			{
-				$isPhoneText = true;
-				$isUpdate = true;
-				$cus_tel = substr($str_mes,strpos($str_mes,':'));
+				if (isPhone(substr($str_mes,strpos($str_mes+1,':')))
+				{
+					$isPhoneText = true;
+					$isUpdate = true;
+					$cus_tel = substr($str_mes,strpos($str_mes+1,':'));
+				}
 			}
 		
 			// Get replyToken
@@ -145,7 +148,7 @@ if ($response->isSucceeded()) {
     $cus_name = $profile['displayName'];
 }
 
-$hello = '';
+$hello = $cus_name;
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id,$cus_name);
@@ -172,6 +175,10 @@ else
 		{
 			$tel = 'Phone number is exist. If you would like to update Phone number, please type update:[Phone number] Ex. update:08xxxxxxxx';
 		}
+	}
+	else if ($isUpdate)
+	{
+		$tel = 'If you would like to update Phone number, please type update:[Phone number] Ex. update:08xxxxxxxx';
 	}
 	else
 	{
