@@ -34,7 +34,7 @@ if (!is_null($events['events'])) {
 			{
 				$isPhoneText = true;
 				$isUpdate = true;
-				$cus_tel = $str_mes;
+				$cus_tel = substr($str_mes,strpos($str_mes,':'));
 			}
 		
 			// Get replyToken
@@ -170,7 +170,7 @@ else
 		}
 		else
 		{
-			$tel = 'Phone number is exist. If you would like to update Phone number, please type update:[Phone number] Ex. update:0873841599';
+			$tel = 'Phone number is exist. If you would like to update Phone number, please type update:[Phone number] Ex. update:08xxxxxxxx';
 		}
 	}
 	else
