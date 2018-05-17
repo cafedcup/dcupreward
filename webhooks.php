@@ -19,7 +19,7 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
-			$text = $event['source']['userId'];
+			$cus_line_id = $event['source']['userId'];
 			$name = $event['source']['displayName'];
 			
 			// Get replyToken
@@ -28,7 +28,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $idPush
+				'text' => $cus_line_id
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -47,7 +47,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			
-			#$result = curl_exec($ch);
+			$result = curl_exec($ch);
 			curl_close($ch);
 			
 			echo $result . "\r\n";
@@ -92,21 +92,21 @@ function is_lineid_exist($dbconn,$cus_line_id){
     // Closing connection 
 }
 
-if (!is_lineid_exist($dbconn,$idPush))
+if (!is_lineid_exist($dbconn,$cus_line_id))
 {
-    insert_customer($dbconn,'',$idPush);
+    insert_customer($dbconn,'',$cus_line_id);
 }
 else {
     echo 'cus_line_id is exist';
 }
-$response = $bot->getProfile($idPush);
+$response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
     $name = $profile['displayName'];
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello ' . $name . ' Your telephone is ' . $tel);
-$response = $bot->pushMessage($idPush, $textMessageBuilder);
+$response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 echo "END";
