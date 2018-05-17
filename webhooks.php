@@ -59,14 +59,17 @@ if (!is_null($events['events'])) {
 isPhone('0873841599');
 echo 'ok';
 function isPhone($string) {
-	$isPhone = false;
-    $numbersOnly = ereg_replace("[^0-9]", "", $string);
+	#$isPhone = false;
+    $numbersOnly = preg_match("[^0-9]", "", $string);
+    echo $numbersOnly;
+    /*
     $numberOfDigits = strlen($numbersOnly);
     if ($numberOfDigits == 10) {
         $isPhone = true;
         echo 'yes';
     }
     return $isPhone;
+    */
 }
 
 function insert_customer($dbconn,$cus_line_id){
