@@ -4,6 +4,9 @@ require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
 
 $access_token = '4Qu7kgrFlDwTEszsj7jmLBOiQZlJ8VPm0Cl6cgPBD68TguSuDKlCO7fb/hQojMXf9elSUa6VQ6iAm0SiVmUxQlRbnOFN38rCMclfZ/2EfLH1O4mzPPEG8RiF3yv99r2+aRHOS+usOHxGQ882dov5owdB04t89/1O/w1cDnyilFU=';
+$channelSecret = '225c1cb58f767eaf6b61053c1346727f';
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -25,7 +28,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $text
+				'text' => $idPush
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -44,49 +47,58 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			
-			$result = curl_exec($ch);
+			#$result = curl_exec($ch);
 			curl_close($ch);
 			
 			echo $result . "\r\n";
 		}
 	}
 }
-echo "OK";
-$dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c22a5eb989f6da8e9aa746c30d8395f97a@ec2-54-225-200-15.compute-1.amazonaws.com:5432/d8rrl8e93ni01r")
-    or die('Could not connect: ' . pg_last_error());
 
-// Performing SQL query
-#$query = 'SELECT * FROM dcup_customer_tbl';
-$line_id = $text;
-$query = "SELECT tel FROM dcup_customer_tbl WHERE line_id = '" . $line_id . "'";
-echo $query;
-$result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
-// Printing results in HTML
-echo "<table>\n";
-while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-    #echo "\t<tr>\n";
-    foreach ($line as $col_value) {
-        #echo "\t\t<td>$col_value</td>\n";
-		$tel = $col_value;
-    }
-    #echo "\t</tr>\n";
+function insert_customer($dbconn,$cus_id,$cus_line_id,$cus_tel){
+    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_tel' => $cus_tel)) or die('Query failed: ' . pg_last_error());
+    
+    pg_free_result($result);
+    // Closing connection 
+     
 }
-#echo "</table>\n";
 
-// Free resultset
-pg_free_result($result);
+function getmax_id($dbconn){
+    $query = "SELECT max(cus_id) FROM dcup_customer_mst";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $max_id = $col_value;
+        }
+    }
+    // Free resultset
+    pg_free_result($result);
+    // Closing connection 
+    return $max_id;
+}
 
-// Closing connection 
-pg_close($dbconn);
+function is_lineid_exist($dbconn,$cus_line_id){
+    $query = "SELECT * FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $line_id = $col_value;
+        }
+    }
+    return $line_id != '';
+    // Free resultset
+    pg_free_result($result);
+    // Closing connection 
+}
 
-$access_token = '4Qu7kgrFlDwTEszsj7jmLBOiQZlJ8VPm0Cl6cgPBD68TguSuDKlCO7fb/hQojMXf9elSUa6VQ6iAm0SiVmUxQlRbnOFN38rCMclfZ/2EfLH1O4mzPPEG8RiF3yv99r2+aRHOS+usOHxGQ882dov5owdB04t89/1O/w1cDnyilFU=';
-$channelSecret = '225c1cb58f767eaf6b61053c1346727f';
-$idPush = $text;
-
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-
+if (!is_lineid_exist($dbconn,$idPush))
+{
+    insert_customer($dbconn,'',$idPush);
+}
+else {
+    echo 'cus_line_id is exist';
+}
 $response = $bot->getProfile($idPush);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();

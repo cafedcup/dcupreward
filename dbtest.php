@@ -43,7 +43,6 @@ function is_lineid_exist($dbconn,$cus_line_id){
             $line_id = $col_value;
         }
     }
-    echo $line_id;
     return $line_id != '';
     // Free resultset
     pg_free_result($result);
