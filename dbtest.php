@@ -9,11 +9,14 @@ $dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c2
 $line_id = 'U0f8ed013f50650deb6a9e0a95042d4b0';
 #$insert_str = "UPDATE dcup_customer_tbl entry_count=1 WHERE name = 'Pakrub'";
 #echo $insert_str;
-$username = 'Pakrub';
-$entry = 1;
-$id = 10;
-$result = pg_update($dbconn,'dcup_customer_tbl',array('entry_count' => $entry),array('name' => $username)) or die('Query failed: ' . pg_last_error());
-$result = pg_insert($dbconn,'dcup_customer_tbl',array('id' => $id)) or die('Query failed: ' . pg_last_error());
+$cus_id = 1;
+$cus_name = 'Pakawat';
+$cus_line_id = 'Test';
+#$cus_hbdate = ;
+#$cus_regdate = date();
+#$cus_sex = 
+#$result = pg_update($dbconn,'dcup_customer_tbl',array('entry_count' => $entry),array('name' => $username)) or die('Query failed: ' . pg_last_error());
+$result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => $cus_id,'cus_name' => $cus_name,'cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
 #$query = "SELECT tel FROM dcup_customer_tbl WHERE line_id = '" . $line_id . "'";
 #echo $query;
 #$result = pg_query($query) or die('Query failed: ' . pg_last_error());
