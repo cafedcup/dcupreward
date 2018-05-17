@@ -93,8 +93,8 @@ function isPhone($string) {
     */
 }
 
-function insert_customer($dbconn,$cus_line_id){
-    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
+function insert_customer($dbconn,$cus_line_id,$cus_name){
+    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name)) or die('Query failed: ' . pg_last_error());
     
     pg_free_result($result);
     // Closing connection 
@@ -149,9 +149,14 @@ function update_custel($dbconn,$cus_tel,$cus_line_id){
     pg_free_result($result);
     // Closing connection
 }
+$response = $bot->getProfile($cus_line_id);
+if ($response->isSucceeded()) {
+    $profile = $response->getJSONDecodedBody();
+    $cus_name = $profile['displayName'];
+}
 
 $hello = 'Hello';
-if (!is_lineid_exist($dbconn,$cus_line_id))
+if (!is_lineid_exist($dbconn,$cus_line_id,$cus_name))
 {
     insert_customer($dbconn,$cus_line_id);
     $hello = 'Welcome the frist time';
@@ -177,12 +182,8 @@ else
 	}
 }
 
-$response = $bot->getProfile($cus_line_id);
-if ($response->isSucceeded()) {
-    $profile = $response->getJSONDecodedBody();
-    $name = $profile['displayName'];
-}
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ' ' . $name . ' ' . $tel . '.');
+
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ' ' . $cus_name . ' ' . $tel . '.');
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
