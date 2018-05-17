@@ -146,7 +146,7 @@ elseif ($isPhoneText)
 	}
 	else
 	{
-		$tel = 'Your tel is ' . $cus_tel . ' is exist';
+		$tel = 'Your tel is exist';
 	}
 }
 else 
