@@ -125,7 +125,11 @@ function update_custel($dbconn,$cus_tel,$cus_line_id){
     pg_free_result($result);
 }
 
-$cus_name = 'test';
+$response = $bot->getProfile($cus_line_id);
+if ($response->isSucceeded()) {
+    $profile = $response->getJSONDecodedBody();
+    $cus_name = $profile['displayName'];
+}
 
 $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
@@ -159,11 +163,7 @@ else
 	}
 }
 
-$response = $bot->getProfile($cus_line_id);
-if ($response->isSucceeded()) {
-    $profile = $response->getJSONDecodedBody();
-    $cus_name = $profile['displayName'];
-}
+
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ' ' . $cus_name . ' ' . $tel . '.');
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
