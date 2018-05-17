@@ -22,7 +22,7 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
-			$str_mes = $event['message']['text']);
+			$str_mes = $event['message']['text'];
 			$cus_line_id = $event['source']['userId'];
 
 			if (isPhone($str_mes)
@@ -36,8 +36,7 @@ if (!is_null($events['events'])) {
 				$isUpdate = true;
 				$cus_tel = $str_mes;
 			}
-			
-
+		
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -127,7 +126,7 @@ function update_custel($dbconn,$cus_tel,$cus_line_id){
 }
 
 $cus_name = 'test';
-/*
+
 $hello = 'Hello';
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
@@ -154,7 +153,7 @@ else
 		$tel = 'Sorry it is not your phone number. Plese try again';
 	}
 }
-*/
+
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
