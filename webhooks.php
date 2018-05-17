@@ -133,7 +133,7 @@ if (!is_lineid_exist($dbconn,$cus_line_id))
 }
 elseif ($isPhoneText)
 {
-	$tel = 'Your tel is ' . $event['message']['text'];
+	$tel = 'Your tel is ' . $cus_tel;
 }
 else 
 {
