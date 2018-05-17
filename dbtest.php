@@ -13,7 +13,10 @@ function insert_customer($dbconn){
     #$cus_hbdate = ;
     #$cus_regdate = date();
     #$cus_sex =     
-    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => $cus_id,'cus_name' => $cus_name,'cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());    
+    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => $cus_id,'cus_name' => $cus_name,'cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
+        pg_free_result($result);
+    // Closing connection 
+    pg_close($dbconn);    
 }
 
 function getmax_id(){
