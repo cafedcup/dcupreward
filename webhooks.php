@@ -91,19 +91,14 @@ function is_lineid_exist($dbconn,$cus_line_id){
     pg_free_result($result);
     // Closing connection 
 }
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($cus_line_id);
-$response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+
 if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     #insert_customer($dbconn,'',$cus_line_id);
-
-	$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hi ' . $cus_line_name .' Your telephone is ' . $tel);
-	$response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
-	echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+	$tel = 'yy';
 }
 else {
-    echo 'cus_line_id is exist';
+    $tel = 'nn';
 }
 
 $response = $bot->getProfile($cus_line_id);
@@ -116,4 +111,4 @@ $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
-echo "END";
+ pg_close($dbconn);
