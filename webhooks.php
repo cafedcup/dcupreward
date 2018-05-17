@@ -30,7 +30,7 @@ if (!is_null($events['events'])) {
 				$isPhoneText = true;
 				$cus_tel = $str_mes;
 			}
-			else if (!strcmp(strtolower(substr($$str_mes,0,strpos($$str_mes,':'))),"update"))
+			else if (!strcmp(strtolower(substr($str_mes,0,strpos($str_mes,':'))),"update"))
 			{
 				$isPhoneText = true;
 				$isUpdate = true;
