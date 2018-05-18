@@ -24,7 +24,7 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			$str_mes = $event['message']['text'];
 			$cus_line_id = $event['source']['userId'];
-
+			$cus_name = get_line_displayName($cus_line_id);
 			if (isPhone($str_mes))
 			{
 				$isPhoneText = true;
@@ -39,21 +39,21 @@ if (!is_null($events['events'])) {
 					$cus_tel = substr($str_mes,strpos($str_mes,':')+1);
 				}
 			}
-		
+			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $cus_line_id
+				'text' => $str_message
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages],
+				'messages' => [$messages]
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
@@ -66,7 +66,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			
 			$result = curl_exec($ch);
-			#curl_close($ch);
+			curl_close($ch);
 			
 			#echo $result . "\r\n";
 
@@ -168,75 +168,80 @@ function is_admin($dbconn,$admin_line_id){
 	return $line_id != '';
 }
 
-$response = $bot->getProfile($cus_line_id);
-if ($response->isSucceeded()) {
-    $profile = $response->getJSONDecodedBody();
-    $cus_name = $profile['displayName'];
-}
-
-$hello = $cus_name;
-
-if (is_admin($dbconn,$cus_line_id))
-{
-	#$hello = "Hi, I can ping you from " . $hello;
-	$hello = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
-	$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
-}
-else if (!is_lineid_exist($dbconn,$cus_line_id))
-{
-    insert_customer($dbconn,$cus_line_id,$cus_name);
-    #$hello = 'Welcome ' . $cus_name;
-	$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ระบบ dcup reward แตนแต๊น";
-    #$tel = "\nPlease enter your phone number";
-	$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์ของคุณเพื่อทำการลงทะเบียน";
-}
-else
-{
-	if ($isPhoneText)
-	{
-		if ($isUpdate)
-		{
-			update_custel($dbconn,$cus_tel,$cus_line_id);
-			#$tel = "Your phone number " . $cus_tel . "  is updated";
-			$tel = "หมายเลขโทรศัพท์ " . $cus_tel . " ได้อัพเดทลงระบบเรียบร้อย";
-		}
-		else if (!is_custel_exist($dbconn,$cus_line_id))
-		{
-			update_custel($dbconn,$cus_tel,$cus_line_id);
-			$cur_id = get_cus_id($dbconn,$cus_line_id);
-			$str_cus_id = sprintf("D%04s",$cur_id);
-			#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
-			$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนแล้วเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id;
-		}
-		/*
-		else
-		{
-			$tel = "your phone number is exist. If you would like to update Phone number,please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
-		}
-		*/
+function get_line_displayName($str_line_id){
+	$str_line_displayName = "";
+	$response = $bot->getProfile($str_line_id);
+	if ($response->isSucceeded()) {
+    	$profile = $response->getJSONDecodedBody();
+    	$str_line_displayName = $profile['displayName'];
 	}
-	else if ($isUpdate)
-	{
-		$tel = "if you would like to update Phone number, please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
+	return $str_line_displayName; 
+}
+
+
+function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate){
+	$hello = $cus_name;
+	if (is_admin($dbconn,$cus_line_id)){
+		#$hello = "Hi, I can ping you from " . $hello;
+		$hello = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
+		$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
+	}
+	else if (!is_lineid_exist($dbconn,$cus_line_id)){
+	    insert_customer($dbconn,$cus_line_id,$cus_name);
+	    #$hello = 'Welcome ' . $cus_name;
+		$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ระบบ dcup reward แตนแต๊น";
+	    #$tel = "\nPlease enter your phone number";
+		$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์ของคุณเพื่อทำการลงทะเบียน";
 	}
 	else
-	{	if (is_custel_exist($dbconn,$cus_line_id))
+	{
+		if ($isPhoneText)
 		{
-			$cur_id = get_cus_id($dbconn,$cus_line_id);
-			$str_cus_id = sprintf("D%04s",$cur_id);
-			#$tel = "You register already.\nYour ID is " . $str_cus_id;
-			$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
+			if ($isUpdate)
+			{
+				update_custel($dbconn,$cus_tel,$cus_line_id);
+				#$tel = "Your phone number " . $cus_tel . "  is updated";
+				$tel = "หมายเลขโทรศัพท์ " . $cus_tel . " ได้อัพเดทลงระบบเรียบร้อย";
+			}
+			else if (!is_custel_exist($dbconn,$cus_line_id))
+			{
+				update_custel($dbconn,$cus_tel,$cus_line_id);
+				$cur_id = get_cus_id($dbconn,$cus_line_id);
+				$str_cus_id = sprintf("D%04s",$cur_id);
+				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
+				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนแล้วเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id;
+			}
+			/*
+			else
+			{
+				$tel = "your phone number is exist. If you would like to update Phone number,please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
+			}
+			*/
 		}
-		else 
+		else if ($isUpdate)
 		{
-			#$tel = "sorry it is not your phone number.\nPlease try again";
-			$tel = "พิมพ์ดีๆต๊ะ ^^ บอกว่าพิมพ์เบอร์โทรศัพท์นิ๊ ไอยา";
+			$tel = "if you would like to update Phone number, please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
+		}
+		else
+		{	if (is_custel_exist($dbconn,$cus_line_id))
+			{
+				$cur_id = get_cus_id($dbconn,$cus_line_id);
+				$str_cus_id = sprintf("D%04s",$cur_id);
+				#$tel = "You register already.\nYour ID is " . $str_cus_id;
+				$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
+			}
+			else 
+			{
+				#$tel = "sorry it is not your phone number.\nPlease try again";
+				$tel = "พิมพ์ดีๆต๊ะ ^^ บอกว่าพิมพ์เบอร์โทรศัพท์นิ๊ ไอยา";
+			}
 		}
 	}
+	return $hello . ', ' . $tel;
 }
-
+/*
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-
+*/
 pg_close($dbconn);
