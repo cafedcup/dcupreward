@@ -175,7 +175,7 @@ if ($response->isSucceeded()) {
 $hello = $cus_name;
 if (is_admin($dbconn,$cus_line_id))
 {
-	$tel = get_cus_line_id($dbconn,$cus_tel);
+	$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
 }
 else if (!is_lineid_exist($dbconn,$cus_line_id))
 {
