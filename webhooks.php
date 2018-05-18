@@ -39,7 +39,8 @@ if (!is_null($events['events'])) {
 					$cus_tel = substr($str_mes,strpos($str_mes,':')+1);
 				}
 			}
-			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
+			#$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
+			$str_message = "test";
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -178,7 +179,7 @@ function get_line_displayName($str_line_id){
 	return $str_line_displayName; 
 }
 
-
+/*
 function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate){
 	$hello = $cus_name;
 	if (is_admin($dbconn,$cus_line_id)){
@@ -211,12 +212,12 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนแล้วเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id;
 			}
-			/*
-			else
-			{
-				$tel = "your phone number is exist. If you would like to update Phone number,please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
-			}
-			*/
+			
+			#else
+			#{
+			#	$tel = "your phone number is exist. If you would like to update Phone number,please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
+			#}
+			
 		}
 		else if ($isUpdate)
 		{
@@ -239,6 +240,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	}
 	return $hello . ', ' . $tel;
 }
+*/
 /*
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
