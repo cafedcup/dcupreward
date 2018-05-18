@@ -74,7 +74,8 @@ if (!is_null($events['events'])) {
 		}
 		else if ($event['type'] == 'follow')
 		{
-			$cus_line_id = $event['source']['userId'];
+			#$cus_line_id = $event['source']['userId'];
+			$cus_line_id = "Test";
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
 			$messages = [
