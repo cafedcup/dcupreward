@@ -104,9 +104,9 @@ function is_lineid_exist($dbconn,$cus_line_id){
             $line_id = $col_value;
         }
     }
-    return $line_id != '';
     // Free resultset
     pg_free_result($result);
+    return $line_id != '';
 }
 
 function get_cus_id($dbconn,$cus_line_id){
@@ -117,7 +117,18 @@ function get_cus_id($dbconn,$cus_line_id){
             $cus_id = $col_value;
         }
     }
-    
+    // Free resultset
+    pg_free_result($result);
+    return $cus_id;
+}
+function get_cus_line_id($dbconn,$cus_tel){
+    $query = "SELECT cus_line_id FROM dcup_customer_mst WHERE cus_tel = '" . $cus_tel . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $cus_id = $col_value;
+        }
+    }
     // Free resultset
     pg_free_result($result);
     return $cus_id;
@@ -131,15 +142,28 @@ function is_custel_exist($dbconn,$cus_line_id){
             $custel = $col_value;
         }
     }
-    return $custel != '';
     // Free resultset
     pg_free_result($result);
+	return $custel != '';
 }
 
 function update_custel($dbconn,$cus_tel,$cus_line_id){
     $result = pg_update($dbconn,'dcup_customer_mst',array('cus_tel' => $cus_tel),array('cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
      // Free resultset  
     pg_free_result($result);
+}
+
+function is_admin($dbconn,$admin_line_id){
+    $query = "SELECT * FROM dcup_admin_mst WHERE admin_line_id = '" . $admin_line_id . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $line_id = $col_value;
+        }
+    }
+    // Free resultset
+    pg_free_result($result);
+	return $line_id != '';
 }
 
 $response = $bot->getProfile($cus_line_id);
@@ -149,7 +173,11 @@ if ($response->isSucceeded()) {
 }
 
 $hello = $cus_name;
-if (!is_lineid_exist($dbconn,$cus_line_id))
+if (is_admin($dbconn,$cus_line_id))
+{
+	$tel = get_cus_line_id($dbconn,$cus_tel);
+}
+else if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id,$cus_name);
     $hello = 'Welcome ' . $cus_name;
