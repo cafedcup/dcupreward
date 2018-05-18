@@ -20,7 +20,7 @@ if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker') {
+		if ($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker')) {
 			// Get text sent
 			$str_mes = $event['message']['text'];
 			$cus_line_id = $event['source']['userId'];
