@@ -227,7 +227,7 @@ else
 		else 
 		{
 			#$tel = "sorry it is not your phone number.\nPlease try again";
-			$tel = "พิมพ์ดีต๊ะ ^^ บอกว่าพิมพ์เบอร์โทรศัพท์นิ๊ ไอยา";
+			$tel = "พิมพ์ดีๆต๊ะ ^^ บอกว่าพิมพ์เบอร์โทรศัพท์นิ๊ ไอยา";
 		}
 	}
 }
