@@ -39,8 +39,7 @@ if (!is_null($events['events'])) {
 					$cus_tel = substr($str_mes,strpos($str_mes,':')+1);
 				}
 			}
-			#$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
-			$str_message = "test";
+			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -179,7 +178,7 @@ function get_line_displayName($str_line_id,$bot){
 	return $str_line_displayName; 
 }
 
-/*
+
 function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate){
 	$hello = $cus_name;
 	if (is_admin($dbconn,$cus_line_id)){
@@ -240,7 +239,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	}
 	return $hello . ', ' . $tel;
 }
-*/
+
 /*
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
