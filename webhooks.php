@@ -177,7 +177,7 @@ $hello = $cus_name;
 if (is_admin($dbconn,$cus_line_id))
 {
 	#$hello = "Hi, I can ping you from " . $hello;
-	hello = "ยินดีต้อนรับเข้าสู่ระบบ วันนี้คุณได้ point จำนวน 1 point จากแอตมินสุดจ๊าบ " . $hello;
+	$hello = "ยินดีต้อนรับเข้าสู่ระบบ วันนี้คุณได้ point จำนวน 1 point จากแอตมินสุดจ๊าบ " . $hello;
 	$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
 }
 else if (!is_lineid_exist($dbconn,$cus_line_id))
@@ -236,5 +236,6 @@ else
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-
+$response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 pg_close($dbconn);
