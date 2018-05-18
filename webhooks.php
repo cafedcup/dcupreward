@@ -181,8 +181,10 @@ if (is_admin($dbconn,$cus_line_id))
 else if (!is_lineid_exist($dbconn,$cus_line_id))
 {
     insert_customer($dbconn,$cus_line_id,$cus_name);
-    $hello = 'Welcome ' . $cus_name;
-    $tel = "\nPlease enter your phone number";
+    #$hello = 'Welcome ' . $cus_name;
+	$hello = "ยินดีตอนรับ " . $cus_name . " เข้าสู่ dcup reward";
+    #$tel = "\nPlease enter your phone number";
+	$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์ของคุณเพื่อทำการลงทะเบียน";
 }
 else
 {
@@ -191,14 +193,16 @@ else
 		if ($isUpdate)
 		{
 			update_custel($dbconn,$cus_tel,$cus_line_id);
-			$tel = "Your phone number " . $cus_tel . "  is updated";
+			#$tel = "Your phone number " . $cus_tel . "  is updated";
+			$tel = "หมายเลขโทรศัพท์ " . $cus_tel . " ได้อัพเดทลงระบบเรียบร้อย";
 		}
 		else if (!is_custel_exist($dbconn,$cus_line_id))
 		{
 			update_custel($dbconn,$cus_tel,$cus_line_id);
 			$cur_id = get_cus_id($dbconn,$cus_line_id);
 			$str_cus_id = sprintf("D%04s",$cur_id);
-			$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
+			#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
+			$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนแล้วเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id;
 		}
 		/*
 		else
@@ -215,7 +219,8 @@ else
 	{
 		$cur_id = get_cus_id($dbconn,$cus_line_id);
 		$str_cus_id = sprintf("D%04s",$cur_id);
-		$tel = "You register already.\nYour ID is " . $str_cus_id;
+		#$tel = "You register already.\nYour ID is " . $str_cus_id;
+		$tel = "คุณได้ลงทะเบียนแล้วร้อยร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . " และโปรดติดตามตอนต่อไปจ้า...";
 		#$tel = "sorry it is not your phone number.\nPlease try again";
 	}
 }
