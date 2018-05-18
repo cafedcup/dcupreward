@@ -24,7 +24,7 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			$str_mes = $event['message']['text'];
 			$cus_line_id = $event['source']['userId'];
-			$cus_name = get_line_displayName($cus_line_id);
+			#$cus_name = get_line_displayName($cus_line_id);
 			if (isPhone($str_mes))
 			{
 				$isPhoneText = true;
