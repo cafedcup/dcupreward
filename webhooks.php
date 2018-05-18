@@ -169,7 +169,7 @@ function is_admin($dbconn,$admin_line_id){
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
-    $cus_name = $profile['displayName'];
+    $cus_line_id = $profile['displayName'];
 }
 
 $hello = $cus_name;
