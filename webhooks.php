@@ -199,10 +199,12 @@ else
 			$str_cus_id = sprintf("D%04s",$cur_id);
 			$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 		}
+		/*
 		else
 		{
 			$tel = "your phone number is exist. If you would like to update Phone number,please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
 		}
+		*/
 	}
 	else if ($isUpdate)
 	{
@@ -210,7 +212,10 @@ else
 	}
 	else
 	{
-		$tel = "sorry it is not your phone number.\nPlease try again";
+		$cur_id = get_cus_id($dbconn,$cus_line_id);
+		$str_cus_id = sprintf("D%04s",$cur_id);
+		$tel = "You register already.\nYour ID is " . $str_cus_id;
+		#$tel = "sorry it is not your phone number.\nPlease try again";
 	}
 }
 
