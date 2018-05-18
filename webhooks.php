@@ -169,7 +169,7 @@ function is_admin($dbconn,$admin_line_id){
 	return $line_id != '';
 }
 
-function get_line_displayName($str_line_id){
+function get_line_displayName($str_line_id,$bot){
 	$str_line_displayName = "";
 	$response = $bot->getProfile($str_line_id);
 	if ($response->isSucceeded()) {
