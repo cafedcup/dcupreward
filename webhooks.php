@@ -169,7 +169,7 @@ function is_admin($dbconn,$admin_line_id){
 $response = $bot->getProfile($cus_line_id);
 if ($response->isSucceeded()) {
     $profile = $response->getJSONDecodedBody();
-    $cus_line_id = $profile['displayName'];
+    $cus_name = $profile['displayName'];
 }
 
 $hello = $cus_name;
@@ -218,8 +218,6 @@ else
 		#$tel = "sorry it is not your phone number.\nPlease try again";
 	}
 }
-
-
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel);
 $response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
