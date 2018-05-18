@@ -234,7 +234,7 @@ else
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel);
-$response = $bot->pushMessage(array($cus_line_id => $textMessageBuilder), array("U0f8ed013f50650deb6a9e0a95042d4b0" => $textMessageBuilder));
+$response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 pg_close($dbconn);
