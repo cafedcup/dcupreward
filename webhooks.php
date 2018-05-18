@@ -240,9 +240,9 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	return $hello . ', ' . $tel;
 }
 
-/*
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($hello . ', ' . $tel);
-$response = $bot->pushMessage($cus_line_id, $textMessageBuilder);
+$admin_line_id = "U0f8ed013f50650deb6a9e0a95042d4b0";
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Test");
+$response = $bot->pushMessage($admin_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-*/
+
 pg_close($dbconn);
