@@ -222,7 +222,7 @@ else
 			$cur_id = get_cus_id($dbconn,$cus_line_id);
 			$str_cus_id = sprintf("D%04s",$cur_id);
 			#$tel = "You register already.\nYour ID is " . $str_cus_id;
-			$tel = "คุณได้ลงทะเบียนแล้วร้อยร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . " และโปรดติดตามตอนต่อไปจ้า...";
+			$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
 		}
 		else 
 		{
