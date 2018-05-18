@@ -173,6 +173,7 @@ if ($response->isSucceeded()) {
 }
 
 $hello = $cus_name;
+
 if (is_admin($dbconn,$cus_line_id))
 {
 	$hello = "Hi, I can ping you from " . $hello;
@@ -216,12 +217,18 @@ else
 		$tel = "if you would like to update Phone number, please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
 	}
 	else
-	{
-		$cur_id = get_cus_id($dbconn,$cus_line_id);
-		$str_cus_id = sprintf("D%04s",$cur_id);
-		#$tel = "You register already.\nYour ID is " . $str_cus_id;
-		$tel = "คุณได้ลงทะเบียนแล้วร้อยร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . " และโปรดติดตามตอนต่อไปจ้า...";
-		#$tel = "sorry it is not your phone number.\nPlease try again";
+	{	if (is_custel_exist($dbconn,$cus_line_id))
+		{
+			$cur_id = get_cus_id($dbconn,$cus_line_id);
+			$str_cus_id = sprintf("D%04s",$cur_id);
+			#$tel = "You register already.\nYour ID is " . $str_cus_id;
+			$tel = "คุณได้ลงทะเบียนแล้วร้อยร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . " และโปรดติดตามตอนต่อไปจ้า...";
+		}
+		else 
+		{
+			#$tel = "sorry it is not your phone number.\nPlease try again";
+			$tel = "พิมพ์ดีต๊ะ ^^ บอกว่าพิมพ์เบอร์โทรศัพท์นิ๊ ไอยา";
+		}
 	}
 }
 
