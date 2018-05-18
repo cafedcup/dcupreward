@@ -243,7 +243,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 $admin_line_id = "U0f8ed013f50650deb6a9e0a95042d4b0";
 $date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 $time = $date->format('d-m-Y H:i:s');
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($time . $str_mes .' from '. $cus_name);
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('[' . $time . "]/n" . $str_mes .' from '. $cus_name);
 $response = $bot->pushMessage($admin_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
