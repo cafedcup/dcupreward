@@ -156,16 +156,16 @@ function is_custel_exist($dbconn,$cus_line_id){
 }
 
 function is_reward_exist($dbconn,$cus_id){
-    $query = "SELECT * FROM dcup_reward_tbl Where valid = true and customer_id = " . $cus_line_id;
+    $query = "SELECT * FROM dcup_reward_tbl Where valid = true and customer_id = " . $cus_id;
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
-            $custel = $col_value;
+            $cusid = $col_value;
         }
     }
     // Free resultset
     pg_free_result($result);
-	return $custel != '';
+	return $cusid != '';
 }
 
 function get_admin_lineid($dbconn){
