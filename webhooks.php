@@ -248,7 +248,7 @@ if (is_admin($dbconn,$cus_line_id)){
 }
 else{
 	$push_line_id = get_admin_lineid($dbconn);
-	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name
+	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
 $date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 $time = $date->format('d-m-Y H:i:s');
