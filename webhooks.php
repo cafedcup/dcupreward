@@ -144,7 +144,7 @@ function is_custel_exist($dbconn,$cus_line_id){
 }
 
 function get_admin_lineid($dbconn){
-    $query = "SELECT admin_line_id FROM dcup_admin_mst";
+    $query = "SELECT admin_line_id FROM dcup_admin_mst WHERE id = 1";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
