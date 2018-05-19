@@ -185,7 +185,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	if (is_admin($dbconn,$cus_line_id)){
 		#$hello = "Hi, I can ping you from " . $hello;
 		$hello = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
-		$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
+		#$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
 	}
 	else if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    insert_customer($dbconn,$cus_line_id,$cus_name);
@@ -241,12 +241,18 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	}
 	return $hello . ', ' . $tel;
 }
-
-$admin_line_id = get_admin_lineid($dbconn);
+if (is_admin($dbconn,$cus_line_id)){
+	#$hello = "Hi, I can ping you from " . $hello;
+	$hello = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
+	$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+}
+else{
+	$push_line_id = get_admin_lineid($dbconn);
+}
 $date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 $time = $date->format('d-m-Y H:i:s');
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name);
-$response = $bot->pushMessage($admin_line_id, $textMessageBuilder);
+$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 pg_close($dbconn);
