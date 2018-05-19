@@ -256,7 +256,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 		$time = $date->format('d-m-Y H:i:s');
 		$cus_id = get_cus_id($dbconn,$push_line_id);
-		insert_reward($dbconn,$cus_id,$time);
+		#insert_reward($dbconn,$cus_id,$time);
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
