@@ -274,18 +274,18 @@ if (is_admin($dbconn,$cus_line_id)){
 		$push_line_mes = "";
 		$cus_id = get_cus_id($dbconn,$push_line_id);
 
-		if (!is_reward_exist($dbconn,$cur_id)){
-			insert_reward($dbconn,$cur_id,$time);
+		if (!is_reward_exist($dbconn,$cus_id)){
+			insert_reward($dbconn,$cus_id,$time);
 			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
 		}
 		else{
 			# mod
 			#if
 				#terminate_reward
-				#insert_reward($dbconn,$str_cus_id,$time)
+				#insert_reward($dbconn,$cus_id,$time)
 			#else
 				
-			#update_reward($dbconn,$str_cus_id,2);
+			#update_reward($dbconn,$cus_id,2);
 			$push_line_mes = "วันนี้ได้เป็น 2 แต้ม";
 		}
 
