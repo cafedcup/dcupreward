@@ -276,7 +276,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$cus_id = get_cus_id($dbconn,$push_line_id);
 		if (!is_reward_exist($dbconn,$cus_id)){
 			insert_reward($dbconn,$cus_id,$time);
-			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
+			$push_line_mes = $push_line_id. "วันนี้คุณได้รับ 1 แต้ม" . $cus_id;
 		}
 		else{
 			# mod
