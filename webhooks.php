@@ -135,20 +135,7 @@ function get_cus_line_id($dbconn,$cus_tel){
     pg_free_result($result);
     return $cus_id;
 }
-/*
-function get_cus_id($dbconn,$cus_line_id){
-    $query = "SELECT cus_id FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
-    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
-    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-        foreach ($line as $col_value) {        
-            $cus_id = $col_value;
-        }
-    }
-    // Free resultset
-    pg_free_result($result);
-    return $cus_id;
-}
-*/
+
 function is_custel_exist($dbconn,$cus_line_id){
     $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -198,7 +185,6 @@ function get_line_displayName($str_line_id,$bot){
 	}
 	return $str_line_displayName; 
 }
-
 
 function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate){
 	$hello = $cus_name;
@@ -269,7 +255,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$push_line_mes = "วันนี้คุณได้รับ 1 point";
 		#insert_reward($dbconn,$push_line_id,$time);
 		$cus_id = get_cus_id($dbconn,$push_line_id);
-		insert_reward($dbconn,$cus_id,$reward_start_date)
+		#insert_reward($dbconn,$cus_id,$reward_start_date)
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
