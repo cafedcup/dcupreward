@@ -184,7 +184,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	$hello = $cus_name;
 	if (is_admin($dbconn,$cus_line_id)){
 		#$hello = "Hi, I can ping you from " . $hello;
-		$hello = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
+		$hello = "ยินดีต้อนรับ คุณคือโคบาน";
 		#$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
 	}
 	else if (!is_lineid_exist($dbconn,$cus_line_id)){
