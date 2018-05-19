@@ -86,13 +86,19 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 }
 
 function insert_reward($dbconn,$cus_id,$reward_start_date){
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 0,'valid' => true)) or die('Query failed: ' . pg_last_error());
     // Free result
     pg_free_result($result);     
 }
 
 function update_custel($dbconn,$cus_tel,$cus_line_id){
     $result = pg_update($dbconn,'dcup_customer_mst',array('cus_tel' => $cus_tel),array('cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
+    // Free result  
+    pg_free_result($result);
+}
+
+function update_reward($dbconn,$cus_id,$point_count){
+    $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => $point_count),array('customer_id' => $cus_id)) or die('Query failed: ' . pg_last_error());
     // Free result  
     pg_free_result($result);
 }
@@ -138,6 +144,19 @@ function get_cus_line_id($dbconn,$cus_tel){
 
 function is_custel_exist($dbconn,$cus_line_id){
     $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $custel = $col_value;
+        }
+    }
+    // Free resultset
+    pg_free_result($result);
+	return $custel != '';
+}
+
+function is_reward_exist($dbconn,$cus_id){
+    $query = "SELECT * FROM dcup_reward_tbl Where valid = true and customer_id = " . $cus_line_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
@@ -217,7 +236,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$str_cus_id = sprintf("D%04s",$cur_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนแล้วเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id;
-				
+				insert_reward($dbconn,$cus_id,$reward_start_date);
 			}
 			
 			#else
@@ -253,10 +272,24 @@ if (is_admin($dbconn,$cus_line_id)){
 	if ($isPhoneText){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
 		$push_line_mes = "วันนี้คุณได้รับ 1 point";
-		$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
-		$time = $date->format('d-m-Y H:i:s');
 		$cus_id = get_cus_id($dbconn,$push_line_id);
-		insert_reward($dbconn,$cus_id,$time);
+		if (!is_reward_exist($dbconn,$cus_id)){
+			insert_reward($dbconn,$cus_id,$time);
+		}
+		else{
+			# mod
+			#if
+				#terminate_reward
+				#insert_reward($dbconn,$cus_id,$time)
+			#else
+			update_reward($dbconn,$cus_id,2)
+		}
+
+		
+		#elseif update
+			#if update
+			#else update and insert mod point_coutn more than 0 
+			
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
