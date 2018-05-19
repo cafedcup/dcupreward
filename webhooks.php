@@ -291,7 +291,8 @@ if (is_admin($dbconn,$cus_line_id)){
 			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
 		}
 		else{
-			$point_cur = get_point($dbconn,$cus_id);
+			#$point_cur = get_point($dbconn,$cus_id);
+			$point_cur = 3;
 			$point = 1;
 			$point_new = $point_cur + $point;
 			# mod
