@@ -253,9 +253,10 @@ if (is_admin($dbconn,$cus_line_id)){
 	if ($isPhoneText){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
 		$push_line_mes = "วันนี้คุณได้รับ 1 point";
-		#insert_reward($dbconn,$push_line_id,$time);
+		$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+		$time = $date->format('d-m-Y H:i:s');
 		$cus_id = get_cus_id($dbconn,$push_line_id);
-		#insert_reward($dbconn,$cus_id,$reward_start_date)
+		insert_reward($dbconn,$cus_id,$time);
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
@@ -263,11 +264,12 @@ if (is_admin($dbconn,$cus_line_id)){
 	}
 }
 else{
+	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+	$time = $date->format('d-m-Y H:i:s');
 	$push_line_id = get_admin_lineid($dbconn);
 	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
-$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
-$time = $date->format('d-m-Y H:i:s');
+
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
 $response = $bot->pushMessage($push_line_id, $textMessageBuilder);
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
