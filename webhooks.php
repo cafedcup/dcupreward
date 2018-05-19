@@ -282,7 +282,7 @@ if (is_admin($dbconn,$cus_line_id)){
 				#terminate_reward
 				#insert_reward($dbconn,$cus_id,$time)
 			#else
-			update_reward($dbconn,$cus_id,2)
+			update_reward($dbconn,$cus_id,2);
 		}
 
 		
