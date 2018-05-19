@@ -86,7 +86,7 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 }
 
 function insert_reward($dbconn,$cus_id,$reward_start_date){
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => "'".$cus_id."'",'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
     // Free result
     pg_free_result($result);     
 }
@@ -273,9 +273,9 @@ if (is_admin($dbconn,$cus_line_id)){
 		
 		$push_line_mes = "";
 		$cus_id = get_cus_id($dbconn,$push_line_id);
-		$str_cus_id = sprintf("s",$cur_id);
-		if (!is_reward_exist($dbconn,$str_cus_id)){
-			insert_reward($dbconn,$str_cus_id,$time);
+
+		if (!is_reward_exist($dbconn,$cur_id)){
+			insert_reward($dbconn,$cur_id,$time);
 			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
 		}
 		else{
