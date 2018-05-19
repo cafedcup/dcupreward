@@ -143,7 +143,7 @@ function get_cus_line_id($dbconn,$cus_tel){
 }
 
 function get_point($dbconn,$cus_id){
-    $query = "SELECT count_point FROM dcup_reward_tbl Where valid = true and customer_id = '" . $cus_id . "'";
+    $query = "SELECT point_count FROM dcup_reward_tbl Where valid = true and customer_id = '" . $cus_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
@@ -291,8 +291,7 @@ if (is_admin($dbconn,$cus_line_id)){
 			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
 		}
 		else{
-			#$point_cur = get_point($dbconn,$cus_id);
-			$point_cur = 3;
+			$point_cur = get_point($dbconn,$cus_id);
 			$point = 1;
 			$point_new = $point_cur + $point;
 			# mod
@@ -301,7 +300,7 @@ if (is_admin($dbconn,$cus_line_id)){
 				#insert_reward($dbconn,$cus_id,$time)
 			#else
 				
-			#update_reward($dbconn,$cus_id,$point_new);
+			update_reward($dbconn,$cus_id,$point_new);
 			$push_line_mes = "วันนี้ได้เป็น " . $point_new . " แต้ม";
 		}
 
