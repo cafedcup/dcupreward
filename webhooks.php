@@ -268,6 +268,8 @@ if (is_admin($dbconn,$cus_line_id)){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
 		$push_line_mes = "วันนี้คุณได้รับ 1 point";
 		#insert_reward($dbconn,$push_line_id,$time);
+		$cus_id = get_cus_id($dbconn,$push_line_id);
+		insert_reward($dbconn,$cus_id,$reward_start_date)
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
