@@ -268,7 +268,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$push_line_mes = "วันนี้คุณได้รับ 1 point";
 		$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 		$time = $date->format('d-m-Y H:i:s');
-		insert_reward($dbconn,$push_line_id,$time);
+		#insert_reward($dbconn,$push_line_id,$time);
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
