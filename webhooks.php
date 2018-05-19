@@ -122,7 +122,7 @@ function get_cus_id($dbconn,$cus_line_id){
     pg_free_result($result);
     return $cus_id;
 }
-
+/*
 function get_cus_line_id($dbconn,$cus_tel){
     $query = "SELECT cus_line_id FROM dcup_customer_mst WHERE cus_tel = '" . $cus_tel . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -135,7 +135,7 @@ function get_cus_line_id($dbconn,$cus_tel){
     pg_free_result($result);
     return $cus_id;
 }
-
+*/
 function get_cus_id($dbconn,$cus_line_id){
     $query = "SELECT cus_id FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -265,7 +265,7 @@ if (is_admin($dbconn,$cus_line_id)){
 	#$hello = "Hi, I can ping you from " . $hello;
 	#$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
 	if ($isPhoneText){
-		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+		#$push_line_id = get_cus_line_id($dbconn,$cus_tel);
 		$push_line_mes = "วันนี้คุณได้รับ 1 point";
 		#insert_reward($dbconn,$push_line_id,$time);
 	}
