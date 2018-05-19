@@ -267,8 +267,6 @@ if (is_admin($dbconn,$cus_line_id)){
 	if ($isPhoneText){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
 		$push_line_mes = "วันนี้คุณได้รับ 1 point";
-		$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
-		$time = $date->format('d-m-Y H:i:s');
 		#insert_reward($dbconn,$push_line_id,$time);
 	}
 	else{
