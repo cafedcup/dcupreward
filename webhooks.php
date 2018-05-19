@@ -81,21 +81,14 @@ function isPhone($string) {
 
 function insert_customer($dbconn,$cus_line_id,$cus_name){
     $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name)) or die('Query failed: ' . pg_last_error());
-    
+    // Free result
     pg_free_result($result);     
 }
 
-function getmax_id($dbconn){
-    $query = "SELECT max(cus_id) FROM dcup_customer_mst";
-    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
-    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-        foreach ($line as $col_value) {        
-            $max_id = $col_value;
-        }
-    }
-    // Free resultset
+function update_custel($dbconn,$cus_tel,$cus_line_id){
+    $result = pg_update($dbconn,'dcup_customer_mst',array('cus_tel' => $cus_tel),array('cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
+    // Free result  
     pg_free_result($result);
-    return $max_id;
 }
 
 function is_lineid_exist($dbconn,$cus_line_id){
@@ -123,6 +116,7 @@ function get_cus_id($dbconn,$cus_line_id){
     pg_free_result($result);
     return $cus_id;
 }
+
 function get_cus_line_id($dbconn,$cus_tel){
     $query = "SELECT cus_line_id FROM dcup_customer_mst WHERE cus_tel = '" . $cus_tel . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -149,10 +143,17 @@ function is_custel_exist($dbconn,$cus_line_id){
 	return $custel != '';
 }
 
-function update_custel($dbconn,$cus_tel,$cus_line_id){
-    $result = pg_update($dbconn,'dcup_customer_mst',array('cus_tel' => $cus_tel),array('cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
-     // Free resultset  
+function get_admin_lineid($dbconn){
+    $query = "SELECT admin_line_id FROM dcup_admin_mst";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $admin_lineid = $col_value;
+        }
+    }
+    // Free resultset
     pg_free_result($result);
+    return $admin_lineid;
 }
 
 function is_admin($dbconn,$admin_line_id){
@@ -210,6 +211,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$str_cus_id = sprintf("D%04s",$cur_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนแล้วเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id;
+				
 			}
 			
 			#else
@@ -240,7 +242,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	return $hello . ', ' . $tel;
 }
 
-$admin_line_id = "U0f8ed013f50650deb6a9e0a95042d4b0";
+$admin_line_id = get_admin_lineid($dbconn);
 $date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 $time = $date->format('d-m-Y H:i:s');
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name);
