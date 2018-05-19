@@ -84,12 +84,13 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
     // Free result
     pg_free_result($result);     
 }
+/*
 function insert_reward($dbconn,$cus_id,$reward_start_date){
     $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'reward_start_date' => $reward_start_date,'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
     // Free result
     pg_free_result($result);     
 }
-
+*/
 function update_custel($dbconn,$cus_tel,$cus_line_id){
     $result = pg_update($dbconn,'dcup_customer_mst',array('cus_tel' => $cus_tel),array('cus_line_id' => $cus_line_id)) or die('Query failed: ' . pg_last_error());
     // Free result  
