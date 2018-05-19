@@ -156,7 +156,7 @@ function is_custel_exist($dbconn,$cus_line_id){
 }
 
 function is_reward_exist($dbconn,$cus_id){
-    $query = "SELECT cus_id FROM dcup_reward_tbl Where valid = true and customer_id = '" . $cus_id . "'";
+    $query = "SELECT customer_id FROM dcup_reward_tbl Where valid = true and customer_id = '" . $cus_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
@@ -273,18 +273,19 @@ if (is_admin($dbconn,$cus_line_id)){
 		
 		$push_line_mes = "";
 		$cus_id = get_cus_id($dbconn,$push_line_id);
-		if (!is_reward_exist($dbconn,$cus_id)){
-			insert_reward($dbconn,$cus_id,$time);
+		$str_cus_id = sprintf("s",$cur_id);
+		if (!is_reward_exist($dbconn,$str_cus_id)){
+			insert_reward($dbconn,$str_cus_id,$time);
 			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
 		}
 		else{
 			# mod
 			#if
 				#terminate_reward
-				#insert_reward($dbconn,$cus_id,$time)
+				#insert_reward($dbconn,$str_cus_id,$time)
 			#else
 				
-			#update_reward($dbconn,$cus_id,2);
+			#update_reward($dbconn,$str_cus_id,2);
 			$push_line_mes = "วันนี้ได้เป็น 2 แต้ม";
 		}
 
