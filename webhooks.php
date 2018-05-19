@@ -300,7 +300,7 @@ if (is_admin($dbconn,$cus_line_id)){
 				#insert_reward($dbconn,$cus_id,$time)
 			#else
 				
-			update_reward($dbconn,$cus_id,$point_new);
+			#update_reward($dbconn,$cus_id,$point_new);
 			$push_line_mes = "วันนี้ได้เป็น " . $point_new . " แต้ม";
 		}
 
