@@ -134,12 +134,12 @@ function get_cus_line_id($dbconn,$cus_tel){
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
-            $cus_id = $col_value;
+            $cus_line_id = $col_value;
         }
     }
     // Free resultset
     pg_free_result($result);
-    return $cus_id;
+    return $cus_line_id;
 }
 
 function is_custel_exist($dbconn,$cus_line_id){
