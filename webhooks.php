@@ -86,7 +86,7 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 }
 
 function insert_reward($dbconn,$cus_id,$reward_start_date){
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 0,'valid' => true)) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
     // Free result
     pg_free_result($result);     
 }
@@ -156,7 +156,7 @@ function is_custel_exist($dbconn,$cus_line_id){
 }
 
 function is_reward_exist($dbconn,$cus_id){
-    $query = "SELECT * FROM dcup_reward_tbl Where valid = true and customer_id = " . $cus_line_id . "'";
+    $query = "SELECT * FROM dcup_reward_tbl Where valid = true and customer_id = " . $cus_line_id;
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
