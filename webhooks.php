@@ -156,7 +156,7 @@ function is_custel_exist($dbconn,$cus_line_id){
 }
 
 function is_reward_exist($dbconn,$cus_id){
-    $query = "SELECT * FROM dcup_reward_tbl Where valid = true and customer_id = '" . $cus_id . "'";
+    $query = "SELECT cus_id FROM dcup_reward_tbl Where valid = true and customer_id = '" . $cus_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
@@ -236,7 +236,6 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$str_cus_id = sprintf("D%04s",$cur_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนแล้วเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id;
-				insert_reward($dbconn,$cus_id,$reward_start_date);
 			}
 			
 			#else
