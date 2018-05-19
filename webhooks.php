@@ -243,8 +243,16 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 }
 if (is_admin($dbconn,$cus_line_id)){
 	#$hello = "Hi, I can ping you from " . $hello;
-	$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
-	$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+	#$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
+	if (cus_tel != ''){
+		#$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+		$push_line_id = get_admin_lineid($dbconn);
+		$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
+	}
+	else{
+		$push_line_id = get_admin_lineid($dbconn);
+		$push_line_mes = "กรอกเบอร์โทรลูกค้า";
+	}
 }
 else{
 	$push_line_id = get_admin_lineid($dbconn);
