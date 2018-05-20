@@ -78,13 +78,6 @@ if (!is_null($events['events'])) {
 function isPhone($string) {
     return preg_match("/^[0-9]{10}$/", $string);
 }
-
-function getDateTime(){
-	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
-	$time = $date->format('d-m-Y H:i:s');
-	return $time;
-}
-
 function insert_customer($dbconn,$cus_line_id,$cus_name){
     $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name)) or die('Query failed: ' . pg_last_error());
     // Free result
@@ -293,7 +286,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$cus_id = get_cus_id($dbconn,$push_line_id);
 
 		if (!is_reward_exist($dbconn,$cus_id)){
-			insert_reward($dbconn,$cus_id,$time);
+			insert_reward($dbconn,$cus_id);
 			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
 		}
 		else{
@@ -324,7 +317,7 @@ if (is_admin($dbconn,$cus_line_id)){
 else{
 
 	$push_line_id = get_admin_lineid($dbconn);
-	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
+	$push_line_mes = '[' . date(Y-m-d H:i:s) . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
