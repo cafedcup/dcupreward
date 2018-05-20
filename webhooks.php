@@ -304,7 +304,7 @@ if (is_admin($dbconn,$cus_line_id)){
 			$point_cur = get_point($dbconn,$cus_id);
 			$point = 1;
 			$point_new = $point_cur + $point;
-			if ((floor($point_new / 10)) == 0){
+			if ((floor($point_new / 10)) == 0 || ($point_new % 10 == 0)){
 				update_reward($dbconn,$cus_id,$point_new);
 				$push_line_mes = "วันนี้ได้เป็น " . $point_new . " แต้ม";
 			}
