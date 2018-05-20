@@ -318,7 +318,7 @@ if (is_admin($dbconn,$cus_line_id)){
 			}
 			else{
 				update_reward($dbconn,$cus_id,10,false);
-				$push_line_mes = "วันนี้คุณได้ " . $point . "แต้ม และได้ฟรี 1 แก้ว";
+				$push_line_mes = "วันนี้คุณได้ " . $point . "แต้ม, ขณะนี้มี " . $point_new . "แต้ม และได้ฟรี 1 แก้ว";
 				insert_reward($dbconn,$cus_id);
 			}
 		}
