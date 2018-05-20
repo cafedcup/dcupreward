@@ -1,5 +1,5 @@
 <?php // callback.php
-date_default_timezone_set("Asia/Bangkok");
+#date_default_timezone_set("Asia/Bangkok");
 require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
 $dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c22a5eb989f6da8e9aa746c30d8395f97a@ec2-54-225-200-15.compute-1.amazonaws.com:5432/d8rrl8e93ni01r")
@@ -85,8 +85,9 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 }
 
 function insert_reward($dbconn,$cus_id){
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => date(Y-m-d H:i:s))) or die('Query failed: ' . pg_last_error());
-    // Free result
+    #$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => date(Y-m-d H:i:s))) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
+	// Free result
     pg_free_result($result);     
 }
 
@@ -315,9 +316,10 @@ if (is_admin($dbconn,$cus_line_id)){
 	}
 }
 else{
-
+	
 	$push_line_id = get_admin_lineid($dbconn);
-	$push_line_mes = '[' . date(Y-m-d H:i:s) . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
+	#$push_line_mes = '[' . date(Y-m-d H:i:s) . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
+	$push_line_mes = "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
