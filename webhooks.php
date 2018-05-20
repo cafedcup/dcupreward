@@ -1,5 +1,4 @@
 <?php // callback.php
-date_default_timezone_set("Asia/Bangkok");
 require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
 $dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c22a5eb989f6da8e9aa746c30d8395f97a@ec2-54-225-200-15.compute-1.amazonaws.com:5432/d8rrl8e93ni01r")
@@ -77,6 +76,12 @@ if (!is_null($events['events'])) {
 
 function isPhone($string) {
     return preg_match("/^[0-9]{10}$/", $string);
+}
+
+function getTimeDate(){
+	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+	$time = $date->format('d-m-Y H:i:s');
+	return $time;
 }
 function insert_customer($dbconn,$cus_line_id,$cus_name){
     $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name)) or die('Query failed: ' . pg_last_error());
@@ -316,7 +321,7 @@ if (is_admin($dbconn,$cus_line_id)){
 	}
 }
 else{
-	$time = date(Y-m-d H:i:s);
+	$time = getTimeDate();
 	$push_line_id = get_admin_lineid($dbconn);
 	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 	#$push_line_mes = "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
