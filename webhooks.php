@@ -108,8 +108,8 @@ function update_custel($dbconn,$cus_tel,$cus_line_id){
     pg_free_result($result);
 }
 
-function update_reward($dbconn,$cus_id,$point_count){
-    $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => $point_count),array('customer_id' => $cus_id)) or die('Query failed: ' . pg_last_error());
+function update_reward($dbconn,$cus_id,$point_count,$valid){
+    $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => $point_count,'valid' => $valid),array('customer_id' => $cus_id,'valid' => true) or die('Query failed: ' . pg_last_error());
     // Free result  
     pg_free_result($result);
 }
@@ -305,12 +305,12 @@ if (is_admin($dbconn,$cus_line_id)){
 			$point = 1;
 			$point_new = $point_cur + $point;
 			if ((floor($point_new / 10)) == 0 || ($point_new % 10 == 0)){
-				update_reward($dbconn,$cus_id,$point_new);
+				update_reward($dbconn,$cus_id,$point_new,true);
 				$push_line_mes = "วันนี้ได้เป็น " . $point_new . " แต้ม";
 			}
 			else{
-				#update_reward($dbconn,$cus_id,$point_new);
-				#insert_reward($dbconn,$cus_id);
+				update_reward($dbconn,$cus_id,10,false);
+				insert_reward($dbconn,$cus_id);
 			}
 		}
 
