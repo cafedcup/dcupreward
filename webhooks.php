@@ -38,6 +38,7 @@ if (!is_null($events['events'])) {
 				}
 			}
 			else if (isPhone(substr($str_mes,0,strpos($str_mes,',')))){
+				$isPhoneText = true;
 				$cus_tel = substr($str_mes,0,strpos($str_mes,','));
 				$point = substr($str_mes,strpos($str_mes,':')+1);
 				
@@ -310,10 +311,11 @@ if (is_admin($dbconn,$cus_line_id)){
 			$point_new = $point_cur + $point;
 			if ((floor($point_new / 10)) == 0){
 				update_reward($dbconn,$cus_id,$point_new,true);
-				$push_line_mes = "วันนี้ได้เป็น " . $point_new . " แต้ม";
+				$push_line_mes = "วันนี้คุณได้ " . $point . "แต้ม, ขณะนี้มี " . $point_new . " แต้ม";
 			}
 			else{
 				update_reward($dbconn,$cus_id,10,false);
+				$push_line_mes = "วันนี้คุณได้ " . $point . "แต้ม และได้ฟรี 1 แก้ว";
 				insert_reward($dbconn,$cus_id);
 			}
 		}
