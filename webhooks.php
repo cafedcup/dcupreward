@@ -112,7 +112,7 @@ function update_custel($dbconn,$cus_tel,$cus_line_id){
 }
 
 function update_reward($dbconn,$cus_id,$point_count,$valid){
-    $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => $point_count,'valid' => $valid),array('customer_id' => $cus_id) or die('Query failed: ' . pg_last_error());
+    $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => $point_count,'valid' => $valid),array('customer_id' => $cus_id,'valid' => true)) or die('Query failed: ' . pg_last_error());
     // Free result  
     pg_free_result($result);
 }
