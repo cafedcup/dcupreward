@@ -78,12 +78,19 @@ function isPhone($string) {
     return preg_match("/^[0-9]{10}$/", $string);
 }
 
-function getTimeDate(){
+function get_DateTime(){
 	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 	#$time = $date->format('d-m-Y H:i:s');
-	$time = $date->format('m-d-Y H:i');
+	$time = $date->format('d-m-Y H:i');
 	return $time;
 }
+function get_date(){
+	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+	#$time = $date->format('d-m-Y H:i:s');
+	$time = $date->format('d-m-Y');
+	return $time;
+}
+
 function insert_customer($dbconn,$cus_line_id,$cus_name){
     $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name)) or die('Query failed: ' . pg_last_error());
     // Free result
@@ -91,7 +98,7 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 }
 
 function insert_reward($dbconn,$cus_id){
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => getTimeDate())) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => get_date())) or die('Query failed: ' . pg_last_error());
     
 	// Free result
     pg_free_result($result);     
@@ -322,10 +329,10 @@ if (is_admin($dbconn,$cus_line_id)){
 	}
 }
 else{
-	$time = getTimeDate();
+	$time = get_DateTime();
 	$push_line_id = get_admin_lineid($dbconn);
-	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
-	#$push_line_mes = "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
+	#$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
+	$push_line_mes = "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
