@@ -88,7 +88,7 @@ function get_date(){
 	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 	#$time = $date->format('d-m-Y H:i:s');
 	$time = $date->format('d-m-Y');
-	return $time;
+	return "'" . $time . "'";
 }
 
 function insert_customer($dbconn,$cus_line_id,$cus_name){
