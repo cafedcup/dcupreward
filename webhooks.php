@@ -76,7 +76,7 @@ function isPhone($string) {
     return preg_match("/^[0-9]{10}$/", $string);
 }
 
-function get_DateTime(){
+function get_datetime(){
 	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 	#$time = $date->format('d-m-Y H:i:s');
 	$time = $date->format('d-m-Y H:i');
@@ -304,18 +304,16 @@ if (is_admin($dbconn,$cus_line_id)){
 			$point_cur = get_point($dbconn,$cus_id);
 			$point = 1;
 			$point_new = $point_cur + $point;
-			# mod
-			#if
-				#terminate_reward
-				#insert_reward($dbconn,$cus_id,$time)
-			#else
-				
-			update_reward($dbconn,$cus_id,$point_new);
-			$push_line_mes = "วันนี้ได้เป็น " . $point_new . " แต้ม";
+			if (($point_new % 10) == 0){
+				update_reward($dbconn,$cus_id,$point_new);
+				$push_line_mes = "วันนี้ได้เป็น " . $point_new . " แต้ม";
+			}
+			else{
+				insert_reward($dbconn,$cus_id);
+			}
+
 		}
-		#elseif update
-			#if update
-			#else update and insert mod point_coutn more than 0
+
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
@@ -323,10 +321,10 @@ if (is_admin($dbconn,$cus_line_id)){
 	}
 }
 else{
-	$time = get_DateTime();
+	$time = get_datetime();
 	$push_line_id = get_admin_lineid($dbconn);
-	#$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
-	$push_line_mes = "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
+	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
+	#$push_line_mes = "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
