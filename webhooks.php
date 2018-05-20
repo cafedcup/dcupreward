@@ -68,8 +68,6 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			
 			#echo $result . "\r\n";
-
-
 		}
 	}
 }
@@ -88,7 +86,7 @@ function get_date(){
 	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 	#$time = $date->format('d-m-Y H:i:s');
 	$time = $date->format('d-m-Y');
-	return "'" . $time . "'";
+	return $time;
 }
 
 function insert_customer($dbconn,$cus_line_id,$cus_name){
@@ -98,8 +96,8 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 }
 
 function insert_reward($dbconn,$cus_id){
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => get_date())) or die('Query failed: ' . pg_last_error());
-    
+    #$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => get_date())) or die('Query failed: ' . pg_last_error());
+	$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
 	// Free result
     pg_free_result($result);     
 }
@@ -267,7 +265,6 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			#{
 			#	$tel = "your phone number is exist. If you would like to update Phone number,please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
 			#}
-			
 		}
 		else if ($isUpdate)
 		{
@@ -316,12 +313,9 @@ if (is_admin($dbconn,$cus_line_id)){
 			update_reward($dbconn,$cus_id,$point_new);
 			$push_line_mes = "วันนี้ได้เป็น " . $point_new . " แต้ม";
 		}
-
-		
 		#elseif update
 			#if update
-			#else update and insert mod point_coutn more than 0 
-			
+			#else update and insert mod point_coutn more than 0
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
