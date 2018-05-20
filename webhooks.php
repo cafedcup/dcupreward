@@ -90,8 +90,8 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 }
 
 function insert_reward($dbconn,$cus_id){
-    #$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => date(Y-m-d H:i:s))) or die('Query failed: ' . pg_last_error());
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => getTimeDate())) or die('Query failed: ' . pg_last_error());
+    
 	// Free result
     pg_free_result($result);     
 }
