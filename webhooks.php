@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 			else if (isPhone(substr($str_mes,0,strpos($str_mes,',')))){
 				$isPhoneText = true;
 				$cus_tel = substr($str_mes,0,strpos($str_mes,','));
-				$point = substr($str_mes,strpos($str_mes,':')+1);
+				$point = substr($str_mes,strpos($str_mes,',')+1);
 				
 			}
 			
@@ -80,6 +80,9 @@ if (!is_null($events['events'])) {
 
 function isPhone($string) {
     return preg_match("/^[0-9]{10}$/", $string);
+}
+function isPoint ($point){
+	return preg_match("/^[1-9]{1}$/", $point);
 }
 
 function get_datetime(){
