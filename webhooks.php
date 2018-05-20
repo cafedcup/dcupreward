@@ -104,9 +104,9 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
     pg_free_result($result);     
 }
 
-function insert_reward($dbconn,$cus_id){
+function insert_reward($dbconn,$cus_id,$point){
     #$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true, 'reward_start_date' => get_date())) or die('Query failed: ' . pg_last_error());
-	$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => 1,'valid' => true)) or die('Query failed: ' . pg_last_error());
+	$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => '$point','valid' => true)) or die('Query failed: ' . pg_last_error());
 	// Free result
     pg_free_result($result);     
 }
@@ -306,7 +306,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$cus_id = get_cus_id($dbconn,$push_line_id);
 
 		if (!is_reward_exist($dbconn,$cus_id)){
-			insert_reward($dbconn,$cus_id);
+			insert_reward($dbconn,$cus_id,$point);
 			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
 		}
 		else{
@@ -318,8 +318,8 @@ if (is_admin($dbconn,$cus_line_id)){
 			}
 			else{
 				update_reward($dbconn,$cus_id,10,false);
-				$push_line_mes = "วันนี้คุณได้ " . $point . "แต้ม, ขณะนี้มี " . $point_new . "แต้ม และได้ฟรี 1 แก้ว";
-				insert_reward($dbconn,$cus_id);
+				$push_line_mes = "วันนี้คุณได้ " . $point . "แต้ม, ขณะนี้มี " . $point_new . "แต้ม และได้ฟรี  1 แก้ว";
+				insert_reward($dbconn,$cus_id,$point_new % 10);
 			}
 		}
 
