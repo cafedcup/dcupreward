@@ -24,13 +24,12 @@ if (!is_null($events['events'])) {
 			$str_mes = $event['message']['text'];
 			$cus_line_id = $event['source']['userId'];
 			$cus_name = get_line_displayName($cus_line_id,$bot);
-			if (isPhone($str_mes))
-			{
+			$point = 1;
+			if (isPhone($str_mes)){
 				$isPhoneText = true;
 				$cus_tel = $str_mes;
 			}
-			else if (!strcmp(strtolower(substr($str_mes,0,strpos($str_mes,':'))),"update"))
-			{
+			else if (!strcmp(strtolower(substr($str_mes,0,strpos($str_mes,':'))),"update")){
 				$isUpdate = true;
 				if (isPhone(substr($str_mes,strpos($str_mes,':')+1)))
 				{
@@ -38,6 +37,10 @@ if (!is_null($events['events'])) {
 					$cus_tel = substr($str_mes,strpos($str_mes,':')+1);
 				}
 			}
+			else if (isPhone(substr($str_mes,0,strpos($str_mes,',')))){
+				$point = substr($str_mes,strpos($str_mes,':')+1);
+			}
+			
 			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
 			// Get replyToken
 			$replyToken = $event['replyToken'];
@@ -109,7 +112,7 @@ function update_custel($dbconn,$cus_tel,$cus_line_id){
 }
 
 function update_reward($dbconn,$cus_id,$point_count,$valid){
-    $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => $point_count,'valid' => $valid),array('customer_id' => $cus_id,'valid' => true) or die('Query failed: ' . pg_last_error());
+    $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => $point_count,'valid' => $valid),array('customer_id' => $cus_id) or die('Query failed: ' . pg_last_error());
     // Free result  
     pg_free_result($result);
 }
@@ -302,7 +305,6 @@ if (is_admin($dbconn,$cus_line_id)){
 		}
 		else{
 			$point_cur = get_point($dbconn,$cus_id);
-			$point = 1;
 			$point_new = $point_cur + $point;
 			if ((floor($point_new / 10)) == 0 || ($point_new % 10 == 0)){
 				update_reward($dbconn,$cus_id,$point_new,true);
