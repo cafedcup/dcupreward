@@ -38,7 +38,9 @@ if (!is_null($events['events'])) {
 				}
 			}
 			else if (isPhone(substr($str_mes,0,strpos($str_mes,',')))){
+				$cus_line_id = substr($str_mes,0,strpos($str_mes,','));
 				$point = substr($str_mes,strpos($str_mes,':')+1);
+				
 			}
 			
 			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
