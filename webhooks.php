@@ -265,7 +265,6 @@ function get_admin_lineid($dbconn){
     return $admin_lineid;
 }
 
-
 function is_admin($dbconn,$admin_line_id){
     $query = "SELECT * FROM dcup_admin_mst WHERE admin_line_id = '" . $admin_line_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -367,6 +366,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	}
 	return $hello . ' ' . $tel;
 }
+
 if (is_admin($dbconn,$cus_line_id)){
 	#$hello = "Hi, I can ping you from " . $hello;
 	#$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
@@ -378,7 +378,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$str_cus_id = sprintf("D%04s",$cus_id);
 		$point_cur = get_point($dbconn,$cus_id);
 		$point_new = $point_cur + $point;
-		$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม\n";
+		$push_line_mes = "คุณได้รับเพิ่ม ". $point . " แต้ม\n";
 		if (!is_reward_exist($dbconn,$cus_id)){
 			insert_reward($dbconn,$cus_id,$point_new);
 			#$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม";
