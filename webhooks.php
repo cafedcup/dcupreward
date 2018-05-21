@@ -432,6 +432,8 @@ if (is_admin($dbconn,$cus_line_id)){
 	}
 	elseif ($isUseReward){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+		$push_line_mes = "Test";
+		/*
 		$cus_name = get_cus_name($dbconn,$push_line_id);
 		$cus_id = get_cus_id($dbconn,$push_line_id);
 		$str_cus_id = sprintf("D%04s",$cus_id);
@@ -440,6 +442,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		use_reward($dbconn,$reward_id);
 		$str_message = "คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธินะคะ";
 		$push_line_mes = $cus_name . "[" . $str_cus_id . "] " . $str_message;
+		*/
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
