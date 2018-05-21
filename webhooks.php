@@ -175,7 +175,7 @@ function get_point($dbconn,$cus_id){
 	return $point;
 	
 }function get_reward($dbconn,$cus_id){
-    $query = "SELECT point_count FROM dcup_reward_tbl Where valid = false and reward_use_date is null and customer_id = '" . $cus_id . "'";
+    $query = "SELECT count(id) FROM dcup_reward_tbl Where valid = false and reward_use_date is null and customer_id = '" . $cus_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
@@ -300,7 +300,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$point = get_point($dbconn,$cus_id);
 				$reward = get_reward($dbconn,$cus_id);
 				if ($point != 0){
-					$tel = "คุณมี " . $point . " แต้ม ";
+					$tel = "ขณะนี้คุณมี " . $point . " แต้ม ";
 				}
 				if ($reward != 0){
 					$tel = $tel . "และฟรี ". $reward ." แก้ว";
