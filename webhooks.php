@@ -119,14 +119,12 @@ function get_reward_message($point,$reward){
 }
 function get_datetime(){
 	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
-	#$time = $date->format('d-m-Y H:i:s');
-	$time = $date->format('d-m-Y H:i');
+	$time = $date->format('Y-m-d H:i:s');
 	return $time;
 }
 function get_date(){
 	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
-	#$time = $date->format('d-m-Y H:i:s');
-	$time = $date->format('Y-m-d');
+	$time = $date->format('Y-m-d ');
 	return $time;
 }
 
@@ -137,7 +135,7 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 }
 
 function insert_reward($dbconn,$cus_id,$point){
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => $point,'valid' => true, 'reward_start_date' => get_date())) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => $point,'valid' => true, 'reward_start_date' => '2018-05-21 15:53:19')) or die('Query failed: ' . pg_last_error());
 	#$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => $point,'valid' => true)) or die('Query failed: ' . pg_last_error());
 	// Free result
     pg_free_result($result);     
