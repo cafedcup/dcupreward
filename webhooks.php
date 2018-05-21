@@ -430,7 +430,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$push_line_id = get_admin_lineid($dbconn);
 		$push_line_mes = "อย่าลืมคุณคือโคบาล, ต้องกรอกเบอร์โทรลูกค้าเซ่";
 	}
-	$push_line_mes = get_reward_id($dbconn,$cus_id);
+	$push_line_mes = get_reward_id($dbconn,$cus_id) . "Test";
 	$push_line_id = get_admin_lineid($dbconn);
 }
 else{
