@@ -101,7 +101,7 @@ function get_reward_message($point,$reward){
 			$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้ต้องพาเดอะแก๊งมาโดน";
 		elseif ($point >= 7 && $point < 9)
 			$str = " อีก " . (10 - $point) . " แต้ม \n=>ไม่ธรรมดานะคะ";
-		else ($point == 9)
+		elseif ($point == 9)
 			$str = " อีก แค่ 1 แต้มเท่านั้น !!!";
 		$str_message = $str_message . $str;
 	}
