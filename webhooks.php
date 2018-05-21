@@ -173,6 +173,18 @@ function get_point($dbconn,$cus_id){
     // Free resultset
     pg_free_result($result);
 	return $point;
+	
+}function get_reward($dbconn,$cus_id){
+    $query = "SELECT point_count FROM dcup_reward_tbl Where valid = false and reward_use_date is null and customer_id = '" . $cus_id . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $reward = $col_value;
+        }
+    }
+    // Free resultset
+    pg_free_result($result);
+	return $reward;
 }
 function is_custel_exist($dbconn,$cus_line_id){
     $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
@@ -282,10 +294,13 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 		else
 		{	if (is_custel_exist($dbconn,$cus_line_id))
 			{
-				$cur_id = get_cus_id($dbconn,$cus_line_id);
-				$str_cus_id = sprintf("D%04s",$cur_id);
+				$cus_id = get_cus_id($dbconn,$cus_line_id);
+				$str_cus_id = sprintf("D%04s",$cus_id);
+				$point = get_point($dbconn,$cus_id);
+				$reward = get_reward($dbconn,$cus_id);
+				$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
 				#$tel = "You register already.\nYour ID is " . $str_cus_id;
-				$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
+				#$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
 			}
 			else 
 			{
@@ -307,22 +322,21 @@ if (is_admin($dbconn,$cus_line_id)){
 
 		if (!is_reward_exist($dbconn,$cus_id)){
 			insert_reward($dbconn,$cus_id,$point);
-			$push_line_mes = "วันนี้คุณได้รับ 1 แต้ม";
+			$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม";
 		}
 		else{
 			$point_cur = get_point($dbconn,$cus_id);
 			$point_new = $point_cur + $point;
 			if ((floor($point_new / 10)) == 0){
 				update_reward($dbconn,$cus_id,$point_new,true);
-				$push_line_mes = "วันนี้คุณได้ " . $point . "แต้ม, ขณะนี้มี " . $point_new . " แต้ม";
+				$push_line_mes = "วันนี้คุณได้ " . $point . " แต้ม, ขณะนี้มี " . $point_new . " แต้ม";
 			}
 			else{
 				update_reward($dbconn,$cus_id,10,false);
-				$push_line_mes = "วันนี้คุณได้ " . $point_new . "แต้ม, ขณะนี้มี " . $point_new % 10 . "แต้ม และได้ฟรี  1 แก้ว";
+				$push_line_mes = "วันนี้คุณได้ " . $point_new . " แต้ม, ขณะนี้มี " . $point_new % 10 . " แต้ม และฟรีเพิ่ม 1 แก้ว";
 				insert_reward($dbconn,$cus_id,$point_new % 10);
 			}
 		}
-
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
