@@ -102,7 +102,7 @@ function get_reward_message($point,$reward){
 	return $str_message;
 }
 function get_datetime(){
-	$date =$new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 	#$time = $date->format('d-m-Y H:i:s');
 	$time = $date->format('d-m-Y H:i');
 	return $time;
@@ -268,7 +268,6 @@ function get_line_displayName($str_line_id,$bot){
 function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate){
 	$hello = $cus_name;
 	if (is_admin($dbconn,$cus_line_id)){
-
 		$hello = $hello . " คุณคือโคบาน";
 		$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
 	}
