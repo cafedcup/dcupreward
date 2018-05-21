@@ -164,7 +164,7 @@ function update_reward($dbconn,$cus_id,$point_count,$valid){
     pg_free_result($result);
 }
 function use_reward($dbconn,$reward_id){
-    $result = pg_update($dbconn,'dcup_reward_tbl',array('reward_use_date' => get_date()),array('id' => $reward_id)) or die('Query failed: ' . pg_last_error());
+    $result = pg_update($dbconn,'dcup_reward_tbl',array('reward_use_date' => get_datetime()),array('id' => $reward_id)) or die('Query failed: ' . pg_last_error());
     // Free result  
     pg_free_result($result);
 }
