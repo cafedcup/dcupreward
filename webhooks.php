@@ -86,15 +86,24 @@ function isPoint ($point){
 }
 
 function get_reward_message($point,$reward){
-	$str_message = "\nขณะนี้ไม่มีแต้ม รีบมาสะสมเพิ่มนะคะ";
+	$str_message = "\nขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ";
 	if ($point != 0){
 		$str_message = "\nขณะนี้คุณมี " . $point . " แต้ม ";
 	}
 	if ($reward != 0){
-		$str_message = $str_message . "\nขณะนี้คุณสิทธิพิเศษ ". $reward ." สิทธิ";
+		$str_message = $str_message . "\nคุณสิทธิพิเศษ ". $reward ." สิทธิ";
 	}
 	elseif ($point != 0){
-		$str_message = $str_message . "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
+		$str = " อีก " . (10 - $point) . " แต้ม เห็นทีพรุ่งนี้ต้องซ้ำ";
+		if ($point >= 3 && $point < 5)
+			$str = " อีก " . (10 - $point) . " แต้ม สู้ต่อไปเป็นกำลังใจให้นะคะ";
+		elseif ($point >= 5 && $point < 7)
+			$str = " อีก " . (10 - $point) . " แต้ม พรุ่งนี้ต้องพาเดอะแก๊งมาโดน";
+		elseif ($point >= 7 && $point < 9)
+			$str = " อีก " . (10 - $point) . " แต้ม ไม่ธรรมดานะคะ";
+		else
+			$str = " อีก แค่ 1 แต้มเท่านั้น !!!";
+		$str_message = $str_message . $str;
 	}
 	/*
 	if (($point == 0) && ($reward == 0 )){
