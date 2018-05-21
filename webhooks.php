@@ -85,8 +85,24 @@ function isPoint ($point){
 	return preg_match("/^[1-9]{1}$/", $point);
 }
 
+function get_reward_message($point,$reward){
+	$str_message = '';
+	if ($point != 0){
+		$str_message = "ขณะนี้คุณมี " . $point . " แต้ม ";
+	}
+	if ($reward != 0){
+		$str_message = $str_message . "และฟรี ". $reward ." แก้ว";
+	}
+	else{
+		$str_message = $str_message . "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
+	}
+	if (($point == 0) && ($reward == 0 )){
+		$str_message = "\nขณะนี้ยังไม่มีแต้ม รีบมาสะสมกันนะคะ";
+	}
+	return $str_message;
+}
 function get_datetime(){
-	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+	$date =$new DateTime('now', new DateTimeZone('Asia/Bangkok'));
 	#$time = $date->format('d-m-Y H:i:s');
 	$time = $date->format('d-m-Y H:i');
 	return $time;
@@ -296,9 +312,11 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			{
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
 				$str_cus_id = sprintf("D%04s",$cus_id);
-				$tel = '';
+				#$tel = '';
 				$point = get_point($dbconn,$cus_id);
 				$reward = get_reward($dbconn,$cus_id);
+				$tel = get_reward_message($point,$reward);
+				/*
 				if ($point != 0){
 					$tel = "ขณะนี้คุณมี " . $point . " แต้ม ";
 				}
@@ -311,6 +329,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				if (($point == 0) && ($reward == 0 )){
 					$tel = "\nขณะนี้ยังไม่มีแต้ม รีบมาสะสมกันนะคะ";
 				}
+				*/
 				#$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
 				#$tel = "You register already.\nYour ID is " . $str_cus_id;
 				#$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
@@ -330,31 +349,39 @@ if (is_admin($dbconn,$cus_line_id)){
 	#$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
 	if ($isPhoneText){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
-		
-		$push_line_mes = "";
 		$cus_id = get_cus_id($dbconn,$push_line_id);
-
+		
+		$str_cus_id = sprintf("D%04s",$cus_id);
+		$point_cur = get_point($dbconn,$cus_id);
+		$reward = get_reward($dbconn,$cus_id);
+		
+		$str_cus_id = sprintf("D%04s",$cus_id);
 		if (!is_reward_exist($dbconn,$cus_id)){
 			insert_reward($dbconn,$cus_id,$point);
-			$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม";
+			#$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม";
 		}
 		else{
-			$point_cur = get_point($dbconn,$cus_id);
+			#$point_cur = get_point($dbconn,$cus_id);
 			$point_new = $point_cur + $point;
 			if ((floor($point_new / 10)) == 0){
 				update_reward($dbconn,$cus_id,$point_new,true);
-				$reward = get_reward($dbconn,$cus_id);
+				#$reward = get_reward($dbconn,$cus_id);
+				/*
 				$push_line_mes = "วันนี้คุณได้ " . $point . " แต้ม, ขณะนี้มี " . $point_new . " แต้ม";
 				if ($reward != 0){
 					$push_line_mes = $push_line_mes . "และฟรี ". $reward ." แก้ว";
 				}
+				*/
 			}
 			else{
 				update_reward($dbconn,$cus_id,10,false);
-				$push_line_mes = "วันนี้คุณได้ " . $point . " แต้ม, ขณะนี้มี " . ($point_new % 10) . " แต้ม และฟรีเพิ่ม 1 แก้ว";
+				#$push_line_mes = "วันนี้คุณได้ " . $point . " แต้ม, ขณะนี้มี " . ($point_new % 10) . " แต้ม และฟรีเพิ่ม 1 แก้ว";
 				insert_reward($dbconn,$cus_id,($point_new % 10));
 			}
 		}
+		$str_message = get_reward_message($point_cur,$reward);
+		$str_message = "[".$str_cus_id . "] " .$str_message;
+		$push_line_mes = $push_line_mes . $str_message;
 	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
