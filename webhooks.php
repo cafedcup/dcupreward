@@ -14,6 +14,9 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 $isPhoneText = false;
 $isUpdate = false;
+$isGivePoint = false;
+$isUseReward = false;
+
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -40,8 +43,13 @@ if (!is_null($events['events'])) {
 			else if (isPhone(substr($str_mes,0,strpos($str_mes,',')))){
 				$isPhoneText = true;
 				$cus_tel = substr($str_mes,0,strpos($str_mes,','));
-				$point = substr($str_mes,strpos($str_mes,',')+1);
-				
+				if(isPoint(substr($str_mes,strpos($str_mes,',')+1))){
+					$point = substr($str_mes,strpos($str_mes,',')+1);
+					$isGivePoint = true;
+				}
+				if(isReward(substr($str_mes,strpos($str_mes,',')+1))){
+					$isUseReward = true;
+				}
 			}
 			
 			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
@@ -81,8 +89,11 @@ if (!is_null($events['events'])) {
 function isPhone($string) {
     return preg_match("/^[0-9]{10}$/", $string);
 }
-function isPoint ($point){
-	return preg_match("/^[1-9]{1}$/", $point);
+function isPoint($string){
+	return preg_match("/^[1-9]{1}$/", $string);
+}
+function isReward($string){
+	return preg_match("/^[r,R]{1}$/", $string);
 }
 
 function get_reward_message($point,$reward){
@@ -149,6 +160,11 @@ function update_custel($dbconn,$cus_tel,$cus_line_id){
 
 function update_reward($dbconn,$cus_id,$point_count,$valid){
     $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => $point_count,'valid' => $valid),array('customer_id' => $cus_id,'valid' => true)) or die('Query failed: ' . pg_last_error());
+    // Free result  
+    pg_free_result($result);
+}
+function use_reward($dbconn,$reward_id){
+    $result = pg_update($dbconn,'dcup_reward_tbl',array('point_count' => get_datetime()),array('id' => $reward_id)) or die('Query failed: ' . pg_last_error());
     // Free result  
     pg_free_result($result);
 }
@@ -386,37 +402,25 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 }
 
 if (is_admin($dbconn,$cus_line_id)){
-	#$hello = "Hi, I can ping you from " . $hello;
-	#$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
-	if ($isPhoneText){
+
+	if ($isGivePoint){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
 		$cus_name = get_cus_name($dbconn,$push_line_id);
 		$cus_id = get_cus_id($dbconn,$push_line_id);
-		
 		$str_cus_id = sprintf("D%04s",$cus_id);
+		
 		$point_cur = get_point($dbconn,$cus_id);
 		$point_new = $point_cur + $point;
 		$push_line_mes = "คุณได้รับเพิ่ม ". $point . " แต้ม\n";
 		if (!is_reward_exist($dbconn,$cus_id)){
 			insert_reward($dbconn,$cus_id,$point_new);
-			#$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม";
 		}
 		else{
-			#$point_cur = get_point($dbconn,$cus_id);
-			#$point_new = $point_cur + $point;
 			if ((floor($point_new / 10)) == 0){
 				update_reward($dbconn,$cus_id,$point_new,true);
-				#$reward = get_reward($dbconn,$cus_id);
-				/*
-				$push_line_mes = "วันนี้คุณได้ " . $point . " แต้ม, ขณะนี้มี " . $point_new . " แต้ม";
-				if ($reward != 0){
-					$push_line_mes = $push_line_mes . "และฟรี ". $reward ." แก้ว";
-				}
-				*/
 			}
 			else{
 				update_reward($dbconn,$cus_id,10,false);
-				#$push_line_mes = "วันนี้คุณได้ " . $point . " แต้ม, ขณะนี้มี " . ($point_new % 10) . " แต้ม และฟรีเพิ่ม 1 แก้ว";
 				insert_reward($dbconn,$cus_id,($point_new % 10));
 			}
 		}
@@ -426,18 +430,27 @@ if (is_admin($dbconn,$cus_line_id)){
 		$str_message = $cus_name . "[" . $str_cus_id . "] " . $str_message;
 		$push_line_mes = $push_line_mes . $str_message;
 	}
+	elseif ($isUseReward){
+		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+		$cus_name = get_cus_name($dbconn,$push_line_id);
+		$cus_id = get_cus_id($dbconn,$push_line_id);
+		$str_cus_id = sprintf("D%04s",$cus_id);
+		
+		$reward_id = get_reward_id($dbconn,$cus_id);
+		use_reward($dbconn,$reward_id);
+		$str_message = "คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธินะคะ";
+		$push_line_mes = $cus_name . "[" . $str_cus_id . "] " . $str_message;
+	}
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
 		$push_line_mes = "อย่าลืมคุณคือโคบาล, ต้องกรอกเบอร์โทรลูกค้าเซ่";
 	}
-	$push_line_mes = get_reward_id($dbconn,$cus_id) . "Test";
-	$push_line_id = get_admin_lineid($dbconn);
+
 }
 else{
 	$time = get_datetime();
 	$push_line_id = get_admin_lineid($dbconn);
 	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
-	#$push_line_mes = "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
