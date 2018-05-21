@@ -306,7 +306,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 					$tel = $tel . "และฟรี ". $reward ." แก้ว";
 				}
 				else{
-					$tel = "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
+					$tel = $tel . "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
 				}
 				if (($point == 0) && ($reward == 0 )){
 					$tel = "\nขณะนี้ยังไม่มีแต้ม รีบมาสะสมกันนะคะ";
