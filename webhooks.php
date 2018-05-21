@@ -167,6 +167,19 @@ function get_cus_id($dbconn,$cus_line_id){
     return $cus_id;
 }
 
+function get_cus_name($dbconn,$cus_line_id){
+    $query = "SELECT cus_name FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $cus_name = $col_value;
+        }
+    }
+    // Free resultset
+    pg_free_result($result);
+    return $cus_name;
+}
+
 function get_cus_line_id($dbconn,$cus_tel){
     $query = "SELECT cus_line_id FROM dcup_customer_mst WHERE cus_tel = '" . $cus_tel . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -350,6 +363,7 @@ if (is_admin($dbconn,$cus_line_id)){
 	#$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
 	if ($isPhoneText){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+		$cus_name = get_cus_name($dbconn,$push_lineid);
 		$cus_id = get_cus_id($dbconn,$push_line_id);
 		
 		$str_cus_id = sprintf("D%04s",$cus_id);
