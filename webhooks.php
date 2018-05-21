@@ -97,7 +97,7 @@ function get_reward_message($point,$reward){
 		$str_message = $str_message . "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
 	}
 	if (($point == 0) && ($reward == 0 )){
-		$str_message = "\nขณะนี้ยังไม่มีแต้ม รีบมาสะสมกันนะคะ";
+		$str_message = "\nขณะนี้ไม่มีแต้ม รีบมาสะสมนะคะ";
 	}
 	return $str_message;
 }
@@ -352,14 +352,15 @@ if (is_admin($dbconn,$cus_line_id)){
 		
 		$str_cus_id = sprintf("D%04s",$cus_id);
 		$point_cur = get_point($dbconn,$cus_id);
+		$point_new = $point_cur + $point;
 		$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม\n";
 		if (!is_reward_exist($dbconn,$cus_id)){
-			insert_reward($dbconn,$cus_id,$point);
+			insert_reward($dbconn,$cus_id,$point_new);
 			#$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม";
 		}
 		else{
 			#$point_cur = get_point($dbconn,$cus_id);
-			$point_new = $point_cur + $point;
+			#$point_new = $point_cur + $point;
 			if ((floor($point_new / 10)) == 0){
 				update_reward($dbconn,$cus_id,$point_new,true);
 				#$reward = get_reward($dbconn,$cus_id);
@@ -376,6 +377,7 @@ if (is_admin($dbconn,$cus_line_id)){
 				insert_reward($dbconn,$cus_id,($point_new % 10));
 			}
 		}
+		
 		$reward = get_reward($dbconn,$cus_id);
 		$str_message = get_reward_message(($point_new % 10),$reward);
 		$str_message = "[". $str_cus_id . "] " . $str_message;
