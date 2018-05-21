@@ -275,9 +275,9 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	else if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    insert_customer($dbconn,$cus_line_id,$cus_name);
 	    #$hello = 'Welcome ' . $cus_name;
-		$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ระบบ dcup reward แตนแต๊น";
+		$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ระบบ dcup Reward\n";
 	    #$tel = "\nPlease enter your phone number";
-		$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์ของคุณเพื่อทำการลงทะเบียน";
+		$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์เพื่อทำการลงทะเบียน";
 	}
 	else
 	{
@@ -295,7 +295,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$cur_id = get_cus_id($dbconn,$cus_line_id);
 				$str_cus_id = sprintf("D%04s",$cur_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
-				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนแล้วเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id;
+				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\nรหัสสมาชิกของคุณคือ " . $str_cus_id;
 			}
 			
 			#else
