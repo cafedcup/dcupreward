@@ -91,7 +91,7 @@ function get_reward_message($point,$reward){
 		$str_message = "\nขณะนี้คุณมี " . $point . " แต้ม ";
 	}
 	if ($reward != 0){
-		$str_message = $str_message . "\nมขณะนี้คุณสิทธิพิเศษ ". $reward ." สิทธิ";
+		$str_message = $str_message . "\nขณะนี้คุณสิทธิพิเศษ ". $reward ." สิทธิ";
 	}
 	elseif ($point != 0){
 		$str_message = $str_message . "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
