@@ -167,6 +167,7 @@ function use_reward($dbconn,$reward_id){
     $result = pg_update($dbconn,'dcup_reward_tbl',array('reward_use_date' => get_date()),array('id' => $reward_id)) or die('Query failed: ' . pg_last_error());
     // Free result  
     pg_free_result($result);
+	return pg_last_error();
 }
 
 function is_lineid_exist($dbconn,$cus_line_id){
@@ -439,8 +440,9 @@ if (is_admin($dbconn,$cus_line_id)){
 		$str_cus_id = sprintf("D%04s",$cus_id);
 		
 		$reward_id = get_reward_id($dbconn,$cus_id);
+		
+		$push_line_mes=use_reward($dbconn,$reward_id);
 		/*
-		use_reward($dbconn,$reward_id);
 		$str_message = "คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธินะคะ";
 		$push_line_mes = $cus_name . "[" . $str_cus_id . "] " . $str_message;
 		*/
