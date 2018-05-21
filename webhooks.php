@@ -91,7 +91,12 @@ function get_reward_message($point,$reward){
 		$str_message = "\nขณะนี้คุณมี " . $point . " แต้ม ";
 	}
 	if ($reward != 0){
-		$str_message = $str_message . "\nมีสิทธิพิเศษ ". $reward ." สิทธิ";
+		if($point == 0){
+			$str_message = "มีสิทธิพิเศษ ". $reward ." สิทธิ";
+		}
+		else{
+			$str_message = $str_message . "\nมีสิทธิพิเศษ ". $reward ." สิทธิ";
+		}
 	}
 	elseif ($point != 0){
 		$str = " อีก " . (10 - $point) . " แต้ม \n=>เห็นทีพรุ่งนี้มีซ้ำ";
