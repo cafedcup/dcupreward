@@ -337,7 +337,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			else 
 			{
 				#$tel = "sorry it is not your phone number.\nPlease try again";
-				$tel = "คุณยังไม่ได้ลงทะเบียน, กรุณาพิมพ์หมายเลขโทรศัพท์นะคะ";
+				$tel = "คุณยังไม่ได้ทำการลงทะเบียน\nกรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก อีกครั้งนะคะ";
 			}
 		}
 	}
