@@ -343,7 +343,11 @@ if (is_admin($dbconn,$cus_line_id)){
 			$point_new = $point_cur + $point;
 			if ((floor($point_new / 10)) == 0){
 				update_reward($dbconn,$cus_id,$point_new,true);
+				$reward = get_reward($dbconn,$cus_id);
 				$push_line_mes = "วันนี้คุณได้ " . $point . " แต้ม, ขณะนี้มี " . $point_new . " แต้ม";
+				if ($reward != 0){
+					$push_line_mes = $push_line_mes . "และฟรี ". $reward ." แก้ว";
+				}
 			}
 			else{
 				update_reward($dbconn,$cus_id,10,false);
