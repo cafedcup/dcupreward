@@ -135,7 +135,7 @@ function get_datetime(){
 }
 function get_date(){
 	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
-	$time = $date->format('Y-m-d ');
+	$time = $date->format('Y-m-d');
 	return $time;
 }
 
