@@ -309,7 +309,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 					$tel = "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
 				}
 				if (($point == 0) && ($reward == 0 )){
-					$tel = "คุณยังไม่มีแต้ม, รีบมาสะสมกันนะคะ";
+					$tel = "\nขณะนี้ยังไม่มีแต้ม รีบมาสะสมกันนะคะ";
 				}
 				#$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
 				#$tel = "You register already.\nYour ID is " . $str_cus_id;
@@ -323,7 +323,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			}
 		}
 	}
-	return $hello . ', ' . $tel;
+	return $hello . ' ' . $tel;
 }
 if (is_admin($dbconn,$cus_line_id)){
 	#$hello = "Hi, I can ping you from " . $hello;
