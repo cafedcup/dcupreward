@@ -86,7 +86,7 @@ function isPoint ($point){
 }
 
 function get_reward_message($point,$reward){
-	$str_message = '';
+	$str_message = "";
 	if ($point != 0){
 		$str_message = "ขณะนี้คุณมี " . $point . " แต้ม ";
 	}
@@ -275,7 +275,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	else if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    insert_customer($dbconn,$cus_line_id,$cus_name);
 	    #$hello = 'Welcome ' . $cus_name;
-		$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ระบบ dcup Reward\n";
+		$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ระบบ dcup Reward";
 	    #$tel = "\nPlease enter your phone number";
 		$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์เพื่อทำการลงทะเบียน";
 	}
@@ -333,7 +333,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				#$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
 				#$tel = "You register already.\nYour ID is " . $str_cus_id;
 				#$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
-			$tel = "[".$str_cus_id . "] " .$tel;
+				$tel = "[".$str_cus_id . "] " . $tel;
 			}
 			else 
 			{
@@ -354,8 +354,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$str_cus_id = sprintf("D%04s",$cus_id);
 		$point_cur = get_point($dbconn,$cus_id);
 		$reward = get_reward($dbconn,$cus_id);
-		
-		$str_cus_id = sprintf("D%04s",$cus_id);
+		$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม";
 		if (!is_reward_exist($dbconn,$cus_id)){
 			insert_reward($dbconn,$cus_id,$point);
 			#$push_line_mes = "วันนี้คุณได้รับ ". $point . " แต้ม";
@@ -380,7 +379,7 @@ if (is_admin($dbconn,$cus_line_id)){
 			}
 		}
 		$str_message = get_reward_message($point_cur,$reward);
-		$str_message = "[".$str_cus_id . "] " .$str_message;
+		$str_message = "[". $str_cus_id . "] " . $str_message;
 		$push_line_mes = $push_line_mes . $str_message;
 	}
 	else{
