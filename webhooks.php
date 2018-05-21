@@ -296,16 +296,30 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			{
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
 				$str_cus_id = sprintf("D%04s",$cus_id);
+				$tel = '';
 				$point = get_point($dbconn,$cus_id);
 				$reward = get_reward($dbconn,$cus_id);
-				$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
+				if ($point != 0){
+					$tel = "คุณมี " . $point . " แต้ม ";
+				}
+				if ($reward != 0){
+					$tel = $tel . "และฟรี ". $reward ." แก้ว";
+				}
+				else{
+					$tel = "สู้ๆนะคะ อีก " . 10 - $point . " แต้ม จะสะสมครบนะคะ";
+				}
+				if (($point == 0) && ($reward == 0 )){
+					$tel = "คุณยังไม่มีแต้ม, รีบมาสะสมกันนะคะ";
+				}
+				#$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
 				#$tel = "You register already.\nYour ID is " . $str_cus_id;
 				#$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
+				$tel = $str_cus_id . "," .$tel;
 			}
 			else 
 			{
 				#$tel = "sorry it is not your phone number.\nPlease try again";
-				$tel = "พิมพ์ดีๆต๊ะ ^^ บอกว่าพิมพ์เบอร์โทรศัพท์นิ๊ ไอยา";
+				$tel = "คุณยังไม่ได้ลงทะเบียน, กรุณาพิมพ์เบอร์โทรศัพท์นะคะ";
 			}
 		}
 	}
