@@ -94,11 +94,11 @@ function get_reward_message($point,$reward){
 		$str_message = $str_message . "\nมีสิทธิพิเศษ ". $reward ." สิทธิ";
 	}
 	elseif ($point != 0){
-		$str = " อีก " . (10 - $point) . " แต้ม \n=>ห็นทีพรุ่งนี้ต้องซ้ำ";
+		$str = " อีก " . (10 - $point) . " แต้ม \n=>เห็นทีพรุ่งนี้มีซ้ำ";
 		if ($point >= 3 && $point < 5)
 			$str = " อีก " . (10 - $point) . " แต้ม \n=>สู้ต่อไปเป็นกำลังใจให้นะคะ";
 		elseif ($point >= 5 && $point < 7)
-			$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้ต้องพาเดอะแก๊งมาโดน";
+			$str = " อีก " . (10 - $point) . " แต้ม \n=>ต้องพาเดอะแก๊งมาโดน";
 		elseif ($point >= 7 && $point < 9)
 			$str = " อีก " . (10 - $point) . " แต้ม \n=>ไม่ธรรมดานะคะ";
 		elseif ($point == 9)
