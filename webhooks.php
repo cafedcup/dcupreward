@@ -306,7 +306,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 					$tel = $tel . "และฟรี ". $reward ." แก้ว";
 				}
 				else{
-					$tel = "สู้ๆนะคะ อีก " . 10 - $point . " แต้ม จะสะสมครบนะคะ";
+					$tel = "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
 				}
 				if (($point == 0) && ($reward == 0 )){
 					$tel = "คุณยังไม่มีแต้ม, รีบมาสะสมกันนะคะ";
@@ -314,7 +314,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				#$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
 				#$tel = "You register already.\nYour ID is " . $str_cus_id;
 				#$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
-				$tel = $str_cus_id . "," .$tel;
+			$tel = "[".$str_cus_id . "] " .$tel;
 			}
 			else 
 			{
