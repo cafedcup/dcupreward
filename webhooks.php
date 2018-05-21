@@ -86,19 +86,21 @@ function isPoint ($point){
 }
 
 function get_reward_message($point,$reward){
-	$str_message = "";
+	$str_message = "ขณะนี้ไม่มีแต้ม รีบมาสะสมเพิ่มนะคะ";
 	if ($point != 0){
 		$str_message = "ขณะนี้คุณมี " . $point . " แต้ม ";
 	}
 	if ($reward != 0){
-		$str_message = $str_message . "และฟรี ". $reward ." แก้ว";
+		$str_message = $str_message . " มีสิทธิพิเศษ ". $reward ." สิทธิ";
 	}
 	else{
 		$str_message = $str_message . "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
 	}
+	/*
 	if (($point == 0) && ($reward == 0 )){
-		$str_message = "\nขณะนี้ไม่มีแต้ม รีบมาสะสมนะคะ";
+		$str_message = "\nขณะนี้ไม่มีแต้ม รีบมาสะสมเพิ่มนะคะ";
 	}
+	*/
 	return $str_message;
 }
 function get_datetime(){
