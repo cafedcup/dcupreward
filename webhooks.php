@@ -274,9 +274,9 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	else if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    insert_customer($dbconn,$cus_line_id,$cus_name);
 	    #$hello = 'Welcome ' . $cus_name;
-		$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ระบบ dcup Reward";
+		$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู้ dcup Reward";
 	    #$tel = "\nPlease enter your phone number";
-		$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์เพื่อทำการลงทะเบียน";
+		$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์\nเพื่อทำการลงทะเบียน";
 	}
 	else
 	{
@@ -337,7 +337,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			else 
 			{
 				#$tel = "sorry it is not your phone number.\nPlease try again";
-				$tel = "คุณยังไม่ได้ลงทะเบียน, กรุณาพิมพ์เบอร์โทรศัพท์นะคะ";
+				$tel = "คุณยังไม่ได้ลงทะเบียน, กรุณาพิมพ์หมายเลขโทรศัพท์นะคะ";
 			}
 		}
 	}
