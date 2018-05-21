@@ -403,7 +403,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 
 if (is_admin($dbconn,$cus_line_id)){
 
-	if ($isGivePoint || $isPhoneText){
+	if ($isGivePoint){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
 		$cus_name = get_cus_name($dbconn,$push_line_id);
 		$cus_id = get_cus_id($dbconn,$push_line_id);
