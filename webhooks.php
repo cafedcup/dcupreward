@@ -217,7 +217,8 @@ function get_point($dbconn,$cus_id){
     pg_free_result($result);
 	return $point;
 	
-}function get_reward($dbconn,$cus_id){
+}
+function get_reward($dbconn,$cus_id){
     $query = "SELECT count(id) FROM dcup_reward_tbl Where valid = false and reward_use_date is null and customer_id = '" . $cus_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
@@ -229,6 +230,20 @@ function get_point($dbconn,$cus_id){
     pg_free_result($result);
 	return $reward;
 }
+function get_reward_id(){
+	$query = "SELECT id FROM dcup_reward_tbl Where valid = false and reward_use_date is null and customer_id = '" . $cus_id . "' order by reward_start_date ASC";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $reward_id = $col_value;
+        }
+		break;
+    }
+    // Free resultset
+    pg_free_result($result);
+	return $reward_id;
+}
+
 function is_custel_exist($dbconn,$cus_line_id){
     $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
@@ -415,6 +430,8 @@ if (is_admin($dbconn,$cus_line_id)){
 		$push_line_id = get_admin_lineid($dbconn);
 		$push_line_mes = "อย่าลืมคุณคือโคบาล, ต้องกรอกเบอร์โทรลูกค้าเซ่";
 	}
+	$push_line_mes = get_reward_id($dbconn,$cus_id);
+	$push_line_id = get_admin_lineid($dbconn);
 }
 else{
 	$time = get_datetime();
