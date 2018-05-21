@@ -86,12 +86,12 @@ function isPoint ($point){
 }
 
 function get_reward_message($point,$reward){
-	$str_message = "ขณะนี้ไม่มีแต้ม รีบมาสะสมเพิ่มนะคะ";
+	$str_message = "\nขณะนี้ไม่มีแต้ม รีบมาสะสมเพิ่มนะคะ";
 	if ($point != 0){
-		$str_message = "ขณะนี้คุณมี " . $point . " แต้ม ";
+		$str_message = "\nขณะนี้คุณมี " . $point . " แต้ม ";
 	}
 	if ($reward != 0){
-		$str_message = $str_message . " มีสิทธิพิเศษ ". $reward ." สิทธิ";
+		$str_message = $str_message . "\nมขณะนี้คุณสิทธิพิเศษ ". $reward ." สิทธิ";
 	}
 	elseif ($point != 0){
 		$str_message = $str_message . "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
@@ -382,7 +382,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		
 		$reward = get_reward($dbconn,$cus_id);
 		$str_message = get_reward_message(($point_new % 10),$reward);
-		$str_message = "[". $str_cus_id . "] " . $str_message;
+		$str_message = $cus_name . "[" . $str_cus_id . "] " . $str_message;
 		$push_line_mes = $push_line_mes . $str_message;
 	}
 	else{
