@@ -91,17 +91,17 @@ function get_reward_message($point,$reward){
 		$str_message = "\nขณะนี้คุณมี " . $point . " แต้ม ";
 	}
 	if ($reward != 0){
-		$str_message = $str_message . "\nคุณสิทธิพิเศษ ". $reward ." สิทธิ";
+		$str_message = $str_message . "\nมีสิทธิพิเศษ ". $reward ." สิทธิ";
 	}
 	elseif ($point != 0){
-		$str = " อีก " . (10 - $point) . " แต้ม เห็นทีพรุ่งนี้ต้องซ้ำ";
+		$str = " อีก " . (10 - $point) . " แต้ม \n=>ห็นทีพรุ่งนี้ต้องซ้ำ";
 		if ($point >= 3 && $point < 5)
-			$str = " อีก " . (10 - $point) . " แต้ม สู้ต่อไปเป็นกำลังใจให้นะคะ";
+			$str = " อีก " . (10 - $point) . " แต้ม \n=>สู้ต่อไปเป็นกำลังใจให้นะคะ";
 		elseif ($point >= 5 && $point < 7)
-			$str = " อีก " . (10 - $point) . " แต้ม พรุ่งนี้ต้องพาเดอะแก๊งมาโดน";
+			$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้ต้องพาเดอะแก๊งมาโดน";
 		elseif ($point >= 7 && $point < 9)
-			$str = " อีก " . (10 - $point) . " แต้ม ไม่ธรรมดานะคะ";
-		else
+			$str = " อีก " . (10 - $point) . " แต้ม \n=>ไม่ธรรมดานะคะ";
+		else ($point == 9)
 			$str = " อีก แค่ 1 แต้มเท่านั้น !!!";
 		$str_message = $str_message . $str;
 	}
@@ -372,7 +372,7 @@ if (is_admin($dbconn,$cus_line_id)){
 	#$push_line_mes = "ไงจ๊ะ, วันนี้คุณได้รับ 1 point ไม่ใช่ใคร DCUP เอง";
 	if ($isPhoneText){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
-		$cus_name = get_cus_name($dbconn,$push_lineid);
+		$cus_name = get_cus_name($dbconn,$push_line_id);
 		$cus_id = get_cus_id($dbconn,$push_line_id);
 		
 		$str_cus_id = sprintf("D%04s",$cus_id);
