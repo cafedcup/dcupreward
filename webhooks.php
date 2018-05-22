@@ -479,7 +479,7 @@ if (is_admin($dbconn,$cus_line_id)){
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
 		$push_line_mes = "อย่าลืมคุณคือโคบาล, ต้องกรอกเบอร์โทรลูกค้าเซ่";
-		$TextMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(unlinkFromUser($access_token, $push_line_id));
+		$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(unlinkFromUser($access_token, $push_line_id));
 		$response = $bot->replyMessage($replyToken, $textMessageBuilder);
 		echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 	}
