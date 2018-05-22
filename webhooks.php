@@ -114,6 +114,7 @@ if (!is_null($events['events'])) {
 			*/
 			#echo $result . "\r\n";
 		}
+		elseif ($event['type'] == 'list')
 	}
 }
 
@@ -479,9 +480,17 @@ if (is_admin($dbconn,$cus_line_id)){
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
 		$push_line_mes = "อย่าลืมคุณคือโคบาล, ต้องกรอกเบอร์โทรลูกค้าเซ่";
-		$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(unlinkFromUser($access_token, $push_line_id));
-		$response = $bot->replyMessage($replyToken, $textMessageBuilder);
+
+		$result = getListOfRichmenu(getenv($access_token));
+		$richmenu = $result['richmenus'][0];
+
+		$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($richmenu['richMenuId']);
+		$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
 		echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+
+		#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(deleteRichmenu($access_token, $richmenu['richMenuId']));
+		#$response = $bot->replyMessage($replyToken, $textMessageBuilder);
+		#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 	}
 
 }
@@ -491,6 +500,15 @@ else{
 	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
 
+function getListOfRichmenu($channelAccessToken) {
+  $sh = <<< EOF
+  curl \
+  -H 'Authorization: Bearer $channelAccessToken' \
+  https://api.line.me/v2/bot/richmenu/list;
+EOF;
+  $result = json_decode(shell_exec(str_replace('\\', '', str_replace(PHP_EOL, '', $sh))), true);
+  return $result;
+}
 
 function deleteRichmenu($channelAccessToken, $richmenuId) {
   if(!isRichmenuIdValid($richmenuId)) {
