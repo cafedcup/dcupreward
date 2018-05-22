@@ -28,7 +28,11 @@ if (!is_null($events['events'])) {
 			$cus_line_id = $event['source']['userId'];
 			$cus_name = get_line_displayName($cus_line_id,$bot);
 			$point = 1;
-
+			
+			if (isPhone($str_mes)){
+				$isPhoneText = true;
+				$cus_tel = $str_mes;
+			}
 			else if (!strcmp(strtolower(substr($str_mes,0,strpos($str_mes,':'))),"update")){
 				$isUpdate = true;
 				if (isPhone(substr($str_mes,strpos($str_mes,':')+1)))
