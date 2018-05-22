@@ -53,7 +53,7 @@ if (!is_null($events['events'])) {
 				}
 			}
 			
-			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate);
+			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$event['replyToken']);
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -353,7 +353,7 @@ function get_line_displayName($str_line_id,$bot){
 	return $str_line_displayName; 
 }
 
-function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate){
+function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$replyToken){
 	$hello = $cus_name;
 	if (is_admin($dbconn,$cus_line_id)){
 		$hello = $hello . " คุณคือโคบาน";
@@ -479,6 +479,9 @@ if (is_admin($dbconn,$cus_line_id)){
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
 		$push_line_mes = "อย่าลืมคุณคือโคบาล, ต้องกรอกเบอร์โทรลูกค้าเซ่";
+		$TextMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(unlinkFromUser($access_token, $push_line_id));
+		$response = $bot->replyMessage($replyToken, $textMessageBuilder);
+		echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 	}
 
 }
