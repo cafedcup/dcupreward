@@ -89,8 +89,8 @@ if (!is_null($events['events'])) {
 				'height' => 1686
 			];
 			$area = [
-				'bounds' => $bounds,
-				'action' => $action
+				'bounds' => [$bounds],
+				'action' => [$action]
 			];	
 			$data = [
 				'replyToken' => $replyToken,
@@ -98,7 +98,7 @@ if (!is_null($events['events'])) {
 				'selected' => false,
 				'name' => "richmenu",
 				'chatBarText' => "Tap to open",
-				'area' => $area,
+				'area' => [$area],
 				
 			];
 			# End Test
