@@ -26,7 +26,6 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			$str_mes = $event['message']['text'];
 			$cus_line_id = $event['source']['userId'];
-			$test = $event['richmenuId'];
 			$cus_name = get_line_displayName($cus_line_id,$bot);
 			$point = 1;
 			
@@ -61,7 +60,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $test
+				'text' => $str_message
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -507,8 +506,20 @@ EOF;
     return 'success';
   }
 }
-#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(deleteRichmenu($access_token,)));
-
+function unlinkFromUser($channelAccessToken, $userId) {
+  $sh = <<< EOF
+  curl -X DELETE \
+  -H 'Authorization: Bearer $channelAccessToken' \
+  https://api.line.me/v2/bot/user/$userId/richmenu
+EOF;
+  $result = json_decode(shell_exec(str_replace('\\', '', str_replace(PHP_EOL, '', $sh))), true);
+  if(isset($result['message'])) {
+    return $result['message'];
+  }
+  else {
+    return 'success';
+  }
+}
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
 $response = $bot->pushMessage($push_line_id, $textMessageBuilder);
