@@ -141,7 +141,7 @@ function get_reward_message($point,$reward){
 			$str_message = $str_message . "\nมีสิทธิพิเศษ ". $reward ." สิทธิ";
 		}
 	}
-	if ($point != 0){
+	elseif ($point != 0){
 		$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้มีซ้ำ";
 		if ($point >= 3 && $point < 5)
 			$str = " อีก " . (10 - $point) . " แต้ม \n=>เป็นกำลังใจให้นะคะ";
