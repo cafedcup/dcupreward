@@ -98,7 +98,7 @@ if (!is_null($events['events'])) {
 			];
 			# End Test
 			*/
-			
+			/*
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
@@ -111,7 +111,7 @@ if (!is_null($events['events'])) {
 			
 			$result = curl_exec($ch);
 			curl_close($ch);
-			
+			*/
 			#echo $result . "\r\n";
 		}
 	}
@@ -524,8 +524,8 @@ EOF;
   }
 }
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
-$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
+#$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
+#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 pg_close($dbconn);
