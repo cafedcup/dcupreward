@@ -26,6 +26,7 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			$str_mes = $event['message']['text'];
 			$cus_line_id = $event['source']['userId'];
+			$test = $event['richmenu']['richmenuId'];
 			$cus_name = get_line_displayName($cus_line_id,$bot);
 			$point = 1;
 			
@@ -60,7 +61,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $str_message
+				'text' => $test
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
