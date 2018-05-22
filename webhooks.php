@@ -28,10 +28,24 @@ if (!is_null($events['events'])) {
 			$cus_line_id = $event['source']['userId'];
 			$cus_name = get_line_displayName($cus_line_id,$bot);
 			$point = 1;
+			#Test
+			$keyboard = [
+				['7', '8', '9'],
+				['4', '5', '6'],
+				['1', '2', '3'],
+					 ['0']
+			];
+
+			$reply_markup = $telegram->replyKeyboardMarkup([
+				'keyboard' => $keyboard, 
+				'resize_keyboard' => true, 
+				'one_time_keyboard' => true
+			]);
 			if (isPhone($str_mes)){
 				$isPhoneText = true;
 				$cus_tel = $str_mes;
 			}
+			#end Test
 			else if (!strcmp(strtolower(substr($str_mes,0,strpos($str_mes,':'))),"update")){
 				$isUpdate = true;
 				if (isPhone(substr($str_mes,strpos($str_mes,':')+1)))
@@ -109,7 +123,7 @@ function get_reward_message($point,$reward){
 			$str_message = $str_message . "\nมีสิทธิพิเศษ ". $reward ." สิทธิ";
 		}
 	}
-	elseif ($point != 0){
+	if ($point != 0){
 		$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้มีซ้ำ";
 		if ($point >= 3 && $point < 5)
 			$str = " อีก " . (10 - $point) . " แต้ม \n=>เป็นกำลังใจให้นะคะ";
