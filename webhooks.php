@@ -28,24 +28,7 @@ if (!is_null($events['events'])) {
 			$cus_line_id = $event['source']['userId'];
 			$cus_name = get_line_displayName($cus_line_id,$bot);
 			$point = 1;
-			#Test
-			$keyboard = [
-				['7', '8', '9'],
-				['4', '5', '6'],
-				['1', '2', '3'],
-					 ['0']
-			];
 
-			$reply_markup = $telegram->replyKeyboardMarkup([
-				'keyboard' => $keyboard, 
-				'resize_keyboard' => true, 
-				'one_time_keyboard' => true
-			]);
-			if (isPhone($str_mes)){
-				$isPhoneText = true;
-				$cus_tel = $str_mes;
-			}
-			#end Test
 			else if (!strcmp(strtolower(substr($str_mes,0,strpos($str_mes,':'))),"update")){
 				$isUpdate = true;
 				if (isPhone(substr($str_mes,strpos($str_mes,':')+1)))
@@ -82,6 +65,41 @@ if (!is_null($events['events'])) {
 				'replyToken' => $replyToken,
 				'messages' => [$messages]
 			];
+			
+			
+			# Start Test
+			$url = 'https://api.line.me/v2/bot/richmenu';
+			$bounds = [
+				'x' => 0,
+				'y' => 0,
+				'width' => 2500,
+				'height' => 1686
+			];
+			$action = [
+				'type' => "postback",
+				'data' => "action=buy&itemid=123"
+			];
+			
+			$size = [
+				'width' => 2500,
+				'height' => 1686
+			];
+			$area = [
+				'bounds' => $bounds,
+				'action' => $action
+			];	
+			$data = [
+				'replyToken' => $replyToken,
+				'size' => [$size],
+				'selected' => false,
+				'name' => "richmenu",
+				'chatBarText' => "Tap to open",
+				'area' => $area,
+				
+			];
+			# End Test
+			
+			
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
