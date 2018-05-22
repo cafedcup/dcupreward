@@ -93,7 +93,6 @@ if (!is_null($events['events'])) {
 				'action' => [$action]
 			];	
 			$data = [
-				'replyToken' => $replyToken,
 				'size' => [$size],
 				'selected' => false,
 				'name' => "richmenu",
