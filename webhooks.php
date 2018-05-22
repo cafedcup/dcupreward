@@ -481,7 +481,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		$push_line_id = get_admin_lineid($dbconn);
 		$push_line_mes = "อย่าลืมคุณคือโคบาล, ต้องกรอกเบอร์โทรลูกค้าเซ่";
 
-		$result = getListOfRichmenu(getenv($access_token));
+		$result = getListOfRichmenu($access_token);
 		$richmenu = $result['richmenus'][0];
 
 		$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($richmenu['richMenuId']);
