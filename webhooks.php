@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 				'height' => 1686
 			];
 			$action = [
-				'type' => "postback",
+				'type' => "message",
 				'data' => "action=buy&itemid=123"
 			];
 			
@@ -94,7 +94,7 @@ if (!is_null($events['events'])) {
 			];	
 			$data = [
 				'size' => [$size],
-				'selected' => false,
+				'selected' => true,
 				'name' => "richmenu",
 				'chatBarText' => "Tap to open",
 				'area' => [$area],
