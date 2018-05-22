@@ -84,16 +84,12 @@ if (!is_null($events['events'])) {
 				'text' => 'test'
 			];
 			
-			$size = [
-				'width' => 2500,
-				'height' => 1686
-			];
 			$area = [
 				'bounds' => [$bounds],
 				'action' => [$action]
 			];	
 			$data = [
-				'size' => [$size],
+				'size' => {width: 2500, heigth: 1686},
 				'selected' => true,
 				'name' => "richmenu",
 				'chatBarText' => "Tap to open",
@@ -117,39 +113,6 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			
 			#echo $result . "\r\n";
-		}
-		elseif($event['type'] == 'create')
-		{
-			$str_mes = $event['message']['text'];
-			$cus_line_id = $event['source']['userId'];
-			$cus_name = get_line_displayName($cus_line_id,$bot);
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			// Get replyToken
-			$replyToken = $event['replyToken'];
-
-			// Build message to reply back
-			$messages = [
-				'type' => 'text',
-				'text' => $cus_name
-			];
-
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages]
-			];
-			
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			
-			$result = curl_exec($ch);
-			curl_close($ch);
 		}
 	}
 }
@@ -524,6 +487,27 @@ else{
 	$push_line_id = get_admin_lineid($dbconn);
 	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
 }
+
+
+function deleteRichmenu($channelAccessToken, $richmenuId) {
+  if(!isRichmenuIdValid($richmenuId)) {
+    return 'invalid richmenu id';
+  }
+  $sh = <<< EOF
+  curl -X DELETE \
+  -H 'Authorization: Bearer $channelAccessToken' \
+  https://api.line.me/v2/bot/richmenu/$richmenuId
+EOF;
+  $result = json_decode(shell_exec(str_replace('\\', '', str_replace(PHP_EOL, '', $sh))), true);
+  if(isset($result['message'])) {
+    return $result['message'];
+  }
+  else {
+    return 'success';
+  }
+}
+#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(deleteRichmenu($access_token,)));
+
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
 $response = $bot->pushMessage($push_line_id, $textMessageBuilder);
