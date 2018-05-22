@@ -66,7 +66,7 @@ if (!is_null($events['events'])) {
 				'messages' => [$messages]
 			];
 			
-			
+			/*
 			# Start Test
 			$url = 'https://api.line.me/v2/bot/richmenu';
 			$bounds = [
@@ -98,7 +98,7 @@ if (!is_null($events['events'])) {
 				
 			];
 			# End Test
-			
+			*/
 			
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
