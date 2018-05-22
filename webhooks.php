@@ -80,8 +80,8 @@ if (!is_null($events['events'])) {
 				'height' => 1686
 			];
 			$action = [
-				'type' => "message",
-				'data' => "action=buy&itemid=123"
+				'type' => 'message',
+				'text' => 'test'
 			];
 			
 			$size = [
