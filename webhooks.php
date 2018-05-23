@@ -154,18 +154,22 @@ function isReward($string){
 }
 
 function get_reward_message($point,$reward){
-	$str_message = "ขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ";
+	$str_point_message = "ขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ\n";
 	if ($point != 0){
-		$str_message = "คุณมี " . $point . " แต้ม ";
+		$str_point_message = "คุณมี " . $point . " แต้ม\n";
+		$str_reward_message = "ขณะนี้คุณยังไม่มีสิทธิพิเศษ"
 	}
 	if ($reward != 0){
 		if($point == 0){
-			$str_message = "สิทธิพิเศษ ". $reward ." สิทธิ";
+			$str_reward_message = "สิทธิพิเศษ ". $reward ." สิทธิ";
+			$str_point_message = ""
 		}
 		else{
-			$str_message = $str_message . "\nสิทธิพิเศษ ". $reward ." สิทธิ";
+			$str_reward_message = "สิทธิพิเศษ ". $reward ." สิทธิ"
 		}
 	}
+	$str_message = $str_point_message . $str_reward_message;
+	/*
 	elseif ($point != 0){
 		$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้มีซ้ำ";
 		if ($point >= 3 && $point < 5)
@@ -178,6 +182,7 @@ function get_reward_message($point,$reward){
 			$str = " อีก แค่ 1 แต้มเท่านั้น !!!";
 		$str_message = $str_message . $str;
 	}
+	*/
 	return $str_message;
 }
 function get_datetime(){
