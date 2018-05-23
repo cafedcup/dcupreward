@@ -147,7 +147,15 @@ if (!is_null($events['events'])) {
 			
 			#echo $result . "\r\n";
 			*/
-			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
+			$result = getListOfRichmenu(access_token);
+        	if(isset($result['richmenus']) && count($result['richmenus']) > 0) {
+        		$str = "1"
+        	}
+        	else{
+        		$str = "2"
+        	}
+			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str);
 			$bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
