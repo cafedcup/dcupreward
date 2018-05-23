@@ -52,8 +52,21 @@ if (!is_null($events['events'])) {
 					$isUseReward = true;
 				}
 			}
-			
 			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$event['replyToken']);
+			
+			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
+				$str_message = "คุณได้ทำการขอข้อมูลส่วนตัว";	
+			}
+			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
+				$str_message = "คุณได้ทำการขอสิทธิพิเศษ";			
+			}
+			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
+				$str_message = "คุณได้ทำการขอที่อยู่";
+			}
+			else if (!strcmp($str_mes,"ขอติดต่อ CAFE' DCUP")){
+				$str_message = "คุณได้ทำการขอติดต่อ";
+			}
+
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
