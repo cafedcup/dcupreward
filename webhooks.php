@@ -60,7 +60,7 @@ if (!is_null($events['events'])) {
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
 				$str_cus_id = sprintf("D%04s",$cus_id);
 				$str_message = "ข้อมูลส่วนตัวของ ". $cus_name ." :\n";
-				$str_message = $str_message . "รหัสสมาชิกของคุณ " . $str_cus_id;
+				$str_message = $str_message . "รหัสสมาชิก " . $str_cus_id;
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
