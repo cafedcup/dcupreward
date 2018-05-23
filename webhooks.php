@@ -147,8 +147,10 @@ if (!is_null($events['events'])) {
 			
 			#echo $result . "\r\n";
 			*/
-			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
-			$bot->replyMessage($replyToken, $textMessageBuilder);
+			if ($str_message == 'create'){
+				$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
+				$bot->replyMessage($replyToken, $textMessageBuilder);
+			}
 			$result = getListOfRichmenu($access_token));
 			/*
 			$result = getListOfRichmenu($access_token));
