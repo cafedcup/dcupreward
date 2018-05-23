@@ -149,10 +149,10 @@ if (!is_null($events['events'])) {
 			*/
 			$result = getListOfRichmenu($access_token);
         	if(isset($result['richmenus']) && count($result['richmenus']) > 0) {
-        		$str = "1"
+        		$str = "1";
         	}
         	else{
-        		$str = "2"
+        		$str = "2";
         	}
 			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
 			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str);
