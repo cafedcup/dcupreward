@@ -147,12 +147,13 @@ if (!is_null($events['events'])) {
 			
 			#echo $result . "\r\n";
 			*/
+						/*
 			if ($str_message == 'create'){
 				$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
 				$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
 			$result = getListOfRichmenu($access_token));
-			/*
+
 			$result = getListOfRichmenu($access_token));
 	        if(isset($result['richmenus']) && count($result['richmenus']) > 0) {
 	          $builders = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
@@ -179,8 +180,8 @@ if (!is_null($events['events'])) {
         	}
 			*/
 			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
-			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str);
-			#bot->replyMessage($replyToken, $textMessageBuilder);
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str_message);
+			$bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
 	}
