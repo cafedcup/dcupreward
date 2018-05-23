@@ -62,11 +62,11 @@ if (!is_null($events['events'])) {
 					$str_cus_id = sprintf("D%04s",$cus_id);
 					$cus_tel = get_cus_tel($dbconn,$cus_line_id);
 					$str_message = "ข้อมูลส่วนตัวของ ". $cus_name ." :\n";
-					$str_message = $str_message . ">>รหัสสมาชิก " . $str_cus_id;
-					$str_message = $str_message . ">>หมายเลขโทรศัพท์ " . $cus_tel;
+					$str_message = $str_message . "• รหัสสมาชิก " . $str_cus_id . "\n";
+					$str_message = $str_message . "• หมายเลขโทรศัพท์ " . $cus_tel;
 				}
 				else{
-					$str_message = "คุณยังไม่ได้ทำการลงทะเบียน\nกรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
+					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
 				}
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
@@ -161,13 +161,13 @@ function isReward($string){
 }
 
 function get_reward_message($point,$reward){
-	$str_point_message = "ขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ\n";
+	$str_point_message = "ขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ";
 	if ($point != 0){
-		$str_point_message = ">>คุณมี " . $point . " แต้ม\n";
-		$str_reward_message = "ขณะนี้คุณยังไม่มีสิทธิพิเศษ";
+		$str_point_message = "• คุณมี " . $point . " แต้ม\n";
+		$str_reward_message = "• ไม่มีสิทธิพิเศษ";
 	}
 	if ($reward != 0){
-		$str_reward_message = ">>สิทธิพิเศษ ". $reward ." สิทธิ";
+		$str_reward_message = "• สิทธิพิเศษ ". $reward ." สิทธิ";
 		if($point == 0){
 			$str_point_message = "";
 		}
