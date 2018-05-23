@@ -131,7 +131,7 @@ if (!is_null($events['events'])) {
 			];
 			# End Test
 			*/
-			
+			/*
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
@@ -146,6 +146,10 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			
 			#echo $result . "\r\n";
+			*/
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str_message);
+			$response = $bot->replyMessage($replyToken, $textMessageBuilder);
+			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
 	}
 }
