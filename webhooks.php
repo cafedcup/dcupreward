@@ -76,7 +76,7 @@ if (!is_null($events['events'])) {
 			}
 			else if (!strcmp($str_mes,"ขอติดต่อ CAFE' DCUP")){
 				$str_message = "ติดต่อ CAFE' DCUP:\n";
-				$str_message = $str_message . "โทร: 087-384-1599\n";
+				$str_message = $str_message . "087-384-1599\n";
 				$str_message = $str_message . "FB: https://www.facebook.com/cafeDCUP/";
 			}
 
@@ -156,14 +156,14 @@ function isReward($string){
 function get_reward_message($point,$reward){
 	$str_message = "ขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ";
 	if ($point != 0){
-		$str_message = "\nขณะนี้คุณมี " . $point . " แต้ม ";
+		$str_message = "คุณมี " . $point . " แต้ม ";
 	}
 	if ($reward != 0){
 		if($point == 0){
-			$str_message = "มีสิทธิพิเศษ ". $reward ." สิทธิ";
+			$str_message = "สิทธิพิเศษ ". $reward ." สิทธิ";
 		}
 		else{
-			$str_message = $str_message . "\nมีสิทธิพิเศษ ". $reward ." สิทธิ";
+			$str_message = $str_message . "\nสิทธิพิเศษ ". $reward ." สิทธิ";
 		}
 	}
 	elseif ($point != 0){
@@ -178,11 +178,6 @@ function get_reward_message($point,$reward){
 			$str = " อีก แค่ 1 แต้มเท่านั้น !!!";
 		$str_message = $str_message . $str;
 	}
-	/*
-	if (($point == 0) && ($reward == 0 )){
-		$str_message = "\nขณะนี้ไม่มีแต้ม รีบมาสะสมเพิ่มนะคะ";
-	}
-	*/
 	return $str_message;
 }
 function get_datetime(){
