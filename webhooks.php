@@ -147,7 +147,7 @@ if (!is_null($events['events'])) {
 			
 			#echo $result . "\r\n";
 			*/
-			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str_message);
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($str_message);
 			$response = $bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
