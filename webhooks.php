@@ -157,15 +157,15 @@ function get_reward_message($point,$reward){
 	$str_point_message = "ขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ\n";
 	if ($point != 0){
 		$str_point_message = "คุณมี " . $point . " แต้ม\n";
-		$str_reward_message = "ขณะนี้คุณยังไม่มีสิทธิพิเศษ"
+		$str_reward_message = "ขณะนี้คุณยังไม่มีสิทธิพิเศษ";
 	}
 	if ($reward != 0){
 		if($point == 0){
 			$str_reward_message = "สิทธิพิเศษ ". $reward ." สิทธิ";
-			$str_point_message = ""
+			$str_point_message = "";
 		}
 		else{
-			$str_reward_message = "สิทธิพิเศษ ". $reward ." สิทธิ"
+			$str_reward_message = "สิทธิพิเศษ ". $reward ." สิทธิ";
 		}
 	}
 	$str_message = $str_point_message . $str_reward_message;
