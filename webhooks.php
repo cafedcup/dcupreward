@@ -149,6 +149,7 @@ if (!is_null($events['events'])) {
 			*/
 			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
 			$bot->replyMessage($replyToken, $textMessageBuilder);
+			$result = getListOfRichmenu($access_token));
 			/*
 			$result = getListOfRichmenu($access_token));
 	        if(isset($result['richmenus']) && count($result['richmenus']) > 0) {
