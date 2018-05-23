@@ -594,7 +594,8 @@ EOF;
 }
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
-$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+$bot->pushMessage($push_line_id, $textMessageBuilder);
+#$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
+#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 pg_close($dbconn);
