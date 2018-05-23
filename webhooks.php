@@ -147,7 +147,8 @@ if (!is_null($events['events'])) {
 			
 			#echo $result . "\r\n";
 			*/
-
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
+			$bot->replyMessage($replyToken, $textMessageBuilder);
 			$result = getListOfRichmenu($access_token));
 	        if(isset($result['richmenus']) && count($result['richmenus']) > 0) {
 	          $builders = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
@@ -155,24 +156,13 @@ if (!is_null($events['events'])) {
 	          for($i = 0; $i < count($result['richmenus']); $i++) {
 	            $richmenu = $result['richmenus'][$i];
 	            $actionArray = array();
-	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder (
-	              'upload image', 'upload::' . $richmenu['richMenuId']));
-	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder (
-	              'delete', 'delete::' . $richmenu['richMenuId']));
-	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder (
-	              'link', 'link::' . $richmenu['richMenuId']));
-	            $column = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder (
-	              null,
-	              $richmenu['richMenuId'],
-	              null,
-	              $actionArray
-	            );
+	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('upload image', 'upload::' . $richmenu['richMenuId']));
+	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('delete', 'delete::' . $richmenu['richMenuId']));
+	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('link', 'link::' . $richmenu['richMenuId']));
+	            $column = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder (null,$richmenu['richMenuId'],null,$actionArray);
 	            array_push($columns, $column);
 	            if($i == 4 || $i == count($result['richmenus']) - 1) {
-	              $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
-	                'Richmenu',
-	                new \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder($columns)
-	              );
+	              $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder('Richmenu',new \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder($columns));
 	              $builders->add($builder);
 	              unset($columns);
 	              $columns = Array();
@@ -186,6 +176,7 @@ if (!is_null($events['events'])) {
 			#bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
+
 	}
 }
 
