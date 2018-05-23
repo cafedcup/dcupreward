@@ -57,10 +57,15 @@ if (!is_null($events['events'])) {
 			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$event['replyToken']);
 			
 			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
-				$cus_id = get_cus_id($dbconn,$cus_line_id);
-				$str_cus_id = sprintf("D%04s",$cus_id);
-				$str_message = "ข้อมูลส่วนตัวของ ". $cus_name ." :\n";
-				$str_message = $str_message . ">>รหัสสมาชิก " . $str_cus_id;
+				if (is_custel_exist($dbconn,$cus_line_id)){
+					$cus_id = get_cus_id($dbconn,$cus_line_id);
+					$str_cus_id = sprintf("D%04s",$cus_id);
+					$str_message = "ข้อมูลส่วนตัวของ ". $cus_name ." :\n";
+					$str_message = $str_message . ">>รหัสสมาชิก " . $str_cus_id;
+				}
+				else{
+					$str_message = "คุณยังไม่ได้ทำการลงทะเบียน\nกรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
+				}
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
@@ -448,7 +453,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			else 
 			{
 				#$tel = "sorry it is not your phone number.\nPlease try again";
-				$tel = "คุณยังไม่ได้ทำการลงทะเบียน\nกรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก อีกครั้งนะคะ";
+				$tel = "ลงทะเบียนไม่สำเร็จ\nกรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก อีกครั้งนะคะ";
 			}
 		}
 	}
