@@ -76,7 +76,7 @@ if (!is_null($events['events'])) {
 			}
 			else if (!strcmp($str_mes,"ขอติดต่อ CAFE' DCUP")){
 				$str_message = "ติดต่อ CAFE' DCUP:\n";
-				$str_message = $str_message . "เบอร์ติดต่อ 087-384-1599\n";
+				$str_message = $str_message . "โทร: 087-384-1599\n";
 				$str_message = $str_message . "FB: https://www.facebook.com/cafeDCUP/";
 			}
 
@@ -154,7 +154,7 @@ function isReward($string){
 }
 
 function get_reward_message($point,$reward){
-	$str_message = "\nขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ";
+	$str_message = "ขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ";
 	if ($point != 0){
 		$str_message = "\nขณะนี้คุณมี " . $point . " แต้ม ";
 	}
