@@ -167,7 +167,7 @@ function get_reward_message($point,$reward){
 		$str_reward_message = "• ไม่มีสิทธิพิเศษ";
 	}
 	if ($reward != 0){
-		$str_reward_message = "• สิทธิพิเศษ ". $reward ." สิทธิ";
+		$str_reward_message = "• มีสิทธิพิเศษ ". $reward ." สิทธิ";
 		if($point == 0){
 			$str_point_message = "";
 		}
@@ -463,7 +463,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				#$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
 				#$tel = "You register already.\nYour ID is " . $str_cus_id;
 				#$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
-				$tel = "[".$str_cus_id . "] " . $tel;
+				$tel = "[".$str_cus_id . "]\n" . $tel;
 			}
 			else 
 			{
