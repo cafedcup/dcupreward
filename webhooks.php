@@ -98,7 +98,7 @@ if (!is_null($events['events'])) {
 			];
 			# End Test
 			*/
-			/*
+			
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
@@ -111,7 +111,7 @@ if (!is_null($events['events'])) {
 			
 			$result = curl_exec($ch);
 			curl_close($ch);
-			*/
+			
 			#echo $result . "\r\n";
 		}
 		elseif ($event['type'] == 'list')
@@ -480,17 +480,6 @@ if (is_admin($dbconn,$cus_line_id)){
 	else{
 		$push_line_id = get_admin_lineid($dbconn);
 		$push_line_mes = "อย่าลืมคุณคือโคบาล, ต้องกรอกเบอร์โทรลูกค้าเซ่";
-
-		$result = getListOfRichmenu($access_token);
-		$richmenu = $result['richmenus'][0];
-
-		$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($richmenu['richMenuId']);
-		$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
-		echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-
-		#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(deleteRichmenu($access_token, $richmenu['richMenuId']));
-		#$response = $bot->replyMessage($replyToken, $textMessageBuilder);
-		#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 	}
 
 }
@@ -542,8 +531,8 @@ EOF;
   }
 }
 
-#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
-#$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
-#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
+$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 pg_close($dbconn);
