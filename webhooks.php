@@ -20,6 +20,7 @@ $isUseReward = false;
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
+	$str = "";
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		if (($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker'))||($event['type'] == 'follow')) {
@@ -147,19 +148,16 @@ if (!is_null($events['events'])) {
 			
 			#echo $result . "\r\n";
 			*/
-			$result = getListOfRichmenu($access_token);
-        	if(isset($result['richmenus']) && count($result['richmenus']) > 0) {
-        		$str = count($result['richmenus']) ;
-        	}
-        	else{
-        		$str = "2";
-        	}
+
 			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
-			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str);
-			$bot->replyMessage($replyToken, $textMessageBuilder);
+			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str);
+			#bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
+		$str = $event['type'] . "," . $str;
 	}
+	$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str);
+	$bot->replyMessage($replyToken, $textMessageBuilder);
 }
 
 function isPhone($string) {
