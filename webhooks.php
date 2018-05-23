@@ -60,8 +60,10 @@ if (!is_null($events['events'])) {
 				if (is_custel_exist($dbconn,$cus_line_id)){
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$str_cus_id = sprintf("D%04s",$cus_id);
+					$cus_tel = get_cus_tel($dbconn,$cus_line_id);
 					$str_message = "ข้อมูลส่วนตัวของ ". $cus_name ." :\n";
 					$str_message = $str_message . ">>รหัสสมาชิก " . $str_cus_id;
+					$str_message = $str_message . ">>หมายเลขโทรศัพท์ " . $cus_tel;
 				}
 				else{
 					$str_message = "คุณยังไม่ได้ทำการลงทะเบียน\nกรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
@@ -252,6 +254,19 @@ function get_cus_id($dbconn,$cus_line_id){
     // Free resultset
     pg_free_result($result);
     return $cus_id;
+}
+
+function get_cus_tel($dbconn,$cus_line_id){
+    $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $cus_tel = $col_value;
+        }
+    }
+    // Free resultset
+    pg_free_result($result);
+    return $cus_tel;
 }
 
 function get_cus_name($dbconn,$cus_line_id){
