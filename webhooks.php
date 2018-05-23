@@ -57,17 +57,27 @@ if (!is_null($events['events'])) {
 			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$event['replyToken']);
 			
 			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
-				#$str_message = get_customer_info();
-				
+				$cus_id = get_cus_id($dbconn,$cus_line_id);
+				$str_cus_id = sprintf("D%04s",$cus_id);
+				$str_message = "ข้อมูลส่วนตัวของ ". $cus_name ." :\n";
+				$str_message = $str_message . "รหัสสมาชิกของคุณ " . $str_cus_id;
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
-				#$str_message = get_dcup_reward();			
+				$cus_id = get_cus_id($dbconn,$cus_line_id);
+				$point = get_point($dbconn,$cus_id);
+				$reward = get_reward($dbconn,$cus_id);
+				$str_reward = get_reward_message($point,$reward);
+				$str_message = "สิทธิพิเศษของ ". $cus_name ." :\n" . $str_reward;
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
-				$str_message = "ปั๊มน้ำมัน CALTEX ป่าสัก-เชิงทะเล 48/207  ม.4 ต.เชิงทะเล อ.ถลาง จ.ภูเก็ต 83110";
+				$str_message = "ที่อยู่ CAFE' DCUP:\n";
+				$str_message = $str_message . "ปั๊มน้ำมัน CALTEX ป่าสัก-เชิงทะเล\n"
+				$str_message = $str_message . "48/207  ม.4 ต.เชิงทะเล อ.ถลาง จ.ภูเก็ต 83110";
 			}
 			else if (!strcmp($str_mes,"ขอติดต่อ CAFE' DCUP")){
-				$str_message = "Facebook: https://www.facebook.com/cafeDCUP/\nเบอร์ติดต่อ 087-384-1599";
+				$str_message = "ติดต่อ CAFE' DCUP:\n";
+				$str_message = $str_message . "เบอร์ติดต่อ 087-384-1599\n";
+				$str_message = $str_message . "FB: https://www.facebook.com/cafeDCUP/";
 			}
 
 			// Get replyToken
