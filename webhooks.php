@@ -168,9 +168,10 @@ if (!is_null($events['events'])) {
 	              unset($columns);
 	              $columns = Array();
 	            }
-	            */
+
 	          }
-	          #$bot->replyMessage($replyToken, $builders);
+	          $bot->replyMessage($replyToken, $builders);
+	          */
         	}
 
 			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
