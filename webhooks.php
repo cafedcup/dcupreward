@@ -147,7 +147,7 @@ if (!is_null($events['events'])) {
 			
 			#echo $result . "\r\n";
 			*/
-			$result = getListOfRichmenu(access_token);
+			$result = getListOfRichmenu($access_token);
         	if(isset($result['richmenus']) && count($result['richmenus']) > 0) {
         		$str = "1"
         	}
