@@ -20,7 +20,6 @@ $isUseReward = false;
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
-	$str = "";
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		if (($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker'))||($event['type'] == 'follow')) {
@@ -149,15 +148,45 @@ if (!is_null($events['events'])) {
 			#echo $result . "\r\n";
 			*/
 
+			$result = getListOfRichmenu($access_token));
+	        if(isset($result['richmenus']) && count($result['richmenus']) > 0) {
+	          $builders = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
+	          $columns = Array();
+	          for($i = 0; $i < count($result['richmenus']); $i++) {
+	            $richmenu = $result['richmenus'][$i];
+	            $actionArray = array();
+	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder (
+	              'upload image', 'upload::' . $richmenu['richMenuId']));
+	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder (
+	              'delete', 'delete::' . $richmenu['richMenuId']));
+	            array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder (
+	              'link', 'link::' . $richmenu['richMenuId']));
+	            $column = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder (
+	              null,
+	              $richmenu['richMenuId'],
+	              null,
+	              $actionArray
+	            );
+	            array_push($columns, $column);
+	            if($i == 4 || $i == count($result['richmenus']) - 1) {
+	              $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+	                'Richmenu',
+	                new \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder($columns)
+	              );
+	              $builders->add($builder);
+	              unset($columns);
+	              $columns = Array();
+	            }
+	          }
+	          $bot->replyMessage($replyToken, $builders);
+        	}
+
 			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
 			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str);
 			#bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
-		$str = $event['type'] . "," . $str;
 	}
-	$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str);
-	$bot->replyMessage($replyToken, $textMessageBuilder);
 }
 
 function isPhone($string) {
