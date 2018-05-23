@@ -71,7 +71,7 @@ if (!is_null($events['events'])) {
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
 				$str_message = "ที่อยู่ CAFE' DCUP:\n";
-				$str_message = $str_message . "ปั๊มน้ำมัน CALTEX ป่าสัก-เชิงทะเล\n";
+				$str_message = $str_message . "ปั๊มน้ำมัน CALTEX เชิงทะเล\n";
 				$str_message = $str_message . "48/207  ม.4 ต.เชิงทะเล อ.ถลาง จ.ภูเก็ต 83110";
 			}
 			else if (!strcmp($str_mes,"ขอติดต่อ CAFE' DCUP")){
