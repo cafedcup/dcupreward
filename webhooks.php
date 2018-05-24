@@ -238,7 +238,7 @@ function get_date(){
 }
 
 function insert_customer($dbconn,$cus_line_id,$cus_name){
-    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name)) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name, 'cus_regdate' => getdate())) or die('Query failed: ' . pg_last_error());
     // Free result
     pg_free_result($result);     
 }
