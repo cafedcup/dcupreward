@@ -38,15 +38,19 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuild
 
 $dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c22a5eb989f6da8e9aa746c30d8395f97a@ec2-54-225-200-15.compute-1.amazonaws.com:5432/d8rrl8e93ni01r")
     or die('Could not connect: ' . pg_last_error());
-
 $access_token = '4Qu7kgrFlDwTEszsj7jmLBOiQZlJ8VPm0Cl6cgPBD68TguSuDKlCO7fb/hQojMXf9elSUa6VQ6iAm0SiVmUxQlRbnOFN38rCMclfZ/2EfLH1O4mzPPEG8RiF3yv99r2+aRHOS+usOHxGQ882dov5owdB04t89/1O/w1cDnyilFU=';
 $channelSecret = '225c1cb58f767eaf6b61053c1346727f';
+
 $httpClient = new CurlHTTPClient($access_token);
 $bot = new LINEBot($httpClient, ['channelSecret' => $channelSecret]);
+
 // Get POST body content
 $content = file_get_contents('php://input');
+
 // Parse JSON
 $events = json_decode($content, true);
+
+// Init variable
 $isPhoneText = false;
 $isUpdate = false;
 $isGivePoint = false;
@@ -214,9 +218,9 @@ if (!is_null($events['events'])) {
 	          
         	}
 			*/
-			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\MessageTemplateActionBuilder('Message Template','This is Text');
-			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
-			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str_message);
+			$replyData = new TemplateMessageBuilder('Confirm Template',new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO'))));
+			$textMessageBuilder = new TextMessageBuilder($replyData);
+			#$textMessageBuilder = new TextMessageBuilder($str_message);
 			$bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
@@ -662,7 +666,7 @@ EOF;
   }
 }
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($push_line_mes);
+$textMessageBuilder = new TextMessageBuilder($push_line_mes);
 $bot->pushMessage($push_line_id, $textMessageBuilder);
 #$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
 #echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
