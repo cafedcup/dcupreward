@@ -218,10 +218,49 @@ if (!is_null($events['events'])) {
 	          
         	}
 			*/
-			$replyData = new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
-			$textMessageBuilder = new TemplateMessageBuilder('Confirm Template',$replyData);
+			#$replyData = new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
+			#$textMessageBuilder = new TemplateMessageBuilder('Confirm Template',$replyData);
+			$actionBuilder = array(
+                            new MessageTemplateActionBuilder(
+                                'Message Template',// ข้อความแสดงในปุ่ม
+                                'This is Text' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                            ),
+                            new UriTemplateActionBuilder(
+                                'Uri Template', // ข้อความแสดงในปุ่ม
+                                'https://www.ninenik.com'
+                            ),
+                            new DatetimePickerTemplateActionBuilder(
+                                'Datetime Picker', // ข้อความแสดงในปุ่ม
+                                http_build_query(array(
+                                    'action'=>'reservation',
+                                    'person'=>5
+                                )), // ข้อมูลที่จะส่งไปใน webhook ผ่าน postback event
+                                'datetime', // date | time | datetime รูปแบบข้อมูลที่จะส่ง ในที่นี้ใช้ datatime
+                                substr_replace(date("Y-m-d H:i"),'T',10,1), // วันที่ เวลา ค่าเริ่มต้นที่ถูกเลือก
+                                substr_replace(date("Y-m-d H:i",strtotime("+5 day")),'T',10,1), //วันที่ เวลา มากสุดที่เลือกได้
+                                substr_replace(date("Y-m-d H:i"),'T',10,1) //วันที่ เวลา น้อยสุดที่เลือกได้
+                            ),      
+                            new PostbackTemplateActionBuilder(
+                                'Postback', // ข้อความแสดงในปุ่ม
+                                http_build_query(array(
+                                    'action'=>'buy',
+                                    'item'=>100
+                                )) // ข้อมูลที่จะส่งไปใน webhook ผ่าน postback event
+    //                          'Postback Text'  // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                            ),      
+                        );
+                        $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+                        $replyData = new TemplateMessageBuilder('Button Template',
+                            new ButtonTemplateBuilder(
+                                    'button template builder', // กำหนดหัวเรื่อง
+                                    'Please select', // กำหนดรายละเอียด
+                                    $imageUrl, // กำหนด url รุปภาพ
+                                    $actionBuilder  // กำหนด action object
+                            )
+                        );     
+			
 			#$textMessageBuilder = new TextMessageBuilder($str_message);
-			$bot->replyMessage($replyToken, $textMessageBuilder);
+			$bot->replyMessage($replyToken, $replyData);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
 	}
