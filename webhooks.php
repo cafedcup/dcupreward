@@ -226,8 +226,8 @@ if (!is_null($events['events'])) {
                                 'This is Text' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                             ),
                             new UriTemplateActionBuilder(
-                                'Uri Template', // ข้อความแสดงในปุ่ม
-                                'https://www.ninenik.com'
+                                "Facebook CAFE' DCUP", // ข้อความแสดงในปุ่ม
+                                'https://www.facebook.com/cafeDCUP/'
                             ),
                             new DatetimePickerTemplateActionBuilder(
                                 'Datetime Picker', // ข้อความแสดงในปุ่ม
@@ -249,8 +249,8 @@ if (!is_null($events['events'])) {
     //                          'Postback Text'  // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                             ),      
                         );
-                        $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
-                        $replyData = new TemplateMessageBuilder('Button Template',
+                        $imageUrl = 'https://cafedcup.herokuapp.com/logo';
+                        $replyData = new TemplateMessageBuilder("CAFE' DCUP",
                             new ButtonTemplateBuilder(
                                     'button template builder', // กำหนดหัวเรื่อง
                                     'Please select', // กำหนดรายละเอียด
