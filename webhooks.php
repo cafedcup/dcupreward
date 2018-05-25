@@ -179,8 +179,9 @@ if (!is_null($events['events'])) {
 	          
         	}
 			*/
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\MessageTemplateActionBuilder('Message Template','This is Text');
 			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(createNewRichmenu($access_token));
-			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str_message);
+			#$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($str_message);
 			$bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
