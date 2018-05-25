@@ -219,7 +219,7 @@ if (!is_null($events['events'])) {
         	}
 			*/
 			$replyData = new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
-			$textMessageBuilder = new TextMessageBuilder('Confirm Template',$replyData);
+			$textMessageBuilder = new TemplateMessageBuilder('Confirm Template',$replyData);
 			#$textMessageBuilder = new TextMessageBuilder($str_message);
 			$bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
