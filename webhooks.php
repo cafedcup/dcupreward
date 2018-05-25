@@ -249,7 +249,7 @@ if (!is_null($events['events'])) {
     //                          'Postback Text'  // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                             ),      
                         );
-                        $imageUrl = 'https://cafedcup.herokuapp.com/logo';
+                        $imageUrl = 'https://cafedcup.herokuapp.com/logo.jpg';
                         $replyData = new TemplateMessageBuilder("CAFE' DCUP",
                             new ButtonTemplateBuilder(
                                     'button template builder', // กำหนดหัวเรื่อง
