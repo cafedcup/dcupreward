@@ -99,9 +99,9 @@ if (!is_null($events['events'])) {
 			
 			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
-					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรือไม่" . "postback=" . event['postback'];
-					#$action_yes = new PostbackTemplateActionBuilder('Postback',http_build_query(array('action'=>'yes','item'=>100)));
-					$action_yes = 'Yes';
+					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรือไม่";
+					$action_yes = new PostbackTemplateActionBuilder('Postback',http_build_query(array('action'=>'yes','item'=>100)));
+					#$action_yes = 'Yes';
 					$messageBuilder_yes = new MessageTemplateActionBuilder('Yes',$action_yes);
 					$messageBuilder_no = new MessageTemplateActionBuilder('No','NO');
 					$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
