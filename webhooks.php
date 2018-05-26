@@ -134,8 +134,18 @@ if (!is_null($events['events'])) {
 				$str_message = $str_message . "087-384-1599\n";
 				$str_message = $str_message . "FB: https://www.facebook.com/cafeDCUP/";
 			}
-			
-
+			else if (!strcmp($str_mes,"ขอเมนู")){
+				$ImageUrl1 = 'https://cafedcup.herokuapp.com/logo.jpg';
+				$ImageUrl2 = 'https://cafedcup.herokuapp.com/logo.jpg';
+				
+				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com'));
+				$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrl2,new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com'));
+				
+				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2));
+				
+				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
+				$bot->replyMessage($replyToken, $replyData);
+			}
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
@@ -227,18 +237,7 @@ if (!is_null($events['events'])) {
 			*/
 			#$replyData = new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
 			#$textMessageBuilder = new TemplateMessageBuilder('Confirm Template',$replyData);
-			else if (!strcmp($str_mes,"ขอเมนู")){
-				$ImageUrl1 = 'https://cafedcup.herokuapp.com/logo.jpg';
-				$ImageUrl2 = 'https://cafedcup.herokuapp.com/logo.jpg';
-				
-				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com'));
-				$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrl2,new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com'));
-				
-				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2));
-				
-				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
-				$bot->replyMessage($replyToken, $replyData);
-			}
+
 			#$textMessageBuilder = new TextMessageBuilder($str_message);
 			#$bot->replyMessage($replyToken, $replyData);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
