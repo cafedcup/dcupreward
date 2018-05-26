@@ -100,7 +100,7 @@ if (!is_null($events['events'])) {
 			
 			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
-					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรื่อไม่";
+					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรือไม่" . "postback=" . event['postback'];
 					$messageBuilder_yes = new MessageTemplateActionBuilder('Yes','YES');
 					$messageBuilder_no = new MessageTemplateActionBuilder('No','NO');
 					$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
