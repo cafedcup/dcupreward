@@ -124,6 +124,7 @@ if (!is_null($events['events'])) {
 					$reward = get_reward($dbconn,$cus_id);
 					$str_reward = get_reward_message($point,$reward);
 					$str_message = "สิทธิพิเศษของ ". $cus_name ." :\n" . $str_reward;
+				}
 				else{
 					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";		
 				}
