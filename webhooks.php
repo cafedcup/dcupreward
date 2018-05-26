@@ -60,18 +60,54 @@ $isUseReward = false;
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
+		$cus_line_id = $event['source']['userId'];
+		$replyToken = $event['replyToken'];
+		$sourceType = $event['source']['type'];
+
+		if(isset($event) && array_key_exists('message',$event)){
+        	$typeMessage = $event['message']['type'];
+        	$str_mes = $event['message']['text'];
+        	$idMessage = $event['message']['id'];	
+    	}
+		if(isset($event) && array_key_exists('postback',$event)){
+			$is_postback = true;
+			$dataPostback = NULL;
+			parse_str($event['postback']['data'],$dataPostback);
+			$paramPostback = NULL;
+			if(array_key_exists('params',$event['postback'])){
+				if(array_key_exists('date',$event['postback']['params'])){
+		    		$paramPostback = $event['postback']['params']['date'];
+				}
+				if(array_key_exists('time',$event['postback']['params'])){
+		    		$paramPostback = $event['postback']['params']['time'];
+				}
+				if(array_key_exists('datetime',$event['postback']['params'])){
+		    		$paramPostback = $event['postback']['params']['datetime'];
+				}                       
+			}
+	    }   
+	    if(!is_null($is_postback)){
+	        $textReplyMessage = "ข้อความจาก Postback Event Data = ";
+	        if(is_array($dataPostback)){
+	            $textReplyMessage.= json_encode($dataPostback);
+	        }
+	        if(!is_null($paramPostback)){
+	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
+	        }
+	        $replyData = new TextMessageBuilder($textReplyMessage);
+	    }
 		// Reply only when message sent is in 'text' format
 		if (($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker'))||($event['type'] == 'follow')) {
 			// Get text sent
-			$str_mes = $event['message']['text'];
+			#$str_mes = $event['message']['text'];
 			// Get line ID
-			$cus_line_id = $event['source']['userId'];
+			#$cus_line_id = $event['source']['userId'];
 			// Get display Name
 			$cus_name = get_line_displayName($cus_line_id,$bot);
 			$point = 1;
 
 			// Get replyToken
-			$replyToken = $event['replyToken'];
+			#$replyToken = $event['replyToken'];
 
 			if (isPhone($str_mes)){
 				$isPhoneText = true;
@@ -171,7 +207,7 @@ if (!is_null($events['events'])) {
 			else
 			{
 				$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$replyToken);
-				$textMessageBuilder = new TextMessageBuilder($str_message . "postback=" . event['postback']);
+				$textMessageBuilder = new TextMessageBuilder($str_message);
 				$bot->replyMessage($replyToken, $textMessageBuilder);			
 			}
 		
