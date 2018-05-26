@@ -100,6 +100,13 @@ if (!is_null($events['events'])) {
 			
 			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
+					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรื่อไม่";
+					$messageBuilder_yes = new MessageTemplateActionBuilder('Yes','YES');
+					$messageBuilder_no = new MessageTemplateActionBuilder('No','NO');
+					$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
+					$messageBuilder = new TemplateMessageBuilder('Confirm Template',$templateBuilder);
+					$bot->replyMessage($replyToken, $messageBuilder);
+					
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$str_cus_id = sprintf("D%04s",$cus_id);
 					$cus_tel = get_cus_tel($dbconn,$cus_line_id);
@@ -110,12 +117,9 @@ if (!is_null($events['events'])) {
 				else{
 					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
 				}
-				$replyData = new TemplateMessageBuilder('Confirm Template',new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO'))));
+				
 				$textMessageBuilder = new TextMessageBuilder($str_message);
-				$multipleMessageBuilder->add($replyData);
-				$multipleMessageBuilder->add($textMessageBuilder);
-				#$bot->replyMessage($replyToken, $replyData);
-				$bot->replyMessage($replyToken, $multipleMessageBuilder);
+				$bot->replyMessage($replyToken, $textMessageBuilder);
 
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
