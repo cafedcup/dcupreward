@@ -112,9 +112,10 @@ if (!is_null($events['events'])) {
 				}
 				$replyData = new TemplateMessageBuilder('Confirm Template',new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO'))));
 				$textMessageBuilder = new TextMessageBuilder($str_message);
-
-				$bot->replyMessage($replyToken, $replyData);
-				$bot->replyMessage($replyToken, $textMessageBuilder);
+				$multipleMessageBuilder->add($replyData);
+				$multipleMessageBuilder->add($textMessageBuilder);
+				#$bot->replyMessage($replyToken, $replyData);
+				$bot->replyMessage($replyToken, $multipleMessageBuilder);
 
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
