@@ -139,7 +139,7 @@ if (!is_null($events['events'])) {
 					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรือไม่";
 					$action_yes = http_build_query(array('action'=>'yes','item'=>100));
 					#$action_yes = 'Yes';
-					$messageBuilder_yes = new MessageTemplateActionBuilder('Yes',$action_yes);
+					$messageBuilder_yes = new MessageTemplateActionBuilder('Yes','Yes',$action_yes);
 					$messageBuilder_no = new MessageTemplateActionBuilder('No','NO');
 					$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
 					$messageBuilder = new TemplateMessageBuilder('Confirm Template',$templateBuilder);
