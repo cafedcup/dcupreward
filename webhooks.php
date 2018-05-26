@@ -114,7 +114,7 @@ if (!is_null($events['events'])) {
 				$textMessageBuilder = new TextMessageBuilder($str_message);
 
 				$bot->replyMessage($replyToken, $replyData);
-				
+				$bot->replyMessage($replyToken, $textMessageBuilder);
 
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
