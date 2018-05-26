@@ -95,6 +95,7 @@ if (!is_null($events['events'])) {
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
 	        }
 	        $replyData = new TextMessageBuilder($textReplyMessage);
+	        $bot->replyMessage($replyToken, $textMessageBuilder);
 	    }
 		// Reply only when message sent is in 'text' format
 		if (($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker'))||($event['type'] == 'follow')) {
