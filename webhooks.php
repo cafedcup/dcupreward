@@ -110,24 +110,10 @@ if (!is_null($events['events'])) {
 				else{
 					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
 				}
-				$replyData = new TemplateMessageBuilder('Confirm Template',
-					new ConfirmTemplateBuilder(
-							'Confirm template builder', // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
-							array(
-								new MessageTemplateActionBuilder(
-									'Yes', // ข้อความสำหรับปุ่มแรก
-									'YES'  // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-								),
-								new MessageTemplateActionBuilder(
-									'No', // ข้อความสำหรับปุ่มแรก
-									'NO' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-								)
-							)
-					)
-				);
+				$replyData = new TemplateMessageBuilder('Confirm Template',new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO'))));
 				$textMessageBuilder = new TextMessageBuilder($str_message);
 
-				$bot->replyMessage($replyToken, array($textMessageBuilder,$replyData));
+				$bot->replyMessage($replyToken, $textMessageBuilder);
 				
 
 			}
