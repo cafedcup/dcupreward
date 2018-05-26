@@ -134,6 +134,7 @@ if (!is_null($events['events'])) {
 				$str_message = $str_message . "087-384-1599\n";
 				$str_message = $str_message . "FB: https://www.facebook.com/cafeDCUP/";
 			}
+			/*
 			else if (!strcmp($str_mes,"ขอเมนู")){
 				$ImageUrl1 = 'https://cafedcup.herokuapp.com/logo.jpg';
 				$ImageUrl2 = 'https://cafedcup.herokuapp.com/logo.jpg';
@@ -146,6 +147,7 @@ if (!is_null($events['events'])) {
 				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
 				$bot->replyMessage($replyToken, $replyData);
 			}
+			*/
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
