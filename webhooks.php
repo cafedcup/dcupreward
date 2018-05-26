@@ -125,7 +125,7 @@ if (!is_null($events['events'])) {
 				$str_message = $str_message . "087-384-1599\n";
 				$str_message = $str_message . "FB: https://www.facebook.com/cafeDCUP/";
 			}
-
+			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -220,47 +220,19 @@ if (!is_null($events['events'])) {
 			*/
 			#$replyData = new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
 			#$textMessageBuilder = new TemplateMessageBuilder('Confirm Template',$replyData);
-			$actionBuilder = array(
-                            new MessageTemplateActionBuilder(
-                                'Message Template',// ข้อความแสดงในปุ่ม
-                                'This is Text' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-                            ),
-                            new UriTemplateActionBuilder(
-                                "Facebook CAFE' DCUP", // ข้อความแสดงในปุ่ม
-                                'https://www.facebook.com/cafeDCUP/'
-                            ),
-                            new DatetimePickerTemplateActionBuilder(
-                                'Datetime Picker', // ข้อความแสดงในปุ่ม
-                                http_build_query(array(
-                                    'action'=>'reservation',
-                                    'person'=>5
-                                )), // ข้อมูลที่จะส่งไปใน webhook ผ่าน postback event
-                                'datetime', // date | time | datetime รูปแบบข้อมูลที่จะส่ง ในที่นี้ใช้ datatime
-                                substr_replace(date("Y-m-d H:i"),'T',10,1), // วันที่ เวลา ค่าเริ่มต้นที่ถูกเลือก
-                                substr_replace(date("Y-m-d H:i",strtotime("+5 day")),'T',10,1), //วันที่ เวลา มากสุดที่เลือกได้
-                                substr_replace(date("Y-m-d H:i"),'T',10,1) //วันที่ เวลา น้อยสุดที่เลือกได้
-                            ),      
-                            new PostbackTemplateActionBuilder(
-                                'Postback', // ข้อความแสดงในปุ่ม
-                                http_build_query(array(
-                                    'action'=>'buy',
-                                    'item'=>100
-                                )) // ข้อมูลที่จะส่งไปใน webhook ผ่าน postback event
-    //                          'Postback Text'  // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-                            ),      
-                        );
-                        $imageUrl = 'https://cafedcup.herokuapp.com/logo.jpg';
-                        $replyData = new TemplateMessageBuilder("CAFE' DCUP",
-                            new ButtonTemplateBuilder(
-                                    'button template builder', // กำหนดหัวเรื่อง
-                                    'Please select', // กำหนดรายละเอียด
-                                    $imageUrl, // กำหนด url รุปภาพ
-                                    $actionBuilder  // กำหนด action object
-                            )
-                        );     
-			
-			$textMessageBuilder = new TextMessageBuilder($str_message);
-			$bot->replyMessage($replyToken, $textMessageBuilder);
+			else if (!strcmp($str_mes,"ขอเมนู")){
+				$replyData = new TemplateMessageBuilder('Image Carousel',
+				new ImageCarouselTemplateBuilder(
+					array(
+					new ImageCarouselColumnTemplateBuilder(
+						''https://cafedcup.herokuapp.com/pictures/1.jpg',
+						new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com')),
+					new ImageCarouselColumnTemplateBuilder(
+						'https://cafedcup.herokuapp.com/pictures/2.jpg',
+						new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com')))));
+			}
+			#$textMessageBuilder = new TextMessageBuilder($str_message);
+			$bot->replyMessage($replyToken, $replyData);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
 	}
