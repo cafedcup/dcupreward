@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
 					$isUseReward = true;
 				}
 			}
-			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$event['replyToken']);
+			$str_message = main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$replyToken);
 			
 			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
@@ -311,7 +311,7 @@ function get_date(){
 }
 
 function insert_customer($dbconn,$cus_line_id,$cus_name){
-    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name, 'cus_regdate' => getdate())) or die('Query failed: ' . pg_last_error());
+    $result = pg_insert($dbconn,'dcup_customer_mst',array('cus_id' => '','cus_line_id' => $cus_line_id,'cus_name' => $cus_name, 'cus_regdate' => get_date())) or die('Query failed: ' . pg_last_error());
     // Free result
     pg_free_result($result);     
 }
