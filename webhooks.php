@@ -259,8 +259,8 @@ if (!is_null($events['events'])) {
                             )
                         );     
 			
-			#$textMessageBuilder = new TextMessageBuilder($str_message);
-			$bot->replyMessage($replyToken, $replyData);
+			$textMessageBuilder = new TextMessageBuilder($str_message);
+			$bot->replyMessage($replyToken, $textMessageBuilder);
 			#echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 		}
 	}
