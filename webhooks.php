@@ -69,7 +69,10 @@ if (!is_null($events['events'])) {
 			// Get display Name
 			$cus_name = get_line_displayName($cus_line_id,$bot);
 			$point = 1;
-			
+
+			// Get replyToken
+			$replyToken = $event['replyToken'];
+
 			if (isPhone($str_mes)){
 				$isPhoneText = true;
 				$cus_tel = $str_mes;
@@ -107,6 +110,9 @@ if (!is_null($events['events'])) {
 				else{
 					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
 				}
+
+				$textMessageBuilder = new TextMessageBuilder($str_message);
+				$bot->replyMessage($replyToken, $textMessageBuilder)
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
@@ -114,6 +120,9 @@ if (!is_null($events['events'])) {
 				$reward = get_reward($dbconn,$cus_id);
 				$str_reward = get_reward_message($point,$reward);
 				$str_message = "สิทธิพิเศษของ ". $cus_name ." :\n" . $str_reward;
+				
+				$textMessageBuilder = new TextMessageBuilder($str_message);
+				$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
 				$str_message = "ที่อยู่ CAFE' DCUP:\n";
@@ -126,8 +135,6 @@ if (!is_null($events['events'])) {
 				$str_message = $str_message . "FB: https://www.facebook.com/cafeDCUP/";
 			}
 			
-			// Get replyToken
-			$replyToken = $event['replyToken'];
 
 			// Build message to reply back
 			$messages = [
