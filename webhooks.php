@@ -225,7 +225,7 @@ if (!is_null($events['events'])) {
 				new ImageCarouselTemplateBuilder(
 					array(
 					new ImageCarouselColumnTemplateBuilder(
-						''https://cafedcup.herokuapp.com/pictures/1.jpg',
+						'https://cafedcup.herokuapp.com/pictures/1.jpg',
 						new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com')),
 					new ImageCarouselColumnTemplateBuilder(
 						'https://cafedcup.herokuapp.com/pictures/2.jpg',
