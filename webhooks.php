@@ -113,7 +113,7 @@ if (!is_null($events['events'])) {
 				$replyData = new TemplateMessageBuilder('Confirm Template',new ConfirmTemplateBuilder('Confirm template builder',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO'))));
 				$textMessageBuilder = new TextMessageBuilder($str_message);
 
-				$bot->replyMessage($replyToken, $textMessageBuilder);
+				$bot->replyMessage($replyToken, array($textMessageBuilder,$replyData));
 				
 
 			}
