@@ -136,13 +136,21 @@ if (!is_null($events['events'])) {
 			}
 			
 			else if (!strcmp($str_mes,"ขอเมนู")){
-				$ImageUrl1 = 'https://cafedcup.herokuapp.com/logo.jpg';
-				$ImageUrl2 = 'https://cafedcup.herokuapp.com/logo.jpg';
+				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/1.jpg';
+				$ImageUrl2 = 'https://cafedcup.herokuapp.com/pictures/2.jpg';
+				$ImageUrl3 = 'https://cafedcup.herokuapp.com/pictures/3.jpg';
+				$ImageUrl4 = 'https://cafedcup.herokuapp.com/pictures/4.jpg';
+				$ImageUrl5 = 'https://cafedcup.herokuapp.com/pictures/5.jpg';
+
 				
-				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com'));
-				$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrl2,new UriTemplateActionBuilder('Uri Template','https://www.ninenik.com'));
+				$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
+				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder("CAFE' DCUP",$ImageActionUrl));
+				$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrl2,new UriTemplateActionBuilder("CAFE' DCUP",$ImageActionUrl));
+				$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrl3,new UriTemplateActionBuilder("CAFE' DCUP",$ImageActionUrl));
+				$ImageBuilder4 = new ImageCarouselColumnTemplateBuilder($ImageUrl4,new UriTemplateActionBuilder("CAFE' DCUP",$ImageActionUrl));
+				$ImageBuilder5 = new ImageCarouselColumnTemplateBuilder($ImageUrl5,new UriTemplateActionBuilder("CAFE' DCUP",$ImageActionUrl));
 				
-				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2));
+				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3,$ImageBuilder4,$ImageBuilder5));
 				
 				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
 				$bot->replyMessage($replyToken, $replyData);
