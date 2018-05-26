@@ -110,17 +110,37 @@ if (!is_null($events['events'])) {
 				else{
 					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
 				}
-
+				$replyData = new TemplateMessageBuilder('Confirm Template',
+					new ConfirmTemplateBuilder(
+							'Confirm template builder', // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
+							array(
+								new MessageTemplateActionBuilder(
+									'Yes', // ข้อความสำหรับปุ่มแรก
+									'YES'  // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+								),
+								new MessageTemplateActionBuilder(
+									'No', // ข้อความสำหรับปุ่มแรก
+									'NO' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+								)
+							)
+					)
+				);
 				$textMessageBuilder = new TextMessageBuilder($str_message);
-				$bot->replyMessage($replyToken, $textMessageBuilder);
+
+				$bot->replyMessage($replyToken, array($textMessageBuilder,$replyData));
+				
+
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
-				$cus_id = get_cus_id($dbconn,$cus_line_id);
-				$point = get_point($dbconn,$cus_id);
-				$reward = get_reward($dbconn,$cus_id);
-				$str_reward = get_reward_message($point,$reward);
-				$str_message = "สิทธิพิเศษของ ". $cus_name ." :\n" . $str_reward;
-				
+				if (is_custel_exist($dbconn,$cus_line_id)){
+					$cus_id = get_cus_id($dbconn,$cus_line_id);
+					$point = get_point($dbconn,$cus_id);
+					$reward = get_reward($dbconn,$cus_id);
+					$str_reward = get_reward_message($point,$reward);
+					$str_message = "สิทธิพิเศษของ ". $cus_name ." :\n" . $str_reward;
+				else{
+					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";		
+				}
 				$textMessageBuilder = new TextMessageBuilder($str_message);
 				$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
