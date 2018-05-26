@@ -155,6 +155,11 @@ if (!is_null($events['events'])) {
 				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
 				$bot->replyMessage($replyToken, $replyData);
 			}
+			else
+			{
+				$textMessageBuilder = new TextMessageBuilder($str_message);
+				$bot->replyMessage($replyToken, $textMessageBuilder);			
+			}
 		
 			// Build message to reply back
 			$messages = [
