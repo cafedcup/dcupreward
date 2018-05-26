@@ -112,7 +112,7 @@ if (!is_null($events['events'])) {
 				}
 
 				$textMessageBuilder = new TextMessageBuilder($str_message);
-				$bot->replyMessage($replyToken, $textMessageBuilder)
+				$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
