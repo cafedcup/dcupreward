@@ -108,8 +108,9 @@ if (!is_null($events['events'])) {
 			$point = 1;
 
 			// Get replyToken
-			#$replyToken = $event['replyToken'];
+			
 
+			
 			if (isPhone($str_mes)){
 				$isPhoneText = true;
 				$cus_tel = $str_mes;
@@ -588,7 +589,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$str_cus_id = sprintf("D%04s",$cus_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\nรหัสสมาชิกของคุณคือ " . $str_cus_id;
-				update_reward($dbconn,$cus_id,10,false)
+				update_reward($dbconn,$cus_id,10,false);
 			}
 			
 			#else
