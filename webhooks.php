@@ -136,6 +136,7 @@ if (!is_null($events['events'])) {
 			
 			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
+					/*
 					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรือไม่";
 					$action_yes = http_build_query(array('action'=>'yes','item'=>100));
 					#$action_yes = 'Yes';
@@ -144,7 +145,7 @@ if (!is_null($events['events'])) {
 					$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
 					$messageBuilder = new TemplateMessageBuilder('Confirm Template',$templateBuilder);
 					$bot->replyMessage($replyToken, $messageBuilder);
-					
+					*/
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$str_cus_id = sprintf("D%04s",$cus_id);
 					$cus_tel = get_cus_tel($dbconn,$cus_line_id);
