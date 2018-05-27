@@ -584,10 +584,11 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			else if (!is_custel_exist($dbconn,$cus_line_id))
 			{
 				update_custel($dbconn,$cus_tel,$cus_line_id);
-				$cur_id = get_cus_id($dbconn,$cus_line_id);
-				$str_cus_id = sprintf("D%04s",$cur_id);
+				$cus_id = get_cus_id($dbconn,$cus_line_id);
+				$str_cus_id = sprintf("D%04s",$cus_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\nรหัสสมาชิกของคุณคือ " . $str_cus_id;
+				insert_reward($dbconn,$cus_id,10);
 			}
 			
 			#else
