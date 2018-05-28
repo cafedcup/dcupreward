@@ -138,7 +138,7 @@ if (!is_null($events['events'])) {
 				$textMessageBuilder = new TextMessageBuilder($str_message);
 				$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
-			if (!is_lineid_exist($dbconn,$cus_line_id)){
+			else if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    		insert_customer($dbconn,$cus_line_id,$cus_name);
 	    		#$hello = 'Welcome ' . $cus_name;
 				$str_message = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ dcup Reward";
