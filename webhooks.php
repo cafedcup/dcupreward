@@ -728,7 +728,7 @@ if (is_admin($dbconn,$cus_line_id)){
 
 			if(!is_null($reward_id)){
 				use_reward($dbconn,$reward_id);
-				$str_message = "• คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธินะคะ";
+				$str_message = "• คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธิ";
 				$push_line_mes = $cus_name . "[" . $str_cus_id . "]\n" . $str_message;
 			}
 			else{
