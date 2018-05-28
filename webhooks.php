@@ -351,7 +351,7 @@ function isReward($string){
 }
 
 function get_reward_message($point,$reward){
-	$str_point_message = "ขณะนี้คุณไม่มีแต้ม รีบมาสะสมนะคะ";
+	$str_point_message = "• คุณยังไม่มีแต้ม รีบมาสะสมนะคะ";
 	if ($point != 0){
 		$str_point_message = "• คุณมี " . $point . " แต้ม\n";
 		$str_reward_message = "• ไม่มีสิทธิพิเศษ";
