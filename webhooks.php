@@ -135,12 +135,12 @@ if (!is_null($events['events'])) {
 			}
 			else if (isCusID(sprintf("%04s",substr($str_mes,0,strpos($str_mes,','))))){
 				$isCusIDText = true;
-				$cus_id = substr($str_mes,0,strpos($str_mes,'@'));
-				if(isPoint(substr($str_mes,strpos($str_mes,'@')))){
-					$point = substr($str_mes,strpos($str_mes,'@'));
+				$cus_id = substr($str_mes,0,strpos($str_mes,','));
+				if(isPoint(substr($str_mes,strpos($str_mes,',')+1))){
+					$point = substr($str_mes,strpos($str_mes,',')+1);
 					$isGivePoint = true;
 				}
-				if(isReward(substr($str_mes,strpos($str_mes,'@')))){
+				if(isReward(substr($str_mes,strpos($str_mes,',')+1))){
 					$isUseReward = true;
 				}
 			}
