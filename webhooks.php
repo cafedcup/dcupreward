@@ -698,7 +698,7 @@ if (is_admin($dbconn,$cus_line_id)){
 				}
 				else{
 					update_reward($dbconn,$cus_id,10,false);
-					insert_reward($dbconn,$cus_id,($point_new % 10,true));
+					insert_reward($dbconn,$cus_id,($point_new % 10),true);
 				}
 			}
 			
