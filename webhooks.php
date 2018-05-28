@@ -133,7 +133,7 @@ if (!is_null($events['events'])) {
 					$isUseReward = true;
 				}
 			}
-			else if (isCusID(substr($str_mes,0,strpos($str_mes,',')))){
+			else if (isCusID(sprintf("%04s",substr($str_mes,0,strpos($str_mes,','))))){
 				$isCusIDText = true;
 				$cus_id = substr($str_mes,0,strpos($str_mes,','));
 				if(isPoint(substr($str_mes,strpos($str_mes,',')+1))){
@@ -338,10 +338,10 @@ if (!is_null($events['events'])) {
 }
 
 function isCusID($string) {
-    return preg_match("/^[0-9]{10}$/", $string);
+    return preg_match("/^[0-9]{4}$/", $string);
 }
 function isPhone($string) {
-    return preg_match("/^[0-9]{4}$/", $string);
+    return preg_match("/^[0-9]{10}$/", $string);
 }
 function isPoint($string){
 	return preg_match("/^[1-9]{1}$/", $string);
@@ -595,8 +595,8 @@ function get_line_displayName($str_line_id,$bot){
 function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isUpdate,$replyToken){
 	$hello = $cus_name;
 	if (is_admin($dbconn,$cus_line_id)){
-		$hello = $hello . " คุณคือโคบาน";
-		$cus_line_id = get_cus_line_id($dbconn,$cus_tel,NULL);
+		#$hello = $hello . " คุณคือโคบาน";
+		#$cus_line_id = get_cus_line_id($dbconn,$cus_tel,NULL);
 	}
 	else if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    insert_customer($dbconn,$cus_line_id,$cus_name);
@@ -673,13 +673,12 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 }
 
 if (is_admin($dbconn,$cus_line_id)){
-
 	if ($isGivePoint){
 		if($isPhoneText){
 			$push_line_id = get_cus_line_id($dbconn,$cus_tel,NULL);
 			$cus_id = get_cus_id($dbconn,$push_line_id);
 		}
-		elseif($isCusIDText){
+		else if($isCusIDText){
 			$push_line_id = get_cus_line_id($dbconn,NULL,$cus_id);	
 		}
 		if(!is_null($push_line_id)){
@@ -713,12 +712,12 @@ if (is_admin($dbconn,$cus_line_id)){
 			$push_line_mes = "หมายเลขนี้ยังไม่ได้ทำการลงทะเบียน";
 		}
 	}
-	elseif ($isUseReward){
+	else if ($isUseReward){
 		if($isPhoneText){
 			$push_line_id = get_cus_line_id($dbconn,$cus_tel,NULL);
 			$cus_id = get_cus_id($dbconn,$push_line_id);
 		}
-		elseif($isCusIDText){
+		else if($isCusIDText){
 			$push_line_id = get_cus_line_id($dbconn,NULL,$cus_id);	
 		}
 		if(!is_null($push_line_id)){
