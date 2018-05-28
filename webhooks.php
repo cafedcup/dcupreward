@@ -655,30 +655,35 @@ if (is_admin($dbconn,$cus_line_id)){
 
 	if ($isGivePoint){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
-		$cus_name = get_cus_name($dbconn,$push_line_id);
-		$cus_id = get_cus_id($dbconn,$push_line_id);
-		$str_cus_id = sprintf("D%04s",$cus_id);
-		
-		$point_cur = get_point($dbconn,$cus_id);
-		$point_new = $point_cur + $point;
-		$push_line_mes = "คุณได้รับเพิ่ม ". $point . " แต้ม\n";
-		if (!is_reward_exist($dbconn,$cus_id)){
-			insert_reward($dbconn,$cus_id,$point_new);
-		}
-		else{
-			if ((floor($point_new / 10)) == 0){
-				update_reward($dbconn,$cus_id,$point_new,true);
+		if(!is_null($push_line_id)){
+			$cus_name = get_cus_name($dbconn,$push_line_id);
+			$cus_id = get_cus_id($dbconn,$push_line_id);
+			$str_cus_id = sprintf("D%04s",$cus_id);
+			
+			$point_cur = get_point($dbconn,$cus_id);
+			$point_new = $point_cur + $point;
+			$push_line_mes = "คุณได้รับเพิ่ม ". $point . " แต้ม\n";
+			if (!is_reward_exist($dbconn,$cus_id)){
+				insert_reward($dbconn,$cus_id,$point_new);
 			}
 			else{
-				update_reward($dbconn,$cus_id,10,false);
-				insert_reward($dbconn,$cus_id,($point_new % 10));
+				if ((floor($point_new / 10)) == 0){
+					update_reward($dbconn,$cus_id,$point_new,true);
+				}
+				else{
+					update_reward($dbconn,$cus_id,10,false);
+					insert_reward($dbconn,$cus_id,($point_new % 10));
+				}
 			}
+			
+			$reward = get_reward($dbconn,$cus_id);
+			$str_message = get_reward_message(($point_new % 10),$reward);
+			$str_message = $cus_name . "[" . $str_cus_id . "]\n" . $str_message;
+			$push_line_mes = $push_line_mes . $str_message;
 		}
-		
-		$reward = get_reward($dbconn,$cus_id);
-		$str_message = get_reward_message(($point_new % 10),$reward);
-		$str_message = $cus_name . "[" . $str_cus_id . "]\n" . $str_message;
-		$push_line_mes = $push_line_mes . $str_message;
+		else{
+			$push_line_mes = "เบอร์โทรนี้ยังไม่ได้ทำการลงทะเบียน";
+		}
 	}
 	elseif ($isUseReward){
 		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
