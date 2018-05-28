@@ -132,6 +132,12 @@ if (!is_null($events['events'])) {
 					$isUseReward = true;
 				}
 			}
+
+			if (is_admin($dbconn,$cus_line_id)){
+				$str_message = "Hi admin " . $cus_name;
+				$textMessageBuilder = new TextMessageBuilder($str_message);
+				$bot->replyMessage($replyToken, $textMessageBuilder);
+			}
 			if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    		insert_customer($dbconn,$cus_line_id,$cus_name);
 	    		#$hello = 'Welcome ' . $cus_name;
