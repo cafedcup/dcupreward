@@ -677,7 +677,7 @@ if (is_admin($dbconn,$cus_line_id)){
 		
 		$reward = get_reward($dbconn,$cus_id);
 		$str_message = get_reward_message(($point_new % 10),$reward);
-		$str_message = $cus_name . "[" . $str_cus_id . "] " . $str_message;
+		$str_message = $cus_name . "[" . $str_cus_id . "]\n" . $str_message;
 		$push_line_mes = $push_line_mes . $str_message;
 	}
 	elseif ($isUseReward){
