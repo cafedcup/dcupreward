@@ -396,8 +396,8 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
     pg_free_result($result);     
 }
 
-function insert_reward($dbconn,$cus_id,$point){
-    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => $point,'valid' => true, 'reward_start_date' => get_datetime())) or die('Query failed: ' . pg_last_error());
+function insert_reward($dbconn,$cus_id,$point,$valid){
+    $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => $point,'valid' => $valid, 'reward_start_date' => get_datetime())) or die('Query failed: ' . pg_last_error());
 	#$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => $point,'valid' => true)) or die('Query failed: ' . pg_last_error());
 	// Free result
     pg_free_result($result);     
@@ -622,7 +622,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$str_cus_id = sprintf("D%04s",$cus_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\nรหัสสมาชิกของคุณคือ " . $str_cus_id;
-				update_reward($dbconn,$cus_id,10,false);
+				insert_reward($dbconn,$cus_id,10,false);
 			}
 			
 			#else
@@ -690,7 +690,7 @@ if (is_admin($dbconn,$cus_line_id)){
 			$point_new = $point_cur + $point;
 			$push_line_mes = "คุณได้รับเพิ่ม ". $point . " แต้ม\n";
 			if (!is_reward_exist($dbconn,$cus_id)){
-				insert_reward($dbconn,$cus_id,$point_new);
+				insert_reward($dbconn,$cus_id,$point_new,true);
 			}
 			else{
 				if ((floor($point_new / 10)) == 0){
@@ -698,7 +698,7 @@ if (is_admin($dbconn,$cus_line_id)){
 				}
 				else{
 					update_reward($dbconn,$cus_id,10,false);
-					insert_reward($dbconn,$cus_id,($point_new % 10));
+					insert_reward($dbconn,$cus_id,($point_new % 10,true));
 				}
 			}
 			
@@ -718,7 +718,7 @@ if (is_admin($dbconn,$cus_line_id)){
 			$cus_id = get_cus_id($dbconn,$push_line_id);
 		}
 		else if($isCusIDText){
-			$push_line_id = get_cus_line_id($dbconn,NULL,$cus_id);	
+			$push_line_id = get_cus_line_id($dbconn,NULL,$cus_id);
 		}
 		if(!is_null($push_line_id)){
 			$cus_name = get_cus_name($dbconn,$push_line_id);
