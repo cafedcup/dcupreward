@@ -347,7 +347,7 @@ function isPoint($string){
 	return preg_match("/^[1-9]{1}$/", $string);
 }
 function isReward($string){
-	return preg_match("/^[r,R]{1}$/", $string);
+	return preg_match("/^[@]{1}$/", $string);
 }
 
 function get_reward_message($point,$reward){
