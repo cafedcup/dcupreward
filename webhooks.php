@@ -682,6 +682,7 @@ if (is_admin($dbconn,$cus_line_id)){
 			$push_line_mes = $push_line_mes . $str_message;
 		}
 		else{
+			$push_line_id = get_admin_lineid($dbconn);
 			$push_line_mes = "เบอร์โทรนี้ยังไม่ได้ทำการลงทะเบียน";
 		}
 	}
