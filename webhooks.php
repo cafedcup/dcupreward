@@ -55,6 +55,7 @@ $isPhoneText = false;
 $isUpdate = false;
 $isGivePoint = false;
 $isUseReward = false;
+$isCusIDText = false;
 
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
@@ -124,6 +125,17 @@ if (!is_null($events['events'])) {
 			else if (isPhone(substr($str_mes,0,strpos($str_mes,',')))){
 				$isPhoneText = true;
 				$cus_tel = substr($str_mes,0,strpos($str_mes,','));
+				if(isPoint(substr($str_mes,strpos($str_mes,',')+1))){
+					$point = substr($str_mes,strpos($str_mes,',')+1);
+					$isGivePoint = true;
+				}
+				if(isReward(substr($str_mes,strpos($str_mes,',')+1))){
+					$isUseReward = true;
+				}
+			}
+			else if (isCusID(substr($str_mes,0,strpos($str_mes,',')))){
+				$isCusIDText = true;
+				$cus_id = substr($str_mes,0,strpos($str_mes,','));
 				if(isPoint(substr($str_mes,strpos($str_mes,',')+1))){
 					$point = substr($str_mes,strpos($str_mes,',')+1);
 					$isGivePoint = true;
@@ -325,8 +337,11 @@ if (!is_null($events['events'])) {
 	}
 }
 
-function isPhone($string) {
+function isCusID($string) {
     return preg_match("/^[0-9]{10}$/", $string);
+}
+function isPhone($string) {
+    return preg_match("/^[0-9]{4}$/", $string);
 }
 function isPoint($string){
 	return preg_match("/^[1-9]{1}$/", $string);
@@ -457,8 +472,14 @@ function get_cus_name($dbconn,$cus_line_id){
     return $cus_name;
 }
 
-function get_cus_line_id($dbconn,$cus_tel){
-    $query = "SELECT cus_line_id FROM dcup_customer_mst WHERE cus_tel = '" . $cus_tel . "'";
+function get_cus_line_id($dbconn,$cus_tel,$cus_id){
+	if (!is_null($cus_tel)){
+		$str = "cus_tel = '" . $cus_tel . "'";
+	}
+	else if(!is_null($cus_id)){
+		$str = "cus_id = '" . $cus_id . "'";
+	}
+    $query = "SELECT cus_line_id FROM dcup_customer_mst WHERE " . $str;
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
@@ -575,7 +596,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	$hello = $cus_name;
 	if (is_admin($dbconn,$cus_line_id)){
 		$hello = $hello . " คุณคือโคบาน";
-		$cus_line_id = get_cus_line_id($dbconn,$cus_tel);
+		$cus_line_id = get_cus_line_id($dbconn,$cus_tel,NULL);
 	}
 	else if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    insert_customer($dbconn,$cus_line_id,$cus_name);
@@ -654,10 +675,16 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 if (is_admin($dbconn,$cus_line_id)){
 
 	if ($isGivePoint){
-		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+		if($isPhoneText){
+			$push_line_id = get_cus_line_id($dbconn,$cus_tel,NULL);
+			$cus_id = get_cus_id($dbconn,$push_line_id);
+		}
+		elseif($isCusIDText){
+			$push_line_id = get_cus_line_id($dbconn,NULL,$cus_id);	
+		}
 		if(!is_null($push_line_id)){
 			$cus_name = get_cus_name($dbconn,$push_line_id);
-			$cus_id = get_cus_id($dbconn,$push_line_id);
+
 			$str_cus_id = sprintf("D%04s",$cus_id);
 			
 			$point_cur = get_point($dbconn,$cus_id);
@@ -687,10 +714,16 @@ if (is_admin($dbconn,$cus_line_id)){
 		}
 	}
 	elseif ($isUseReward){
-		$push_line_id = get_cus_line_id($dbconn,$cus_tel);
+		if($isPhoneText){
+			$push_line_id = get_cus_line_id($dbconn,$cus_tel,NULL);
+			$cus_id = get_cus_id($dbconn,$push_line_id);
+		}
+		elseif($isCusIDText){
+			$push_line_id = get_cus_line_id($dbconn,NULL,$cus_id);	
+		}
 		if(!is_null($push_line_id)){
 			$cus_name = get_cus_name($dbconn,$push_line_id);
-			$cus_id = get_cus_id($dbconn,$push_line_id);
+
 			$str_cus_id = sprintf("D%04s",$cus_id);
 			$reward_id = get_reward_id($dbconn,$cus_id);
 
