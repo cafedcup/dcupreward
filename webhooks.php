@@ -135,8 +135,8 @@ if (!is_null($events['events'])) {
 
 			if (is_admin($dbconn,$cus_line_id)){
 				$str_message = "Hi admin " . $cus_name;
-				$textMessageBuilder = new TextMessageBuilder($str_message);
-				$bot->replyMessage($replyToken, $textMessageBuilder);
+				#$textMessageBuilder = new TextMessageBuilder($str_message);
+				#$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
 			else if (!is_lineid_exist($dbconn,$cus_line_id)){
 	    		insert_customer($dbconn,$cus_line_id,$cus_name);
@@ -781,6 +781,7 @@ EOF;
 
 $textMessageBuilder = new TextMessageBuilder($push_line_mes);
 $bot->pushMessage($push_line_id, $textMessageBuilder);
+$bot->replyMessage($replyToken, $textMessageBuilder);
 #$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
 #echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
