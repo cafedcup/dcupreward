@@ -109,8 +109,6 @@ if (!is_null($events['events'])) {
 
 			// Get replyToken
 			
-
-			
 			if (isPhone($str_mes)){
 				$isPhoneText = true;
 				$cus_tel = $str_mes;
@@ -134,8 +132,14 @@ if (!is_null($events['events'])) {
 					$isUseReward = true;
 				}
 			}
-			
-			if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
+			if (!is_lineid_exist($dbconn,$cus_line_id)){
+	    		insert_customer($dbconn,$cus_line_id,$cus_name);
+	    		#$hello = 'Welcome ' . $cus_name;
+				$hello = "ยินดีต้อนรับ " . $cus_name . "\nเข้าสู่ dcup Reward";
+	    		#$tel = "\nPlease enter your phone number";
+				$tel = "\nกรุณาพิมพ์หมายเลขโทรศัพท์\nเพื่อทำการลงทะเบียน";
+			}
+			else if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
 					/*
 					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรือไม่";
