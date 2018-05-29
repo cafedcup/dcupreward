@@ -201,7 +201,7 @@ if (!is_null($events['events'])) {
 				
 				$messageBuilder = get_reward_picture($point,$reward);
 				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
-				
+				$bot->replyMessage($replyToken, $replyData);
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
 				$str_message = "ที่อยู่ CAFE' DCUP:\n";
