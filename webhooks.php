@@ -185,7 +185,7 @@ if (!is_null($events['events'])) {
 				$bot->replyMessage($replyToken, $textMessageBuilder);
 
 			}
-			else if (!strcmp($str_mes,"สสอบถามคะแนนและสิทธิพิเศษที่ CAFE' DCUP")){
+			else if (!strcmp($str_mes,"สอบถามคะแนนและสิทธิพิเศษที่ CAFE' DCUP")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$point = get_point($dbconn,$cus_id);
