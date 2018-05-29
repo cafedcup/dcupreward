@@ -200,7 +200,7 @@ if (!is_null($events['events'])) {
 				#$bot->replyMessage($replyToken, $textMessageBuilder);
 				
 				$messageBuilder = get_reward_picture($point,$reward);
-				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
+				$replyData = new TemplateMessageBuilder('DCUP Reward',$messageBuilder);
 				$bot->replyMessage($replyToken, $replyData);
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
@@ -389,7 +389,7 @@ function get_reward_picture($point,$reward){
     $actionBuilder = array(new MessageTemplateActionBuilder('Message Template','This is Text'));
 
     $ColTempBuilder1 = new CarouselColumnTemplateBuilder('My Points','Test',$ImageUrlPoint,$actionBuilder);
-    $messageBuilder = new TemplateMessageBuilder('DCUP Reward', new CarouselTemplateBuilder(array($ColTempBuilder1)));
+    $messageBuilder = new CarouselTemplateBuilder(array($ColTempBuilder1));
 	#$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
 	#$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
 	/*
