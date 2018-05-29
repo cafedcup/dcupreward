@@ -388,7 +388,7 @@ function get_reward_picture($point,$reward){
 	$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
     $actionBuilder = array(new MessageTemplateActionBuilder('Message Template','This is Text'));
 
-    $ColTempBuilder1 = new CarouselColumnTemplateBuilder('My Points','Test',$ImageUrlPoint,$actionBuilder);
+    $ColTempBuilder1 = new CarouselColumnTemplateBuilder('My Points','Test',$ImageUrlPoint,null);
     $messageBuilder = new CarouselTemplateBuilder(array($ColTempBuilder1));
 	#$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
 	#$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
