@@ -386,9 +386,13 @@ function get_reward_picture($point,$reward){
 	$ImageUrlPoint = 'https://cafedcup.herokuapp.com/pictures/points/' . $point . '.jpg';
 	$ImageUrlReward = 'https://cafedcup.herokuapp.com/pictures/reward/reward.jpg';
 	$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
+    $actionBuilder = array(new MessageTemplateActionBuilder('Message Template','This is Text');
 
-	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
-	$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
+    $ColTempBuilder1 = new CarouselColumnTemplateBuilder('My Points','Test',$ImageUrlPoint,$actionBuilder);
+    $messageBuilder = new TemplateMessageBuilder('DCUP Reward', new CarouselTemplateBuilder(array($ColTempBuilder1)));
+	#$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
+	#$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
+	/*
 	switch($reward){
 		case '1':
 			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
@@ -412,6 +416,7 @@ function get_reward_picture($point,$reward){
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3,$ImageBuilder4));
 			break;
 	}
+	*/
 	return $messageBuilder;
 }
 function get_datetime(){
