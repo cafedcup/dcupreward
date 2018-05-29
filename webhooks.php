@@ -198,11 +198,28 @@ if (!is_null($events['events'])) {
 				}
 				#$textMessageBuilder = new TextMessageBuilder($str_message);
 				#$bot->replyMessage($replyToken, $textMessageBuilder);
+				/*
 				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/points/0.JPG';
 				$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
 				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
 				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
 				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
+				*/
+				$imageMapUrl = 'https://cafedcup.herokuapp.com/pictures/points/0.JPG';
+				$replyData = new ImagemapMessageBuilder(
+					$imageMapUrl,
+					'This is Title',
+					new BaseSizeBuilder(699,1040),
+					array(
+						new ImagemapMessageActionBuilder(
+							'test image map',
+							new AreaBuilder(0,0,520,699)
+							),
+						new ImagemapUriActionBuilder(
+							'http://www.ninenik.com',
+							new AreaBuilder(520,0,520,699)
+							)
+					)); 
 				$bot->replyMessage($replyToken, $replyData);
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
