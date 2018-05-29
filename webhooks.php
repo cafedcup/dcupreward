@@ -181,15 +181,9 @@ if (!is_null($events['events'])) {
 				else{
 					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
 				}
-				
-				#$textMessageBuilder = new TextMessageBuilder($str_message);
-				#$bot->replyMessage($replyToken, $textMessageBuilder);
-				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/points/1.JPG';
-				$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
-				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder("CAFE' DCUP",$ImageActionUrl));
-				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
-				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
-				$bot->replyMessage($replyToken, $replyData);
+				$textMessageBuilder = new TextMessageBuilder($str_message);
+				$bot->replyMessage($replyToken, $textMessageBuilder);
+
 			}
 			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
@@ -202,8 +196,14 @@ if (!is_null($events['events'])) {
 				else{
 					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";		
 				}
-				$textMessageBuilder = new TextMessageBuilder($str_message);
-				$bot->replyMessage($replyToken, $textMessageBuilder);
+				#$textMessageBuilder = new TextMessageBuilder($str_message);
+				#$bot->replyMessage($replyToken, $textMessageBuilder);
+				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/points/1.JPG';
+				$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
+				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder("CAFE' DCUP",$ImageActionUrl));
+				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
+				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
+				$bot->replyMessage($replyToken, $replyData);
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
 				$str_message = "ที่อยู่ CAFE' DCUP:\n";
