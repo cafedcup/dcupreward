@@ -391,7 +391,8 @@ function get_reward_picture($point,$reward){
     $ColTempBuilder1 = new CarouselColumnTemplateBuilder('My Points','Test',$ImageUrlPoint,null);
     $messageBuilder = new CarouselTemplateBuilder(array($ColTempBuilder1));
 	*/
-	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
+	#$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
+	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new PostbackTemplateActionBuilder("My Points",http_build_query(array('action'=>'buy')),'T'));
 	$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
 	
 	switch($reward){
@@ -754,7 +755,6 @@ if (is_admin($dbconn,$cus_line_id)){
 				use_reward($dbconn,$reward_id);
 				$str_message = "• คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธิ";
 				$push_line_mes = $cus_name . "[" . $str_cus_id . "]\n" . $str_message;
-				http_build_query(array('action'=>'yes','item'=>100));
 			}
 			else{
 				$push_line_id = get_admin_lineid($dbconn);
