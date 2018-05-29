@@ -200,7 +200,7 @@ if (!is_null($events['events'])) {
 				#$bot->replyMessage($replyToken, $textMessageBuilder);
 				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/points/0.JPG';
 				$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
-				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder(null,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
+				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
 				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
 				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
 				$bot->replyMessage($replyToken, $replyData);
