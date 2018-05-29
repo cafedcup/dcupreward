@@ -389,7 +389,7 @@ function get_reward_picture($point,$reward){
 
 	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
 	$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
-	swich($reward){
+	switch($reward){
 		case '1':
 			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2));
