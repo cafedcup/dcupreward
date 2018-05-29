@@ -684,23 +684,6 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$point = get_point($dbconn,$cus_id);
 				$reward = get_reward($dbconn,$cus_id);
 				$tel = get_reward_message($point,$reward);
-				/*
-				if ($point != 0){
-					$tel = "ขณะนี้คุณมี " . $point . " แต้ม ";
-				}
-				if ($reward != 0){
-					$tel = $tel . "และฟรี ". $reward ." แก้ว";
-				}
-				else{
-					$tel = $tel . "สู้ๆนะคะ อีก " . (10 - $point) . " แต้ม";
-				}
-				if (($point == 0) && ($reward == 0 )){
-					$tel = "\nขณะนี้ยังไม่มีแต้ม รีบมาสะสมกันนะคะ";
-				}
-				*/
-				#$tel = "คุณนี้มี " . $point . " แต้ม และฟรี ". $reward ." แก้ว";
-				#$tel = "You register already.\nYour ID is " . $str_cus_id;
-				#$tel = "คุณได้ลงทะเบียนเรียบร้อย\nหมายเลขสมาชิกของคุณคือ " . $str_cus_id . "\nโปรดติดตามตอนต่อไปจ้า...";
 				$tel = "[".$str_cus_id . "]\n" . $tel;
 			}
 			else 
@@ -771,6 +754,7 @@ if (is_admin($dbconn,$cus_line_id)){
 				use_reward($dbconn,$reward_id);
 				$str_message = "• คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธิ";
 				$push_line_mes = $cus_name . "[" . $str_cus_id . "]\n" . $str_message;
+				http_build_query(array('action'=>'yes','item'=>100));
 			}
 			else{
 				$push_line_id = get_admin_lineid($dbconn);
