@@ -411,12 +411,6 @@ function get_reward_picture($point,$reward){
 			$ImageBuilder4 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3,$ImageBuilder4));
 			break;
-		default:
-			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
-			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
-			$ImageBuilder4 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
-			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3,$ImageBuilder4));
-			break;
 	}
 	
 	return $messageBuilder;
