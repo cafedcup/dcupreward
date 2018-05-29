@@ -392,7 +392,7 @@ function get_reward_picture($point,$reward){
     $messageBuilder = new CarouselTemplateBuilder(array($ColTempBuilder1));
 	*/
 	#$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
-	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new PostbackTemplateActionBuilder("My Points",http_build_query(array('action'=>'buy')),'T'));
+	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new PostbackTemplateActionBuilder("My Points",http_build_query(array('action'=>'getPoints')),'T'));
 	$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
 	
 	switch($reward){
