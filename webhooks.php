@@ -184,7 +184,7 @@ if (!is_null($events['events'])) {
 				
 				#$textMessageBuilder = new TextMessageBuilder($str_message);
 				#$bot->replyMessage($replyToken, $textMessageBuilder);
-				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/points/1.jpg';
+				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/points/1.JPG';
 				$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
 				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder("CAFE' DCUP",$ImageActionUrl));
 				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
