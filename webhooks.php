@@ -198,17 +198,10 @@ if (!is_null($events['events'])) {
 				}
 				#$textMessageBuilder = new TextMessageBuilder($str_message);
 				#$bot->replyMessage($replyToken, $textMessageBuilder);
-				/*
-				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/points/0.JPG';
-				$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
-				$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
-				$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
+				
+				$messageBuilder = get_reward_picture($point,$reward);
 				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
-				*/
-				$imageMapUrl = 'https://cafedcup.herokuapp.com/pictures/points/0.JPG';
-
-                $replyData = new ImageMessageBuilder($imageMapUrl,$imageMapUrl);
-				$bot->replyMessage($replyToken, $replyData);
+				
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
 				$str_message = "ที่อยู่ CAFE' DCUP:\n";
@@ -390,19 +383,11 @@ function get_reward_message($point,$reward){
 	return $str_message;
 }
 function get_reward_picture($point,$reward){
-	$str_point_message = "• คุณยังไม่มีแต้ม รีบมาสะสมนะคะ";
-	if ($point != 0){
-		$str_point_message = "• คุณมี " . $point . " แต้ม\n";
-		$str_reward_message = "• ไม่มีสิทธิพิเศษ";
-	}
-	if ($reward != 0){
-		$str_reward_message = "• มีสิทธิพิเศษ ". $reward ." สิทธิ";
-		if($point == 0){
-			$str_point_message = "";
-		}
-	}
-	$str_message = $str_point_message . $str_reward_message;
-	return $str_message;
+	$ImageUrl1Point = 'https://cafedcup.herokuapp.com/pictures/points/' . $point . '.JPG';
+	$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';	
+	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrl1Point,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
+	$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
+	return $messageBuilder;
 }
 function get_datetime(){
 	$date = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
