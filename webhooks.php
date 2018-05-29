@@ -206,20 +206,8 @@ if (!is_null($events['events'])) {
 				$replyData = new TemplateMessageBuilder('Image Carousel',$messageBuilder);
 				*/
 				$imageMapUrl = 'https://cafedcup.herokuapp.com/pictures/points/0.JPG';
-				$replyData = new ImagemapMessageBuilder(
-					$imageMapUrl,
-					'This is Title',
-					new BaseSizeBuilder(699,1040),
-					array(
-						new ImagemapMessageActionBuilder(
-							'test image map',
-							new AreaBuilder(0,0,520,699)
-							),
-						new ImagemapUriActionBuilder(
-							'http://www.ninenik.com',
-							new AreaBuilder(520,0,520,699)
-							)
-					)); 
+
+                $replyData = new ImageMessageBuilder($imageMapUrl,$imageMapUrl);
 				$bot->replyMessage($replyToken, $replyData);
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
