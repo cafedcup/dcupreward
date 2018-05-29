@@ -387,7 +387,7 @@ function get_reward_picture($point,$reward){
 	$ImageUrlReward = 'https://cafedcup.herokuapp.com/pictures/reward/reward.jpg';
 	$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
 
-	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
+	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new MessageTemplateActionBuilder('Message Template','This is Text'));
 	$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
 	switch($reward){
 		case '1':
