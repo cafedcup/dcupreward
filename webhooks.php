@@ -159,7 +159,7 @@ if (!is_null($events['events'])) {
 				$textMessageBuilder = new TextMessageBuilder($str_message);
 				$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
-			else if (!strcmp($str_mes,"ขอข้อมูลส่วนตัว")){
+			else if (!strcmp($str_mes,"สอบถามข้อมูลส่วนตัวที่ CAFE' DCUP")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
 					/*
 					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรือไม่";
@@ -185,7 +185,7 @@ if (!is_null($events['events'])) {
 				$bot->replyMessage($replyToken, $textMessageBuilder);
 
 			}
-			else if (!strcmp($str_mes,"ขอสิทธิพิเศษที่ CAFE' DCUP")){
+			else if (!strcmp($str_mes,"สอบถามสิทธิคะแนนและสิทธิพิเศษที่ CAFE' DCUP")){
 				if (is_custel_exist($dbconn,$cus_line_id)){
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$point = get_point($dbconn,$cus_id);
