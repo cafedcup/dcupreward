@@ -197,9 +197,9 @@ if (!is_null($events['events'])) {
 				}
 				else{
 					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
-					$textMessageBuilder = new TextMessageBuilder($str_message);
+					$messageBuilder = new TextMessageBuilder($str_message);
 				}				
-				$bot->replyMessage($replyToken, $textMessageBuilder);
+				$bot->replyMessage($replyToken, $messageBuilder);
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
 				$str_message = "ที่อยู่ CAFE' DCUP:\n";
@@ -655,8 +655,8 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
 				$str_cus_id = sprintf("D%04s",$cus_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
-				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\nรหัสสมาชิกของคุณคือ " . $str_cus_id;
-				$tel .= "\nคุณได้รับสิทธิพิเศษฟรี 1 สิทธิ สามารถกดเพื่อตรวจสอบได้ที่ Reward";
+				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\n• รหัสสมาชิกของคุณคือ " . $str_cus_id;
+				$tel .= "\n• คุณได้รับสิทธิพิเศษฟรี 1 สิทธิ";
 				insert_reward($dbconn,$cus_id,10,false);
 				insert_reward($dbconn,$cus_id,0,true);
 			}
