@@ -658,6 +658,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				$str_cus_id = sprintf("D%04s",$cus_id);
 				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
 				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\nรหัสสมาชิกของคุณคือ " . $str_cus_id;
+				$tel .= "\nคุณได้รับสิทธิพิเศษฟรี 1 สิทธิ สามารถกดเพื่อตรวจสอบได้ที่ Reward";
 				insert_reward($dbconn,$cus_id,10,false);
 				insert_reward($dbconn,$cus_id,0,true);
 			}
