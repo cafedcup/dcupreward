@@ -190,18 +190,16 @@ if (!is_null($events['events'])) {
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$point = get_point($dbconn,$cus_id);
 					$reward = get_reward($dbconn,$cus_id);
-					$str_reward = get_reward_message($point,$reward);
-					$str_message = "สิทธิพิเศษของ ". $cus_name ." :\n" . $str_reward;
+					#$str_reward = get_reward_message($point,$reward);
+					#$str_message = "สิทธิพิเศษของ ". $cus_name ." :\n" . $str_reward;
+					$str_message = get_reward_picture($point,$reward);
+					$messageBuilder = new TemplateMessageBuilder('DCUP Reward',$str_message);
 				}
 				else{
-					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";		
-				}
-				#$textMessageBuilder = new TextMessageBuilder($str_message);
-				#$bot->replyMessage($replyToken, $textMessageBuilder);
-				
-				$messageBuilder = get_reward_picture($point,$reward);
-				$replyData = new TemplateMessageBuilder('DCUP Reward',$messageBuilder);
-				$bot->replyMessage($replyToken, $replyData);
+					$str_message = "!!คุณยังไม่ได้ทำการลงทะเบียน\n• กรุณาพิมพ์หมายเลขโทรศัพท์ 10 หลัก นะคะ";
+					$textMessageBuilder = new TextMessageBuilder($str_message);
+				}				
+				$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
 			else if (!strcmp($str_mes,"ขอที่อยู่ CAFE' DCUP")){
 				$str_message = "ที่อยู่ CAFE' DCUP:\n";
