@@ -1,2 +1,2 @@
 <?php
-echo "Test";
+<a href="tel:+660873841599">Call us</a>
