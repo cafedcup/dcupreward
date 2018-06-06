@@ -1,1 +1,1 @@
-# DCUP Reward
+# DCUP REWARD
