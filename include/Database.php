@@ -10,7 +10,7 @@
 			if(!isset(self::$instance)){ self::$instance = new Database(); }
 			return self::$instance;
 		}//end singleton
-		
+		/*
 		public function dbConnect(){
 			require_once('dbConfig.php');
 			if(!$this->dbLink = mysql_connect($dbConfig['dbServer'].':'.$dbConfig['dbPort'],$dbConfig['dbUser'],$dbConfig['dbPass'])){
@@ -23,7 +23,12 @@
 			self::query('SET NAMES "utf8"');
 			unset($dbSelect);
 		}   
-		
+		*/
+		public function dbConnect(){
+			require_once('dbConfig.php');
+			$dbconn = pg_connect($dbConfig['dbServer']) or die('Could not connect: ' . pg_last_error());
+		}
+		/*
 		public function insert_data($dbTable,$fieldVal){
 			$fieldStr = $dataStr = '';
 			foreach($fieldVal as $key=>$val){				
@@ -38,7 +43,12 @@
 			unset($fieldStr,$dataStr);
 			return mysql_affected_rows($this->dbLink);
 		}
-		
+		*/
+		public function insert_data(($dbTable,$fieldVal)){
+			$result = pg_insert($dbconn,$dbTable,$fieldVal) or die('Query failed: ' . pg_last_error());
+			pg_free_result($result);
+		}
+
 		public function insertAndGetId($dbTable,$fieldVal){
 			if(self::insert_data($dbTable,$fieldVal)){ return self::getLastInsertId(); }
 			return 0;
