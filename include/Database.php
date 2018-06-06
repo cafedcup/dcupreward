@@ -26,7 +26,7 @@
 		*/
 		public function dbConnect(){
 			require_once('dbConfig.php');
-			$dbconn = pg_connect($dbConfig['dbServer']) or die('Could not connect: ' . pg_last_error());
+			$this->dbLink = pg_connect($dbConfig['dbServer']) or die('Could not connect: ' . pg_last_error());
 		}
 		/*
 		public function insert_data($dbTable,$fieldVal){
@@ -45,7 +45,7 @@
 		}
 		*/
 		public function insert_data(($dbTable,$fieldVal)){
-			$result = pg_insert($dbconn,$dbTable,$fieldVal) or die('Query failed: ' . pg_last_error());
+			$result = pg_insert($this->dbLink,$dbTable,$fieldVal) or die('Query failed: ' . pg_last_error());
 			pg_free_result($result);
 		}
 
