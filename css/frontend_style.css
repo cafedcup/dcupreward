@@ -1,0 +1,249 @@
+@font-face{font-family:"DB JariyaTham X";src:url('DB_JariyaTham_X.eot');src:url('DB_JariyaTham_X.eot?#iefix') format('eot'),url('DB_JariyaTham_X.ttf') format('truetype'),url('DB_JariyaTham_X.woff') format('woff'),url('DB_JariyaTham_X.svg#GOTHIC') format('svg')}
+@font-face{font-family:"DB Ozone X";src:url('DB_Ozone_X.eot');src:url('DB_Ozone_X.eot?#iefix') format('eot'),url('DB_Ozone_X.ttf') format('truetype'),url('DB_Ozone_X.woff') format('woff'),url('DB_Ozone_X.svg#GOTHIC') format('svg')}
+@font-face{font-family:"DB Wittayu X";src:url('DB_Wittayu_X.eot');src:url('DB_Wittayu_X.eot?#iefix') format('eot'),url('DB_Wittayu_X.ttf') format('truetype'),url('DB_Wittayu_X.woff') format('woff'),url('DB_Wittayu_X.svg#GOTHIC') format('svg')}
+@font-face{font-family:"DB ThaiText X";src:url('DB_ThaiText_X.eot');src:url('DB_ThaiText_X.eot?#iefix') format('eot'),url('DB_ThaiText_X.ttf') format('truetype'),url('DB_ThaiText_X.woff') format('woff'),url('DB_ThaiText_X.svg#DB ThaiText X') format('svg')}
+body{font-family:tahoma, Arial;font-size:12px;color:#000;margin:0}
+img{border:none}
+/*font color*/
+.light-gray{color:#999999}
+.light-gray20{font-family:"DB JariyaTham X";font-size:20px;color:#999999}
+.light-gray24{font-family:"DB Ozone X";font-size:24px;color:#999999}
+.dark-red,.dark-red a{color:#cc0000;text-decoration:none;font-weight:bold}
+.dark-red a:hover{color:#000;text-decoration:underline}
+.darkorange22,.darkorange22 a{font-family:"DB JariyaTham X";font-size:22px;color:#cc3300;text-decoration:none}
+.darkorange22 a:hover{color:#333333;text-decoration:underline}
+.orange{color:#ff6600 !important}
+.orange18{font-family:"DB Ozone X";font-size:18px;color:#ff6600}
+.orange20{font-family:"DB Ozone X";font-size:20px;color:#ff6600}
+.orange22,.orange22 a{font-family:"DB Ozone X";font-size:22px;color:#ff6600;text-decoration:none}
+.orange22 a:hover{color:#000000}
+.orange24{font-family:"DB JariyaTham X";font-size:24px;color:#ff6600}
+.orange30,.orange30 a{font-family:"DB Ozone X";font-size:30px;color:#ff6600;text-decoration:none}
+.orange30 a:hover{color:#666666}
+.orange36{font-family:"DB JariyaTham X";font-size:36px;color:#ff6600}
+.white14,.white14 a{font-size:14px;color:#FFF;text-decoration:none}
+.white14 a:hover{text-decoration:underline}
+.gray,.gray a{color:#666666;text-decoration:none}
+.gray a:hover{color:#000;text-decoration:underline}
+.gray14{font-family: Arial, tahoma;font-size:14px;color:#666666}
+.gray18{font-family:"DB Ozone X";font-size:18px;color:#333333}
+.gray20,.gray20 a{font-family:"DB Ozone X";font-size:20px;color:#333333;text-decoration:none}
+.gray20 a:hover{color:#ff0000;text-decoration:underline}
+.gray22{font-family:"DB JariyaTham X";font-size:22px;color:#333333}
+.gray22-1{font-family:"DB Ozone X";font-size:22px;color:#333333}
+.gray24{font-family:"DB JariyaTham X";font-size:22px;color:#333333}
+.gray26{font-family:"DB Ozone X";font-size:26px;color:#333333}
+.gray30,.gray30 a{font-family:"DB JariyaTham X";font-size:30px;color:#333333;text-decoration:none}
+.gray30 a:hover{color:#ff6600}
+.gray36{font-family:"DB Ozone X";font-size:36px;color:#333333}
+.gray40{font-family:"DB JariyaTham X";font-size:40px;color:#333333}
+.black20,.black20 a{font-family:"DB JariyaTham X";font-size:20px;color:#000;text-decoration:none}
+.black20 a:hover{color:#ff6600}
+.black24,.black24 a{font-family:"DB Ozone X";font-size:24px;color:#000;text-decoration:none}
+.black24 a:hover{color:#ff0000;text-decoration:underline}
+.black32{font-family:"DB Ozone X";font-size:32px;color:#000}
+.black36{font-family:"DB JariyaTham X";font-size:36px;color:#000}
+/*---------------------------*/
+#top{width:100%;height:138px;background-image:url('../images/frontend/bg-top.jpg')}
+.cover1100{width:1100px;height:auto;overflow:hidden;margin:0 auto}
+#logo{width:187px;height:58px;background-image:url('../images/frontend/logo.png');margin:15px 0 0 10px}
+#udonthani-logo{width:241px;height:64px;background-image: url('../images/frontend/udonthani-logo.png');margin:15px 0 0 10px}
+#listmenu{height:60px;margin-top:5px}
+.home-menu,.home-menu a{width:67px;height:60px;background-image:url('../images/frontend/Lcorner-menu.jpg');float:left}
+.home-menu a{text-indent:-5000px;display:block}
+#bgmenu{width:999px;height:44px;background-image:url('../images/frontend/bg-menu.jpg');float:left;padding-top:16px}
+.menu,.menu a{font-family:"DB Ozone X";font-size:24px;color:#FFF;text-decoration:none;padding:0 10px}
+.menu a:hover{color:#3b3b3b}
+.corner-right-menu{width:14px;height:60px;background-image:url('../images/frontend/Rcorner-menu.jpg');float:left}
+#img-head{width:1100px;height:289px;margin:7px auto}
+#left-side{width:910px;height:auto;overflow:hidden;float:left}
+#right-side{width:150px;height:auto;overflow:hidden;margin:7px 20px 20px 20px;float:right}
+.banner{width:150px;height:auto;overflow:hidden;margin:10px 0}
+.topic-banner,.topic-banner a,.topic-banner a:hover{font-size:13px;font-weight:bold;color:#ff6600;text-decoration:underline}
+.detail-banner .detail-banner a,.detail-banner a:hover{color:#666666;font-size:14px;text-decoration:none}
+.blcak-banner,.blcak-banner a,.blcak-banner a:hover{color:#000;font-size:13px;text-decoration:none;font-weight:bold}
+.head-ads{font-family:"DB Ozone X";font-size:18px;text-decoration:underline;color:#999;text-align:right}
+#bottom{width:100%;height:225px;background-image:url('../images/frontend/bg-foot.jpg')}
+.foot{width:275px;float:left;margin:30px 0 15px 0;line-height:22px}
+.topic-foot{font-size:18px;color:#333}
+.copyright{font-family:Arial, tahoma;font-size:14px;color:#333;clear:both}
+#tab-menu{height:25px;padding:10px}
+.groups-menu a{font-family:"DB Ozone X";font-size:22px;color:#333;text-decoration:none;margin:0 10px}
+.groups-menu a:hover{color:#ff6600}
+.cover910-border{width:909px;height:auto;overflow:hidden;border-right:solid 1px #cccccc;padding:10px 0 30px 0}
+.line-gray{width:910px;border-top:solid 1px #CCC;clear:both}
+.floatleft{float:left}
+.floatright{float:right}
+.margintop20{margin-top:20px}
+.margintop15{margin-top:15px}
+.button-orange a,.button-orange1{font-family:"DB JariyaTham X";font-size:24px;color:#FFF;background-color:#ff6600;padding:0 10px;text-decoration:none;border:none;cursor:pointer}
+.button-orange a:hover{background-color:#FF1717;padding:0 10px}
+/*---- Index Job ----*/
+.row895{width:895px;padding-top:15px;clear:both}
+.topic-row-left{width:500px;float:left}
+.topic-row-right{width:395px;float:right;text-align:right}
+.topic-orange{font-family:"DB ThaiText X";font-size:36px;color:#ff6600}
+table.job{margin:0px;padding:0px}
+table.job th{font-weight:bold;background-color:#ffda58;padding:3px 0;text-align:left}
+table.job tr{text-indent:5px}
+table.job td{padding:5px 0}
+table.job-detail{margin:0px;padding:0px}
+table.job-detail td{padding:10px 0;vertical-align:top;border-bottom:solid 1px #ccc}
+/*-----------------------------*/
+#left-side300{width:300px;height:auto;overflow:hidden;float:left;margin-top:15px}
+#left-side575{width:575px;height:auto;overflow:hidden;float:left;margin:15px 0 15px 15px}
+hr{background-color:#ccc;height:1px;border:0}
+.orange-line{width:100%;height:3px;background-color:#fb8f00}
+.hide{display:none}
+.odd-line-bgc{background-color:#e8e8e8}
+.fe-odd-line-bg{background-color:#fefade}
+.txt_right{text-align:right}
+.alertmsg{color:#FF0000}
+.loading_panel{color:#FF0000;font-size:14px}
+.selected-item{color:#ff6600 !important}
+
+.ttxgray20{
+	font-family:"DB ThaiText X";
+	font-size:20px;
+	color:#333;
+}
+.ttxgray22, .ttxgray22 a{
+	font-family:"DB ThaiText X";
+	font-size:22px;
+	color:#333;
+	text-decoration:none
+}
+.ttxgray22 a:hover{
+	color:#ff0000;
+	text-decoration:underline
+}
+
+.ttxgray24, .ttxgray24 a{
+	font-family:"DB ThaiText X";
+	font-size:24px;
+	color:#333;
+	text-decoration:none;
+}
+.ttxgray24 a:hover{
+	color:#ff0000;
+	text-decoration:underline;
+}
+
+.ttxgray26{
+	font-family:"DB ThaiText X";
+	font-size:26px;
+	color:#333;
+}
+
+.ttxgray30{
+	font-family:"DB ThaiText X";
+	font-size:30px;
+	color:#333;
+}
+
+.ttxgray40{
+	font-family:"DB ThaiText X";
+	font-size:40px;
+	color:#333;
+}
+
+.ttxlightgray20{
+	font-family:"DB ThaiText X";
+	font-size:20px;
+	color:#666;
+}
+
+.ttxblack26, .ttxblack26 a{
+	font-family:"DB ThaiText X";
+	font-size:26px;
+	color:#000;
+	text-decoration:none;
+}
+.ttxblack26 a:hover{
+	color:#ff0000;
+	text-decoration:underline;
+}
+
+.ttxblack32{
+	font-family:"DB ThaiText X";
+	font-size:32px;
+	color:#000;
+}
+
+.ttxblack36{
+	font-family:"DB ThaiText X";
+	font-size:36px;
+	color:#000;
+}
+
+.ttxorange36{
+	font-family:"DB ThaiText X";
+	font-size:36px;
+	color:#ff6600;
+}
+
+.ttxbutton-orange a{
+	font-family:"DB ThaiText X";
+	font-size:26px;
+	color:#FFF;
+	background-color:#ff6600;
+	padding:0 10px;
+	text-decoration:none;
+	border:none;
+	cursor:pointer;
+}
+.ttxbutton-orange a:hover{background-color:#FF1717;padding:0 10px}
+.ttxdarkorange22, .ttxdarkorange22 a{font-family:"DB ThaiText X";font-size:22px;color:#cc3300;text-decoration:none}
+.ttxdarkorange22 a:hover{color:#333333;text-decoration:underline}
+.div-topic, .div-topic-small{
+	font-weight:bold;
+	background-color:#ffda58;
+	padding:5px;
+	float:left;
+	text-indent:10px;
+	margin-bottom:1px;
+}
+.div-topic,.div-content,.div-detail{width:775px}
+.div-topic-small{width:100px}
+.content-block{
+	width:895px;
+	border-top:solid 1px #CCC;
+	clear:both;
+}
+.div-content{
+	padding:5px;
+	text-indent:15px;
+	background:url('../images/frontend/arrow-icon.png') left no-repeat #f2f2f2;
+	float:left;
+}
+.div-content-small{
+	width:108px;
+	margin-left:1px;
+	padding:5px 0;
+	float:left;
+	text-align:center;
+	background-color:#d6d6d6;
+}
+.div-detail{
+	padding:5px;
+	float:left;
+}
+
+.button-Borange a{
+	font-size:15px;
+	font-weight:bold;
+	color:#FFF;
+	background-color:#ff6600;
+	padding:3px 20px;
+	text-decoration:none;
+}
+.button-Borange a:hover{
+	background-color:#FF1717;
+	padding:3px 20px;
+}
+.line-orange{
+	width:910px;
+	height:3px;
+	background-color:#ffda58;
+	clear:both;
+}

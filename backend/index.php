@@ -32,3 +32,30 @@
 		}
 	}
 ?>
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="<?php echo IMG_URL; ?>favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="<?php echo ROOT_URL; ?>css/backend_signin_style.css" rel="stylesheet" type="text/css" />
+<?php require('backend_style_control.php'); ?>
+<title><?php echo SITE_NAME; ?></title>
+</head>
+<body>
+<div class="container">
+	<section id="content">
+		<form action="" method="post" name="signinform" >
+		<input type="hidden" name="act" value="login" />
+		<h1>Login Form</h1>
+		<div><input type="text" id="username" name="usrname" autofocus /></div>
+		<div><input type="password" id="password" name="usrpass" /></div>
+		<?php
+			if($alertMsg != ''){ echo '<div class="alertMsg">',$alertMsg,'</div>'; }
+			unset($alertMsg);
+		?>
+		<div><input type="submit" value="Log in" /></div>
+		</form>
+	</section>
+</div>
+</body>
+</html>
