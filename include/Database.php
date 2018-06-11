@@ -10,7 +10,7 @@
 			if(!isset(self::$instance)){ self::$instance = new Database(); }
 			return self::$instance;
 		}//end singleton
-		
+		/*
 		public function dbConnect(){
 			require_once('dbConfig.php');
 			if(!$this->dbLink = mysql_connect($dbConfig['dbServer'].':'.$dbConfig['dbPort'],$dbConfig['dbUser'],$dbConfig['dbPass'])){
@@ -23,12 +23,12 @@
 			self::query('SET NAMES "utf8"');
 			unset($dbSelect);
 		}   
-		/*
+		*/
 		public function dbConnect(){
 			require_once('dbConfig.php');
 			$this->dbLink = pg_connect($dbConfig['dbServer']) or die('Could not connect: ' . pg_last_error());
 		}
-		*/
+	
 		
 		public function insert_data($dbTable,$fieldVal){
 			$fieldStr = $dataStr = '';
