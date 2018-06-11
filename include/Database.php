@@ -17,7 +17,7 @@
 				echo '<pre> Could not create connection</pre>';
 				exit();     
 			}
-			$dbSelect = mysql_select_db($dbConfig['dbName'],$this->dbLink);		
+			$dbSelect = mysql_select_db($dbConfig['dbName'],$this->dbLink);
 			
 			if(!$dbSelect){ echo '<pre> Could not connect to database</pre>'; exit(); }
 			self::query('SET NAMES "utf8"');
@@ -26,7 +26,9 @@
 		*/
 		public function dbConnect(){
 			require_once('dbConfig.php');
-			echo $dbConfig['dbServer'];
+
+			$dbconn = pg_connect("postgres://iesaxpzthmoosu:2985fd62590b6987485efe84c96dc5c22a5eb989f6da8e9aa746c30d8395f97a@ec2-54-225-200-15.compute-1.amazonaws.com:5432/d8rrl8e93ni01r")
+    or die('Could not connect: ' . pg_last_error());
 			//$this->dbLink = pg_connect($dbConfig['dbServer']) or die('Could not connect: ' . pg_last_error());
 		}
 	
