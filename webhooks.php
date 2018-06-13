@@ -95,8 +95,9 @@ if (!is_null($events['events'])) {
 	        if(!is_null($paramPostback)){
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
 	        }
+	        $textReplyMessage = "แล้วมาสะสมแต้มกันที่ CAFE' DCUP นะคะ";
 	        $replyData = new TextMessageBuilder($textReplyMessage);
-	        #$bot->replyMessage($replyToken, $replyData);
+	        $bot->replyMessage($replyToken, $replyData);
 	    }
 		// Reply only when message sent is in 'text' format
 		if (($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker'))||($event['type'] == 'follow')) {
