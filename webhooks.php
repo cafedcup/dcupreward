@@ -97,7 +97,7 @@ if (!is_null($events['events'])) {
 	        }
 	        
 	        $replyData = new TextMessageBuilder($textReplyMessage);
-	        #$bot->replyMessage($replyToken, $replyData);
+	        $bot->replyMessage($replyToken, $replyData);
 	    }
 		// Reply only when message sent is in 'text' format
 		if (($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker'))||($event['type'] == 'follow')) {
