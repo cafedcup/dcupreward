@@ -213,13 +213,13 @@ if (!is_null($events['events'])) {
 				$str_message = $str_message . "FB: https://www.facebook.com/cafeDCUP/";
 			}
 			else if (!strcmp($str_mes,"สอบถามคะแนน")){
-				$cus_id = get_cus_id($dbconn,$cus_line_id);
-				$point = get_point($dbconn,$cus_id);
-				$str_message = get_reward_message($point,0);
+				#$cus_id = get_cus_id($dbconn,$cus_line_id);
+				#$point = get_point($dbconn,$cus_id);
+				#$str_message = get_reward_message($point,0);
 			}
 			else if (!strcmp($str_mes,"ใช้สิทธิพิเศษ")){
-				$replyData = new ConfirmTemplateBuilder('คุณต้องการใช้สิทธิพิเศษหรือไม่',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
-				$bot->replyMessage($replyToken, $replyData);
+				#$replyData = new ConfirmTemplateBuilder('คุณต้องการใช้สิทธิพิเศษหรือไม่',array(new MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
+				#$bot->replyMessage($replyToken, $replyData);
 			}
 			else if (!strcmp($str_mes,"ขอเมนู")){
 				$ImageUrl1 = 'https://cafedcup.herokuapp.com/pictures/1.jpg';
