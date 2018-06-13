@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
 	        }
 	        $replyData = new TextMessageBuilder($textReplyMessage);
-	        $bot->replyMessage($replyToken, $replyData);
+	        #$bot->replyMessage($replyToken, $replyData);
 	    }
 		// Reply only when message sent is in 'text' format
 		if (($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker'))||($event['type'] == 'follow')) {
@@ -390,23 +390,24 @@ function get_reward_picture($point,$reward){
     $messageBuilder = new CarouselTemplateBuilder(array($ColTempBuilder1));
 	*/
 	#$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
-	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new PostbackTemplateActionBuilder("My Points",http_build_query(array('action'=>'getPoints')),'T'));
+	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new PostbackTemplateActionBuilder("My Points",http_build_query(array('action'=>'getPoints')),'สอบถามคะแนน'));
 	$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
 	
 	switch($reward){
 		case '1':
-			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
+			#$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
+			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("My Reward",http_build_query(array('action'=>'getReward')),'สอบถามสอบถามสิทธิพิเศษ'));
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2));
 			break;
 		case '2':
-			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
-			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
+			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",http_build_query(array('action'=>'getReward')),'สอบถามสอบถามสิทธิพิเศษ'));
+			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",http_build_query(array('action'=>'getReward')),'สอบถามสอบถามสิทธิพิเศษ'));
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3));
 			break;
 		case '3':
-			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
-			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
-			$ImageBuilder4 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
+			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",http_build_query(array('action'=>'getReward')),'สอบถามสอบถามสิทธิพิเศษ'));
+			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",http_build_query(array('action'=>'getReward')),'สอบถามสอบถามสิทธิพิเศษ'));
+			$ImageBuilder4 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",http_build_query(array('action'=>'getReward')),'สอบถามสอบถามสิทธิพิเศษ'));
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3,$ImageBuilder4));
 			break;
 	}

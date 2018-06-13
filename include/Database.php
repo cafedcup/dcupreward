@@ -26,7 +26,6 @@
 		*/
 		public function dbConnect(){
 			require_once('dbConfig.php');
-
 			$this->dbLink = pg_connect($dbConfig['dbServer'])
     or die('Could not connect: ' . pg_last_error());
 			//$this->dbLink = pg_connect($dbConfig['dbServer']) or die('Could not connect: ' . pg_last_error());
