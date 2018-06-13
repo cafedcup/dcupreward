@@ -98,7 +98,6 @@ if (!is_null($events['events'])) {
 	        
 	        $replyData = new TextMessageBuilder($textReplyMessage);
 	        #$bot->replyMessage($replyToken, $replyData);
-	        break;
 	    }
 		// Reply only when message sent is in 'text' format
 		if (($event['type'] == 'message' && ($event['message']['type'] == 'text'|| $event['message']['type'] == 'sticker'))||($event['type'] == 'follow')) {
@@ -770,9 +769,14 @@ if (is_admin($dbconn,$cus_line_id)){
 
 }
 else{
-	$time = get_datetime();
-	$push_line_id = get_admin_lineid($dbconn);
-	$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;
+	if(!is_null($is_postback)){
+
+	}
+	else{
+		$time = get_datetime();
+		$push_line_id = get_admin_lineid($dbconn);
+		$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;		
+	}
 }
 
 function createNewRichmenu($channelAccessToken) {
