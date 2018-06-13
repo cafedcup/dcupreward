@@ -95,7 +95,7 @@ if (!is_null($events['events'])) {
 	        if(!is_null($paramPostback)){
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
 	        }
-	        
+	        $textReplyMessage = $str_mes;
 	        $replyData = new TextMessageBuilder($textReplyMessage);
 	        $bot->replyMessage($replyToken, $replyData);
 	    }
