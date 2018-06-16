@@ -90,7 +90,7 @@ if (!is_null($events['events'])) {
 	    if(!is_null($is_postback)){
 	        $textReplyMessage = "ข้อความจาก Postback Event Data = ";
 	        if(is_array($dataPostback)){
-	            $textReplyMessage.= json_encode($dataPostback);
+	            $textReplyMessage.= json_encode($dataPostback['action']);
 	        }
 	        if(!is_null($paramPostback)){
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
