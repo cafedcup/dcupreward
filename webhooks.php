@@ -100,8 +100,8 @@ if (!is_null($events['events'])) {
 				}
 				else if (!strcmp($dataPostback['action'],"useReward")){
 					$str_confirm = 'คุณต้องการใช้สิทธิพิเศษหรือไม่';
-					$messageBuilder_yes = new PostbackTemplateActionBuilder('ใช่',http_build_query(array('action'=>'useReward_YES')),'ต้องการใช้สิทธิพิเศษ')
-					$messageBuilder_no = new PostbackTemplateActionBuilder('ไม่',http_build_query(array('action'=>'useReward_NO')),'ไม่ต้องการใช้สิทธิพิเศษ')
+					$messageBuilder_yes = new PostbackTemplateActionBuilder('ใช่',http_build_query(array('action'=>'useReward_YES')),'ต้องการใช้สิทธิพิเศษ');
+					$messageBuilder_no = new PostbackTemplateActionBuilder('ไม่',http_build_query(array('action'=>'useReward_NO')),'ไม่ต้องการใช้สิทธิพิเศษ');
 					$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
 					$replyData = new TemplateMessageBuilder('Confirm Use Reward',$templateBuilder);
 				}
