@@ -850,7 +850,7 @@ EOF;
 
 $textMessageBuilder = new TextMessageBuilder($push_line_mes);
 $bot->pushMessage($push_line_id, $textMessageBuilder);
-$bot->replyMessage($replyToken, $textMessageBuilder);
+#$bot->replyMessage($replyToken, $textMessageBuilder);
 #$response = $bot->pushMessage($push_line_id, $textMessageBuilder);
 #echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
