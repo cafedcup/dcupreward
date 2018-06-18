@@ -109,9 +109,11 @@ if (!is_null($events['events'])) {
 					#$replyData = new TextMessageBuilder("Use Reward");
 				}
 	        }
+	        /*
 	        if(!is_null($paramPostback)){
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
 	        }
+	        */
 	        $bot->replyMessage($replyToken, $replyData);
 	    }
 		// Reply only when message sent is in 'text' format
