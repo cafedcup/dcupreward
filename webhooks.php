@@ -91,7 +91,12 @@ if (!is_null($events['events'])) {
 	        $textReplyMessage = "ข้อความจาก Postback Event Data = ";
 	        if(is_array($dataPostback)){
 	            #$textReplyMessage.= json_encode($dataPostback);
-	            $textReplyMessage.= $dataPostback['action'];
+	            #$textReplyMessage.= $dataPostback['action'];
+				if (!strcmp($dataPostback['action'],"getPoints")){
+					$cus_id = get_cus_id($dbconn,$cus_line_id);
+					$point = get_point($dbconn,$cus_id);
+					$textReplyMessage = get_reward_message($point,0);
+				}
 	        }
 	        if(!is_null($paramPostback)){
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
