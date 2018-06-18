@@ -100,7 +100,7 @@ if (!is_null($events['events'])) {
 				}
 				else if (!strcmp($dataPostback['action'],"useReward")){
 					#$action_yes = http_build_query(array('action'=>'yes','item'=>100));
-					#$action_yes = 'Yes';
+					#a$action_yes = 'Yes';
 					$messageBuilder_yes = new MessageTemplateActionBuilder('Yes','Yes');
 					$messageBuilder_no = new MessageTemplateActionBuilder('No','NO');
 					$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
@@ -377,7 +377,7 @@ function isReward($string){
 function get_reward_message($point,$reward){
 	$str_point_message = "• คุณยังไม่มีแต้ม รีบมาสะสมนะคะ";
 	if ($point != 0){
-		$str_point_message = "• คุณมี " . $point . " แต้ม\n";
+		$str_point_message = "• คุณมี " . $point . " แต้ม";
 		$str_reward_message = "• ไม่มีสิทธิพิเศษ";
 	}
 	if ($reward != 0){
@@ -390,7 +390,7 @@ function get_reward_message($point,$reward){
 		$str_message = $str_point_message;
 	}
 	else{
-		$str_message = $str_point_message . $str_reward_message;
+		$str_message = $str_point_message . "\n" . $str_reward_message;
 	}
 	/*
 	elseif ($point != 0){
