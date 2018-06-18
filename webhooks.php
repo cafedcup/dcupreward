@@ -110,9 +110,12 @@ if (!is_null($events['events'])) {
 					$reward_id = get_reward_id($dbconn,$cus_id);
 					if(!is_null($reward_id)){
 						use_reward($dbconn,$reward_id);
-						$str_message = "• คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธิ";
-						$push_line_mes = $cus_name . "[" . $str_cus_id . "]\n" . $str_message;
+						$textReplyMessage = "• คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธิ";
 					}
+					else{
+						$textReplyMessage = "หมายเลขนี้ยังไม่มีสิทธิพิเศษ";
+					}
+					$replyData = new TextMessageBuilder($textReplyMessage);
 				}
 	        }
 	        /*
