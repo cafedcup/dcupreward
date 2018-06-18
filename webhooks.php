@@ -382,7 +382,7 @@ function get_reward_message($point,$reward){
 			$str_point_message = "";
 		}
 	}
-	else if (is_null($reward)){
+	if (is_null($reward)){
 		$str_message = $str_point_message;
 	}
 	$str_message = $str_point_message . $str_reward_message;
