@@ -423,31 +423,30 @@ function get_reward_message($point,$reward){
 function get_reward_picture($point,$reward){
 	$ImageUrlPoint = 'https://cafedcup.herokuapp.com/pictures/points/' . $point . '.jpg';
 	$ImageUrlReward = 'https://cafedcup.herokuapp.com/pictures/reward/reward.jpg';
-	$ImageActionUrl = 'https://www.facebook.com/pg/cafeDCUP/photos/?tab=album&album_id=748495601994547';
+
     /*
     $actionBuilder = array(new MessageTemplateActionBuilder('Message Template','This is Text'));
     $ColTempBuilder1 = new CarouselColumnTemplateBuilder('My Points','Test',$ImageUrlPoint,null);
     $messageBuilder = new CarouselTemplateBuilder(array($ColTempBuilder1));
 	*/
-	#$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new UriTemplateActionBuilder("My Points",$ImageActionUrl));
+
 	$ImageBuilder1 = new ImageCarouselColumnTemplateBuilder($ImageUrlPoint,new PostbackTemplateActionBuilder("My Points",http_build_query(array('action'=>'getPoints')),'สอบถามคะแนน'));
 	$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1));
 	
 	switch($reward){
 		case '1':
-			#$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("My Reward",$ImageActionUrl));
 			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2));
 			break;
 		case '2':
-			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
-			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
+			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
+			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3));
 			break;
 		case '3':
-			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
-			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
-			$ImageBuilder4 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new UriTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
+			$ImageBuilder2 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
+			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
+			$ImageBuilder4 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
 			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3,$ImageBuilder4));
 			break;
 	}
