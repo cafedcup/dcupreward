@@ -385,7 +385,9 @@ function get_reward_message($point,$reward){
 	if (is_null($reward)){
 		$str_message = $str_point_message;
 	}
-	$str_message = $str_point_message . $str_reward_message;
+	else{
+		$str_message = $str_point_message . $str_reward_message;
+	}
 	/*
 	elseif ($point != 0){
 		$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้มีซ้ำ";
