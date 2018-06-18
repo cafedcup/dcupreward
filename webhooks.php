@@ -104,9 +104,10 @@ if (!is_null($events['events'])) {
 					#$messageBuilder_yes = new MessageTemplateActionBuilder('Yes','Yes');
 					#$messageBuilder_no = new MessageTemplateActionBuilder('No','NO');
 					#$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
-					#$replyData = new TemplateMessageBuilder('Confirm Template',$templateBuilder);
-					$replyData = new ConfirmTemplateBuilder('คุณต้องการใช้สิทธิพิเศษหรือไม่',array(new 	MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
+					
+					$templateBuilder = new ConfirmTemplateBuilder('คุณต้องการใช้สิทธิพิเศษหรือไม่',array(new 	PostbackTemplateActionBuilder('Yes','YES'),new PostbackTemplateActionBuilder('No','NO')));
 					#$replyData = new TextMessageBuilder("Use Reward");
+					$replyData = new TemplateMessageBuilder('Confirm Template',$templateBuilder);
 				}
 	        }
 	        /*
