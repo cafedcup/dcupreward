@@ -782,9 +782,9 @@ else{
 
 	}
 	else{
-		#$time = get_datetime();
-		#$push_line_id = get_admin_lineid($dbconn);
-		#$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;		
+		$time = get_datetime();
+		$push_line_id = get_admin_lineid($dbconn);
+		$push_line_mes = '[' . $time . "]\nข้อความ: " . $str_mes ."\nจาก: " . $cus_name;		
 	}
 }
 
