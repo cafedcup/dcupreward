@@ -96,6 +96,7 @@ if (!is_null($events['events'])) {
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$point = get_point($dbconn,$cus_id);
 					$textReplyMessage = get_reward_message($point,null);
+					$replyData = new TextMessageBuilder($textReplyMessage);
 				}
 				else if (!strcmp($dataPostback['action'],"useReward")){
 					$replyData = new ConfirmTemplateBuilder('คุณต้องการใช้สิทธิพิเศษหรือไม่',array(new 	MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
@@ -104,8 +105,6 @@ if (!is_null($events['events'])) {
 	        if(!is_null($paramPostback)){
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
 	        }
-	
-	        $replyData = new TextMessageBuilder($textReplyMessage);
 	        $bot->replyMessage($replyToken, $replyData);
 	    }
 		// Reply only when message sent is in 'text' format
