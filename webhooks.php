@@ -98,7 +98,8 @@ if (!is_null($events['events'])) {
 					$textReplyMessage = get_reward_message($point,null);
 				}
 				else if (!strcmp($dataPostback['action'],"useReward")){
-
+					$replyData = new ConfirmTemplateBuilder('คุณต้องการใช้สิทธิพิเศษหรือไม่',array(new 	MessageTemplateActionBuilder('Yes','YES'),new MessageTemplateActionBuilder('No','NO')));
+					$bot->replyMessage($replyToken, $replyData);
 				}
 	        }
 	        if(!is_null($paramPostback)){
@@ -382,7 +383,7 @@ function get_reward_message($point,$reward){
 		}
 	}
 	else if (is_null($reward)){
-		$str_reward_message = "";
+		$str_message = $str_point_message;
 	}
 	$str_message = $str_point_message . $str_reward_message;
 	/*
