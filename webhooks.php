@@ -97,6 +97,9 @@ if (!is_null($events['events'])) {
 					$point = get_point($dbconn,$cus_id);
 					$textReplyMessage = get_reward_message($point,null);
 				}
+				else if (!strcmp($dataPostback['action'],"useReward")){
+
+				}
 	        }
 	        if(!is_null($paramPostback)){
 	            $textReplyMessage.= " \r\nParams = ".$paramPostback;
@@ -378,7 +381,7 @@ function get_reward_message($point,$reward){
 			$str_point_message = "";
 		}
 	}
-	else (is_null($reward)){
+	else if (is_null($reward)){
 		$str_reward_message = "";
 	}
 	$str_message = $str_point_message . $str_reward_message;
