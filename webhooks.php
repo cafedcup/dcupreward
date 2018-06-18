@@ -99,9 +99,9 @@ if (!is_null($events['events'])) {
 					$replyData = new TextMessageBuilder($textReplyMessage);
 				}
 				else if (!strcmp($dataPostback['action'],"useReward")){
-					$action_yes = http_build_query(array('action'=>'yes','item'=>100));
+					#$action_yes = http_build_query(array('action'=>'yes','item'=>100));
 					#$action_yes = 'Yes';
-					$messageBuilder_yes = new MessageTemplateActionBuilder('Yes','Yes',$action_yes);
+					$messageBuilder_yes = new MessageTemplateActionBuilder('Yes','Yes');
 					$messageBuilder_no = new MessageTemplateActionBuilder('No','NO');
 					$templateBuilder = new ConfirmTemplateBuilder($str_confirm,array($messageBuilder_yes,$messageBuilder_no));
 					$replyData = new TemplateMessageBuilder('Confirm Template',$templateBuilder);
