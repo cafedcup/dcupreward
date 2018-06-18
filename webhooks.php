@@ -106,7 +106,13 @@ if (!is_null($events['events'])) {
 					$replyData = new TemplateMessageBuilder('Confirm Use Reward',$templateBuilder);
 				}
 				else if (!strcmp($dataPostback['action'],"useReward_YES")){
-
+					$cus_id = get_cus_id($dbconn,$cus_line_id);
+					$reward_id = get_reward_id($dbconn,$cus_id);
+					if(!is_null($reward_id)){
+						use_reward($dbconn,$reward_id);
+						$str_message = "• คุณได้ทำการใช้สิทธิพิเศษ 1 สิทธิ";
+						$push_line_mes = $cus_name . "[" . $str_cus_id . "]\n" . $str_message;
+					}
 				}
 	        }
 	        /*
