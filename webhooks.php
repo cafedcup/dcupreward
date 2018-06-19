@@ -618,16 +618,16 @@ function is_custel_exist($dbconn,$cus_tel){
 	return $cus_id != '';
 }
 function is_cuslineid_exist($dbconn,$cus_line_id){
-    $query = "SELECT cus_id FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
+    $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
     $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
     while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         foreach ($line as $col_value) {        
-            $cus_id = $col_value;
+            $cus_tel = $col_value;
         }
     }
     // Free resultset
     pg_free_result($result);
-	return $cus_id != '';
+	return $cus_tel != '';
 }
 
 function is_reward_exist($dbconn,$cus_id){
