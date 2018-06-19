@@ -458,7 +458,7 @@ function get_reward_picture($point,$reward){
 			$ImageBuilder3 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
 			$ImageBuilder4 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
 			$ImageBuilder5 = new ImageCarouselColumnTemplateBuilder($ImageUrlReward,new PostbackTemplateActionBuilder("Use Reward",http_build_query(array('action'=>'useReward')),'ใช้สิทธิพิเศษ'));
-			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3,$ImageBuilder4,,$ImageBuilder5));
+			$messageBuilder = new ImageCarouselTemplateBuilder(array($ImageBuilder1,$ImageBuilder2,$ImageBuilder3,$ImageBuilder4,$ImageBuilder5));
 			break;
 	}
 	
