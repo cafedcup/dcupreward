@@ -423,6 +423,9 @@ function get_reward_message($point,$reward){
 	return $str_message;
 }
 function get_reward_picture($point,$reward){
+	if is_null($point){
+		$point = 0;
+	}
 	$ImageUrlPoint = 'https://cafedcup.herokuapp.com/pictures/points/' . $point . '.jpg';
 	$ImageUrlReward = 'https://cafedcup.herokuapp.com/pictures/reward/reward.jpg';
 
