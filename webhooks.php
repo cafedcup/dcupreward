@@ -94,8 +94,8 @@ if (!is_null($events['events'])) {
 	            #$textReplyMessage.= $dataPostback['action'];
 	             
 				if (!strcmp($dataPostback['action'],"getPoints")){
-					$cus_id = get_cus_id($dbconn,$cus_line_id)
-					$str_cus_id = sprintf("D%04s",$cus_id);;
+					$cus_id = get_cus_id($dbconn,$cus_line_id);
+					$str_cus_id = sprintf("D%04s",$cus_id);
 					$point = get_point($dbconn,$cus_id);
 					$reward = get_reward($dbconn,$cus_id);
 					$textReplyMessage = get_reward_message($point,$reward);
