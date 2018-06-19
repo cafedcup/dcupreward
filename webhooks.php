@@ -92,6 +92,7 @@ if (!is_null($events['events'])) {
 	        if(is_array($dataPostback)){
 	            #$textReplyMessage.= json_encode($dataPostback);
 	            #$textReplyMessage.= $dataPostback['action'];
+	            // Get Point 
 				if (!strcmp($dataPostback['action'],"getPoints")){
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$point = get_point($dbconn,$cus_id);
@@ -187,7 +188,7 @@ if (!is_null($events['events'])) {
 				$bot->replyMessage($replyToken, $textMessageBuilder);
 			}
 			else if (!strcmp($str_mes,"สอบถามข้อมูลส่วนตัวที่ CAFE' DCUP")){
-				if (is_custel_exist($dbconn,$cus_line_id)){
+				if (is_cuslineid_exist($dbconn,$cus_line_id)){
 					/*
 					$str_confirm = "คุณต้องการเพิ่มวันเกิดของคุณหรือไม่";
 					$action_yes = http_build_query(array('action'=>'yes','item'=>100));
@@ -213,7 +214,7 @@ if (!is_null($events['events'])) {
 
 			}
 			else if (!strcmp($str_mes,"สอบถามคะแนนและสิทธิพิเศษที่ CAFE' DCUP")){
-				if (is_custel_exist($dbconn,$cus_line_id)){
+				if (is_cuslineid_exist($dbconn,$cus_line_id)){
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$point = get_point($dbconn,$cus_id);
 					$reward = get_reward($dbconn,$cus_id);
@@ -616,6 +617,18 @@ function is_custel_exist($dbconn,$cus_line_id){
     pg_free_result($result);
 	return $custel != '';
 }
+function is_cuslineid_exist($dbconn,$cus_line_id){
+    $query = "SELECT cus_tel FROM dcup_customer_mst WHERE cus_line_id = '" . $cus_line_id . "'";
+    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {        
+            $custel = $col_value;
+        }
+    }
+    // Free resultset
+    pg_free_result($result);
+	return $custel != '';
+}
 
 function is_reward_exist($dbconn,$cus_id){
     $query = "SELECT customer_id FROM dcup_reward_tbl Where valid = true and customer_id = '" . $cus_id . "'";
@@ -689,16 +702,21 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 				#$tel = "Your phone number " . $cus_tel . "  is updated";
 				$tel = "หมายเลขโทรศัพท์ " . $cus_tel . " ได้อัพเดทลงระบบเรียบร้อย";
 			}
-			else if (!is_custel_exist($dbconn,$cus_line_id))
+			else if (!is_cuslineid_exist($dbconn,$cus_line_id))
 			{
-				update_custel($dbconn,$cus_tel,$cus_line_id);
-				$cus_id = get_cus_id($dbconn,$cus_line_id);
-				$str_cus_id = sprintf("D%04s",$cus_id);
-				#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
-				$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\n• รหัสสมาชิกของคุณคือ " . $str_cus_id;
-				$tel .= "\n• คุณได้รับสิทธิพิเศษฟรี 1 สิทธิ";
-				insert_reward($dbconn,$cus_id,10,false);
-				insert_reward($dbconn,$cus_id,0,true);
+				if (!is_custel_exist($dbconn,$cus_tel){
+					update_custel($dbconn,$cus_tel,$cus_line_id);
+					$cus_id = get_cus_id($dbconn,$cus_line_id);
+					$str_cus_id = sprintf("D%04s",$cus_id);
+					#$tel = "your phone number " . $cus_tel . " is registered already.\nYour ID is " . $str_cus_id;
+					$tel = "หมายเลขโทรศัพท์  " . $cus_tel . " ได้ลงทะเบียนเรียบร้อย\n• รหัสสมาชิกของคุณคือ " . $str_cus_id;
+					#$tel .= "\n• คุณได้รับสิทธิพิเศษฟรี 1 สิทธิ";
+					#insert_reward($dbconn,$cus_id,10,false);
+					#insert_reward($dbconn,$cus_id,0,true);
+				}
+				else{
+					$tel = "ไม่สามารถลงทะเบียนได้\nหมายเลขโทรศัพท์นี้ " . $cus_tel . " ได้ใช้ทำการลงทะเบียนแล้ว";
+				}
 			}
 			
 			#else
@@ -711,7 +729,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 			$tel = "if you would like to update Phone number, please type \nupdate:[Phone number] \nEx. update:08xxxxxxxx";
 		}
 		else
-		{	if (is_custel_exist($dbconn,$cus_line_id))
+		{	if (is_cuslineid_exist($dbconn,$cus_line_id))
 			{
 				$cus_id = get_cus_id($dbconn,$cus_line_id);
 				$str_cus_id = sprintf("D%04s",$cus_id);
