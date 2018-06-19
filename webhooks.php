@@ -391,21 +391,14 @@ function isReward($string){
 function get_reward_message($point,$reward){
 	$str_point_message = "• คุณยังไม่มีแต้ม รีบมาสะสมนะคะ";
 	if ($point != 0){
-		$str_point_message = "• คุณมี " . $point . " แต้ม";
+		$str_point_message = "• คุณมี " . $point . " แต้ม\n";
 		$str_reward_message = "• ไม่มีสิทธิพิเศษ";
 	}
 	if ($reward != 0){
 		$str_reward_message = "• มีสิทธิพิเศษ ". $reward ." สิทธิ";
-		if($point == 0){
-			$str_point_message = "";
-		}
 	}
-	if (is_null($reward)){
-		$str_message = $str_point_message;
-	}
-	else{
-		$str_message = $str_point_message . "\n" . $str_reward_message;
-	}
+
+	$str_message = $str_point_message . $str_reward_message;
 	/*
 	elseif ($point != 0){
 		$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้มีซ้ำ";
