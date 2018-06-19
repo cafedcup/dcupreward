@@ -394,12 +394,12 @@ function isReward($string){
 function get_reward_message($point,$reward){
 	$str_point_message = "• คุณยังไม่มีแต้ม รีบมาสะสมนะคะ";
 	if ($point != 0){
-		$str_point_message = "• คุณมี " . $point . " แต้ม\n";
+		$str_point_message = "• คุณมี " . $point . " แต้ม";
 		$str_reward_message = "• ไม่มีสิทธิพิเศษ";
 	}
 	if ($reward != 0){
 		$str_reward_message = "• มีสิทธิพิเศษ ". $reward ." สิทธิ";
-		$str_message = $str_point_message . $str_reward_message;
+		$str_message = $str_point_message . "\n" . $str_reward_message;
 	}
 	else{
 		$str_message = $str_point_message;	
@@ -476,7 +476,11 @@ function insert_customer($dbconn,$cus_line_id,$cus_name){
 
 function insert_reward($dbconn,$cus_id,$point,$valid){
     $result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => $point,'valid' => $valid, 'reward_start_date' => get_datetime())) or die('Query failed: ' . pg_last_error());
-	#$result = pg_insert($dbconn,'dcup_reward_tbl',array('id' => '','customer_id' => $cus_id,'point_count' => $point,'valid' => true)) or die('Query failed: ' . pg_last_error());
+	// Free result
+    pg_free_result($result);     
+}
+function insert_point($dbconn,$cus_id,$point){
+    $result = pg_insert($dbconn,'dcup_point_tbl',array('id' => '','customer_id' => $cus_id,'point' => $point,'point_date' => get_datetime())) or die('Query failed: ' . pg_last_error());	
 	// Free result
     pg_free_result($result);     
 }
@@ -769,14 +773,17 @@ if (is_admin($dbconn,$cus_line_id)){
 			$push_line_mes = "คุณได้รับเพิ่ม ". $point . " แต้ม\n";
 			if (!is_reward_exist($dbconn,$cus_id)){
 				insert_reward($dbconn,$cus_id,$point_new,true);
+				insert_point($dbconn,$cus_id,$point);
 			}
 			else{
 				if ((floor($point_new / 10)) == 0){
 					update_reward($dbconn,$cus_id,$point_new,true);
+					insert_point($dbconn,$cus_id,$point);
 				}
 				else{
 					update_reward($dbconn,$cus_id,10,false);
 					insert_reward($dbconn,$cus_id,($point_new % 10),true);
+					insert_point($dbconn,$cus_id,$point);
 				}
 			}
 			
