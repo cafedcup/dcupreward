@@ -64,11 +64,12 @@ if (!is_null($events['events'])) {
 		$cus_line_id = $event['source']['userId'];
 		$replyToken = $event['replyToken'];
 		$sourceType = $event['source']['type'];
+		$cus_name = get_line_displayName($cus_line_id,$bot);
 
 		if(isset($event) && array_key_exists('message',$event)){
         	$typeMessage = $event['message']['type'];
         	$str_mes = $event['message']['text'];
-        	$idMessage = $event['message']['id'];	
+        	$idMessage = $event['message']['id'];
     	}
 		if(isset($event) && array_key_exists('postback',$event)){
 			$is_postback = true;
@@ -99,7 +100,7 @@ if (!is_null($events['events'])) {
 					$point = get_point($dbconn,$cus_id);
 					$reward = get_reward($dbconn,$cus_id);
 					$textReplyMessage = get_reward_message($point,$reward);
-					$textReplyMessage = "[".$str_cus_id . "]\n" . $textReplyMessage;
+					$textReplyMessage = $cus_name . " [".$str_cus_id . "]\n" . $textReplyMessage;
 					$replyData = new TextMessageBuilder($textReplyMessage);
 				}
 				else if (!strcmp($dataPostback['action'],"useReward")){
@@ -136,7 +137,7 @@ if (!is_null($events['events'])) {
 			// Get line ID
 			#$cus_line_id = $event['source']['userId'];
 			// Get display Name
-			$cus_name = get_line_displayName($cus_line_id,$bot);
+			
 			$point = 1;
 
 			// Get replyToken
