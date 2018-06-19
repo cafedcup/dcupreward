@@ -94,10 +94,12 @@ if (!is_null($events['events'])) {
 	            #$textReplyMessage.= $dataPostback['action'];
 	             
 				if (!strcmp($dataPostback['action'],"getPoints")){
-					$cus_id = get_cus_id($dbconn,$cus_line_id);
+					$cus_id = get_cus_id($dbconn,$cus_line_id)
+					$str_cus_id = sprintf("D%04s",$cus_id);;
 					$point = get_point($dbconn,$cus_id);
 					$reward = get_reward($dbconn,$cus_id);
 					$textReplyMessage = get_reward_message($point,$reward);
+					$textReplyMessage = "[".$str_cus_id . "]\n" . $textReplyMessage;
 					$replyData = new TextMessageBuilder($textReplyMessage);
 				}
 				else if (!strcmp($dataPostback['action'],"useReward")){
@@ -396,9 +398,12 @@ function get_reward_message($point,$reward){
 	}
 	if ($reward != 0){
 		$str_reward_message = "• มีสิทธิพิเศษ ". $reward ." สิทธิ";
+		$str_message = $str_point_message . $str_reward_message;
 	}
-
-	$str_message = $str_point_message . $str_reward_message;
+	else{
+		$str_message = $str_point_message;	
+	}
+	
 	/*
 	elseif ($point != 0){
 		$str = " อีก " . (10 - $point) . " แต้ม \n=>พรุ่งนี้มีซ้ำ";
