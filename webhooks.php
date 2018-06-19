@@ -92,7 +92,7 @@ if (!is_null($events['events'])) {
 	        if(is_array($dataPostback)){
 	            #$textReplyMessage.= json_encode($dataPostback);
 	            #$textReplyMessage.= $dataPostback['action'];
-	            // Get Point 
+	             
 				if (!strcmp($dataPostback['action'],"getPoints")){
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$point = get_point($dbconn,$cus_id);
@@ -696,15 +696,13 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 	{
 		if ($isPhoneText)
 		{
-			if ($isUpdate)
-			{
+			if ($isUpdate){
 				update_custel($dbconn,$cus_tel,$cus_line_id);
 				#$tel = "Your phone number " . $cus_tel . "  is updated";
 				$tel = "หมายเลขโทรศัพท์ " . $cus_tel . " ได้อัพเดทลงระบบเรียบร้อย";
 			}
-			else if (!is_cuslineid_exist($dbconn,$cus_line_id))
-			{
-				if (!is_custel_exist($dbconn,$cus_tel){
+			else if (!is_cuslineid_exist($dbconn,$cus_line_id)){
+				if (!is_custel_exist($dbconn,$cus_tel)){
 					update_custel($dbconn,$cus_tel,$cus_line_id);
 					$cus_id = get_cus_id($dbconn,$cus_line_id);
 					$str_cus_id = sprintf("D%04s",$cus_id);
@@ -715,7 +713,7 @@ function main_function($dbconn,$cus_name,$cus_line_id,$cus_tel,$isPhoneText,$isU
 					#insert_reward($dbconn,$cus_id,0,true);
 				}
 				else{
-					$tel = "ไม่สามารถลงทะเบียนได้\nหมายเลขโทรศัพท์นี้ " . $cus_tel . " ได้ใช้ทำการลงทะเบียนแล้ว";
+					$tel = "ไม่สามารถลงทะเบียนได้\nหมายเลขโทรศัพท์ " . $cus_tel . " ได้ใช้ทำการลงทะเบียนแล้ว";
 				}
 			}
 			
