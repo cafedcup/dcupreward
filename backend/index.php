@@ -4,8 +4,7 @@
 	require('./../include/global_config.php');
 	require(ROOT_PATH.'backend/config/backend_config.php');
 	require(ROOT_PATH.'backend/config/language.php');
-	require(ROOT_PATH.'include/Database.php');
-	$db = Database::getInstance();
+	
 	$alertMsg = '';
 	/*if(isset($_SESSION['sessLogin']) && ctype_digit($_SESSION['sessLogin'])){
 		header('Location:'.ROOT_URL.'backend/index_page.php');
@@ -15,8 +14,7 @@
 	
 	if($_POST['act'] == 'login'){
 		if(!empty($_POST['usrname']) && !empty($_POST['usrpass'])){
-
-			$admin_name = $db->is_admin_exist($_POST['usrname']);
+			#$admin_name = $db->is_admin_exist($_POST['usrname']);
 
 			if($_POST['usrname'] == 'Admin' && $_POST['usrpass'] == 'TMP_PorJ2018'){
 				$_SESSION['sessLogin'] = 1;
