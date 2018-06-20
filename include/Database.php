@@ -28,10 +28,8 @@
 			require_once('dbConfig.php');
 			$this->dbLink = self::pg_connect($dbConfig['dbServer'])
     or die('Could not connect: ' . self::pg_last_error());
-			//$this->dbLink = pg_connect($dbConfig['dbServer']) or die('Could not connect: ' . pg_last_error());
 		}
 	
-		
 		public function insert_data($dbTable,$fieldVal){
 			$fieldStr = $dataStr = '';
 			foreach($fieldVal as $key=>$val){				
@@ -99,7 +97,7 @@
 				exit();
 			}		  
 		}   
-		
+
 		public function optimize_table($dbTable){ return self::query('OPTIMIZE TABLE '.$dbTable); }
 		public function free_result($dbResult){ return mysql_free_result($dbResult); }
 		
@@ -107,6 +105,7 @@
 			mysql_close($this->dbLink);
 			$this->dbLink = false;		
 		}
+		/*
 		public function get_admin_pw($user_name){
 		    $query = "SELECT admin_pw FROM dcup_admin_mst WHERE admin_name = '" . $user_name . "'";
 		    $result = self::pg_query(this->dbLink,$query) or die('Query failed: ' . self::pg_last_error());
@@ -119,7 +118,7 @@
 		    self::pg_free_result($result);
 		    return $admin_pw;
 		}
-		/*
+	
 		public function is_admin_exist($user_name){
 		    $query = "SELECT * FROM dcup_admin_mst WHERE admin_name = '" . $user_name . "'";
 		    $result = pg_query(this->dbLink,$query) or die('Query failed: ' . pg_last_error());
