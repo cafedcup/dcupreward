@@ -73,7 +73,7 @@
 <section id="main" class="column">
 	<?php include('msg_display_panel.php'); ?>
 	<article class="module width_full">
-		<<!--<header><h3><?php echo $menuInfo['curmenu']; ?></h3></header>-->
+		<!--<header><h3><?php echo $menuInfo['curmenu']; ?></h3></header>-->
 		<table class="tbl" cellpadding="0" cellspacing="0"> 
 		<thead> 
 		<tr> 
