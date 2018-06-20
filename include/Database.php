@@ -131,6 +131,6 @@
 		    pg_free_result($result);
 		    return $admin != '';
 		}
-		*/
+		
 	}//end class
 ?>
