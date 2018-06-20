@@ -14,7 +14,7 @@
 	
 	if($_POST['act'] == 'login'){
 		if(!empty($_POST['usrname']) && !empty($_POST['usrpass'])){
-			$admin_name = is_admin_exist($dbconn,$_POST['usrname']);
+			$admin_name = is_admin_exist($db,$_POST['usrname']);
 
 			if($_POST['usrname'] == 'Admin' && $_POST['usrpass'] == 'TMP_PorJ2018'){
 				$_SESSION['sessLogin'] = 1;
