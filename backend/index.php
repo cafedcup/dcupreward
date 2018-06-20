@@ -5,7 +5,7 @@
 	require(ROOT_PATH.'backend/config/backend_config.php');
 	require(ROOT_PATH.'backend/config/language.php');
 	require(ROOT_PATH.'include/Database.php');
-	
+	$db_test = Database::getInstance();
 	$alertMsg = '';
 	/*if(isset($_SESSION['sessLogin']) && ctype_digit($_SESSION['sessLogin'])){
 		header('Location:'.ROOT_URL.'backend/index_page.php');
