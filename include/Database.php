@@ -26,8 +26,8 @@
 		*/
 		public function dbConnect(){
 			require_once('dbConfig.php');
-			$this->dbLink = self::pg_connect($dbConfig['dbServer'])
-    or die('Could not connect: ' . self::pg_last_error());
+			$this->dbLink = pg_connect($dbConfig['dbServer'])
+    or die('Could not connect: ' . pg_last_error());
 		}
 	
 		public function insert_data($dbTable,$fieldVal){
