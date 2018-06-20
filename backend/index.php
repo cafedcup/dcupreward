@@ -14,6 +14,8 @@
 	
 	if($_POST['act'] == 'login'){
 		if(!empty($_POST['usrname']) && !empty($_POST['usrpass'])){
+			$admin_name = is_admin_exist($dbconn,$_POST['usrname']);
+
 			if($_POST['usrname'] == 'Admin' && $_POST['usrpass'] == 'TMP_PorJ2018'){
 				$_SESSION['sessLogin'] = 1;
 				$_SESSION['sessName'] = "Admin";
@@ -30,6 +32,30 @@
 			$alertMsg = WRONG_USR_PWD;
 			unset($_POST);	
 		}
+	}
+	function get_admin_pw($dbconn,$user_name){
+	    $query = "SELECT admin_pw FROM dcup_admin_mst WHERE admin_name = '" . $user_name . "'";
+	    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+	    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+	        foreach ($line as $col_value) {        
+	            $admin_pw = $col_value;
+	        }
+	    }
+	    // Free resultset
+	    pg_free_result($result);
+	    return $admin_pw;
+	}
+	function is_admin_exist($dbconn,$user_name){
+	    $query = "SELECT * FROM dcup_admin_mst WHERE admin_name = '" . $user_name . "'";
+	    $result = pg_query($dbconn,$query) or die('Query failed: ' . pg_last_error());
+	    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+	        foreach ($line as $col_value) {        
+	            $admin = $col_value;
+	        }
+	    }
+	    // Free resultset
+	    pg_free_result($result);
+	    return $admin != '';
 	}
 ?>
 <!DOCTYPE HTML>
