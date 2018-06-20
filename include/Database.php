@@ -118,10 +118,10 @@
 		    self::pg_free_result($result);
 		    return $admin_pw;
 		}
-		/*
+
 		public function is_admin_exist($user_name){
 		    $query = "SELECT * FROM dcup_admin_mst WHERE admin_name = '" . $user_name . "'";
-		    $result = pg_query(this->dbLink,$query) or die('Query failed: ' . pg_last_error());
+		    $result = pg_query($this->dbLink,$query) or die('Query failed: ' . pg_last_error());
 		    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 		        foreach ($line as $col_value) {        
 		            $admin = $col_value;
