@@ -115,7 +115,7 @@
 		        }
 		    }
 		    // Free resultset
-		    self::pg_free_result($result);
+		    pg_free_result($result);
 		    return $admin_pw;
 		}
 
