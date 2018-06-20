@@ -64,7 +64,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--<title><?php echo $menuInfo['curmenu']; ?></title>-->
+<title><?php echo $menuInfo['curmenu']; ?></title>
 <link rel="stylesheet" href="<?php echo ROOT_URL; ?>css/backend_style.css" type="text/css" media="screen" />
 <?php require('backend_style_control.php'); ?>
 </head>
@@ -73,7 +73,7 @@
 <section id="main" class="column">
 	<?php include('msg_display_panel.php'); ?>
 	<article class="module width_full">
-		<header><h3><?php echo $menuInfo['curmenu']; ?></h3></header>
+		<<!--<header><h3><?php echo $menuInfo['curmenu']; ?></h3></header>-->
 		<table class="tbl" cellpadding="0" cellspacing="0"> 
 		<thead> 
 		<tr> 
