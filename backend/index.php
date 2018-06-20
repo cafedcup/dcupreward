@@ -4,6 +4,7 @@
 	require('./../include/global_config.php');
 	require(ROOT_PATH.'backend/config/backend_config.php');
 	require(ROOT_PATH.'backend/config/language.php');
+	require(ROOT_PATH.'include/Database.php');
 	
 	$alertMsg = '';
 	/*if(isset($_SESSION['sessLogin']) && ctype_digit($_SESSION['sessLogin'])){
