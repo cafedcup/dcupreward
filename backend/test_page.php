@@ -7,7 +7,7 @@
 	$menuInfo['curmenu'] = COM;
 	$eleCount = '';
 	$alertMsg = $pagingInfo = $comptypeInfo = array();
-	echo $db->get_admin_pw('Pakrub') . " Passward";
+	#$db->get_admin_pw('Pakrub') . " Passward";
 	if(ctype_digit($_GET['id'])){
 		switch($_GET['act']){
 			case 'del':
@@ -73,12 +73,12 @@
 <section id="main" class="column">
 	<?php include('msg_display_panel.php'); ?>
 	<article class="module width_full">
-		<!--<header><h3><?php echo $menuInfo['curmenu']; ?></h3></header>-->
+		<header><h3><?php echo $menuInfo['curmenu'] . "Test1"; ?></h3></header>
 		<table class="tbl" cellpadding="0" cellspacing="0"> 
 		<thead> 
 		<tr> 
 			<th class="id_tbl"><?php echo ID; ?></th>
-			<th><?php echo COM; ?></th>
+			<th><?php echo COM. "Test2"; ?></th>
 			<!--<th><?php echo PROV; ?></th>
 			<th><?php echo NAME; ?></th>-->
 			<th class="act_tbl"><?php echo ACT; ?></th>
@@ -90,8 +90,8 @@
 			while($rec = $db->fetch_array($result)){
 		?>
 		<tr>
-			<td><?php echo $rec['id']; ?></td>
-			<td><?php echo $rec['title']; ?></td>
+			<td><?php echo $rec['id']. "Test3"; ?></td>
+			<td><?php echo $rec['title']. "Test4"; ?></td>
 			<td align="center">
 			<?php
 				if($rec['isactive'] == '1'){
